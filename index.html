@@ -1,231 +1,385 @@
-// src/App.tsx
-// -----------------------------------------------------------------------------
-// THE FRENCH CALI FARMZ - Mini App Telegram
-// Single-file version (tout regroupé pour facilité)
-// -----------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>The French Cali Farmz</title>
+  
+  <!-- Script Telegram officiel (obligatoire pour Mini App) -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap');
 
-import { useEffect } from 'react';
-import {
-  useInitData,
-  useThemeParams,
-  useMainButton,
-  // useBackButton, // décommente si tu veux un bouton retour
-} from '@telegram-apps/sdk-react';
-import { Home, Star, ShoppingCart, Info, MessageSquare } from 'lucide-react';
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-// -----------------------------------------------------------------------------
-// Données produits (hardcodées pour l'exemple)
-// -----------------------------------------------------------------------------
-const products = [
-  {
-    id: '1',
-    name: 'Snow Heads',
-    strain: 'STATIC SIFT',
-    weight: '73u',
-    farm: 'GARDEN SERIES',
-    origin: 'USA',
-    qty: '50g',
-    starred: true,
-  },
-  {
-    id: '2',
-    name: 'Blue Cookies',
-    strain: 'STATIC SIFT',
-    weight: '139u – 730',
-    farm: 'MACONHA FARMS',
-    origin: 'USA',
-    qty: '50g',
-    starred: true,
-  },
-  {
-    id: '3',
-    name: 'Gas Mask',
-    strain: 'GARDEN SERIES',
-    weight: '139u – 730',
-    farm: 'VOLTIO FARMS',
-    origin: 'USA',
-    qty: '50g',
-    starred: true,
-  },
-  {
-    id: '4',
-    name: 'Popsicle',
-    strain: 'GARDEN SERIES',
-    weight: '73u – 390',
-    farm: 'VOLTIO FARMS',
-    origin: 'USA',
-    qty: '50g',
-    starred: true,
-  },
-  {
-    id: '5',
-    name: 'Pink Panties',
-    strain: 'STATIC SIFT',
-    weight: '50g',
-    farm: 'STATIC GIFT',
-    origin: 'USA',
-    qty: '50g',
-    starred: false,
-  },
-  // Ajoute d'autres produits ici si besoin
-];
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: #000;
+      color: #e0ffe0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-// -----------------------------------------------------------------------------
-// Composant principal
-// -----------------------------------------------------------------------------
-function App() {
-  const initData = useInitData();
-  const themeParams = useThemeParams();
-  const mainButton = useMainButton();
-  // const backButton = useBackButton(); // optionnel
+    .container {
+      position: relative;
+      min-height: 100vh;
+      background: url('https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover no-repeat fixed;
+    }
 
-  const username = initData?.user?.username || 'Farmer';
-  const firstName = initData?.user?.firstName || 'Bienvenue';
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(1px);
+      z-index: 1;
+    }
 
-  useEffect(() => {
-    // Configuration du Main Button Telegram (en bas)
-    mainButton.setText('Panier (0)');
-    mainButton.show();
-    mainButton.enable();
+    .content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-    // Optionnel : back button si tu ajoutes des pages
-    // backButton.show();
-    // backButton.on('click', () => window.history.back());
-  }, [mainButton]);
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(57,255,20,0.3);
+      z-index: 10;
+    }
 
-  return (
-    <div
-      className="min-h-screen flex flex-col bg-cover bg-center bg-fixed text-white relative"
-      style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')",
-        // Alternative smoke green :
-        // "url('https://images.unsplash.com/photo-1553356084-58ef4a67b2a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80')"
-      }}
-    >
-      {/* Overlay sombre + léger flou pour lisibilité */}
-      <div className="absolute inset-0 bg-black/75 backdrop-blur-[1px]"></div>
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-      {/* Contenu principal */}
-      <div className="relative z-10 flex flex-col min-h-screen">
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-        {/* Header */}
-        <header className="sticky top-0 z-20 bg-black/70 backdrop-blur-md px-4 py-3.5 border-b border-green-500/30">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 font-bold text-xl shadow-lg shadow-green-500/30">
-                FCF
-              </div>
-              <div>
-                <h1 className="text-xl font-black tracking-wider text-green-400 uppercase">
-                  The French Cali Farmz
-                </h1>
-                <p className="text-xs text-gray-400">@{username}</p>
-              </div>
-            </div>
-            <Star className="text-green-400" size={24} fill="currentColor" />
-          </div>
-        </header>
+    .logo-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(57,255,20,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.4rem;
+      color: #39ff14;
+      box-shadow: 0 0 15px rgba(57,255,20,0.4);
+    }
 
-        {/* Welcome */}
-        <section className="px-5 py-6 bg-gradient-to-r from-black/60 to-green-950/30 border-b border-green-500/20">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-full bg-green-500/10 flex items-center justify-center text-3xl shadow-green-500/20 shadow-md">
-              👋
-            </div>
-            <div>
-              <h2 className="text-xl font-bold text-green-300">Salut {firstName}</h2>
-              <p className="text-green-400/90">Bienvenue sur le shop</p>
-            </div>
-            <div className="ml-auto text-green-400 text-2xl animate-pulse">✦</div>
-          </div>
-        </section>
+    h1 {
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #39ff14;
+      text-shadow: 0 0 10px rgba(57,255,20,0.6);
+    }
 
-        {/* Filtres */}
-        <div className="px-4 py-3.5 flex gap-3 overflow-x-auto bg-black/40 backdrop-blur-sm border-b border-green-900/50">
-          <button className="px-5 py-2 bg-gray-900/70 rounded-full text-sm border border-green-600/60 text-green-400 whitespace-nowrap hover:bg-green-900/40 transition">
-            Catégories ▼
-          </button>
-          <button className="px-5 py-2 bg-gray-900/70 rounded-full text-sm border border-green-600/60 text-green-400 whitespace-nowrap hover:bg-green-900/40 transition">
-            Farms ▼
-          </button>
-          <div className="ml-auto text-sm text-gray-400 self-center">
-            {products.length} produits
+    .welcome {
+      padding: 20px 16px;
+      background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(10,50,10,0.3));
+      border-bottom: 1px solid rgba(57,255,20,0.2);
+    }
+
+    .welcome-inner {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .welcome-emoji {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(57,255,20,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      box-shadow: 0 0 15px rgba(57,255,20,0.3);
+    }
+
+    .filters {
+      padding: 12px 16px;
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      background: rgba(0,0,0,0.4);
+      border-bottom: 1px solid rgba(57,255,20,0.15);
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      background: rgba(20,30,20,0.7);
+      border: 1px solid rgba(57,255,20,0.5);
+      border-radius: 999px;
+      color: #39ff14;
+      white-space: nowrap;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .products {
+      padding: 16px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding-bottom: 90px;
+    }
+
+    .card {
+      background: rgba(15,25,15,0.6);
+      border: 1px solid rgba(57,255,20,0.3);
+      border-radius: 12px;
+      overflow: hidden;
+      backdrop-filter: blur(4px);
+      transition: all 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(57,255,20,0.25);
+      border-color: #39ff14;
+    }
+
+    .card-img {
+      height: 180px;
+      background: #0a0f0a;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: rgba(57,255,20,0.4);
+      font-weight: 900;
+    }
+
+    .badge-star {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: #39ff14;
+      color: black;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .badge-farm {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.7);
+      color: #39ff14;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .card-body {
+      padding: 12px;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+      color: white;
+    }
+
+    .card-info {
+      font-size: 0.8rem;
+      color: #aaffaa;
+      margin-bottom: 12px;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .price {
+      color: #39ff14;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .add-btn {
+      background: rgba(57,255,20,0.2);
+      color: #39ff14;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(5,15,5,0.9);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(57,255,20,0.2);
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-around;
+      z-index: 20;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #88ff88;
+      font-size: 0.75rem;
+      gap: 4px;
+    }
+
+    .nav-item.active {
+      color: #39ff14;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="overlay"></div>
+  
+  <div class="content">
+    <header>
+      <div class="header-inner">
+        <div class="logo">
+          <div class="logo-circle">FCF</div>
+          <h1>The French Cali Farmz</h1>
+        </div>
+        <div id="user-info"></div>
+      </div>
+    </header>
+
+    <section class="welcome">
+      <div class="welcome-inner">
+        <div class="welcome-emoji">👋</div>
+        <div>
+          <h2 id="welcome-name">Chargement...</h2>
+          <p>Bienvenue sur le shop premium</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="filters">
+      <button class="filter-btn">Catégories ▼</button>
+      <button class="filter-btn">Farms ▼</button>
+      <span style="margin-left:auto; align-self:center; opacity:0.7; font-size:0.9rem;">4 produits</span>
+    </div>
+
+    <main class="products">
+      <!-- Exemples de produits -->
+      <div class="card">
+        <div class="card-img">SNOW</div>
+        <div class="badge-star">★</div>
+        <div class="badge-farm">GARDEN</div>
+        <div class="card-body">
+          <div class="card-title">Snow Heads</div>
+          <div class="card-info">STATIC SIFT – 73u 🇺🇸</div>
+          <div class="card-footer">
+            <div class="price">50g</div>
+            <button class="add-btn">+ Panier</button>
           </div>
         </div>
-
-        {/* Grille produits */}
-        <main className="flex-1 p-4 pb-24 grid grid-cols-2 gap-4">
-          {products.map((p) => (
-            <div
-              key={p.id}
-              className="bg-gray-950/70 rounded-xl overflow-hidden border border-gray-800 hover:border-green-600/70 transition-all duration-200 shadow-lg shadow-black/50 hover:shadow-green-900/30 backdrop-blur-sm"
-            >
-              <div className="relative h-44 bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
-                {/* Placeholder image – remplace par vraies photos */}
-                <div className="text-green-500/30 text-5xl font-black tracking-widest">
-                  {p.name.split(' ')[0]}
-                </div>
-
-                {p.starred && (
-                  <div className="absolute top-2.5 left-2.5 bg-green-500/90 text-black text-xs font-bold px-2.5 py-1 rounded-full shadow">
-                    ★
-                  </div>
-                )}
-                <div className="absolute bottom-2.5 right-2.5 bg-black/70 text-green-400 text-xs px-2.5 py-1 rounded font-medium">
-                  {p.farm}
-                </div>
-              </div>
-
-              <div className="p-3.5">
-                <h3 className="font-bold text-base mb-1 text-white truncate">
-                  {p.name}
-                </h3>
-                <p className="text-xs text-gray-400 flex items-center gap-1.5">
-                  {p.origin === 'USA' && <span>🇺🇸</span>}
-                  {p.strain} – {p.weight}
-                </p>
-
-                <div className="mt-3 flex justify-between items-center">
-                  <span className="text-green-400 font-bold text-lg">{p.qty}</span>
-                  <button className="bg-green-600/20 hover:bg-green-600/40 text-green-300 px-4 py-1.5 rounded-full text-sm font-medium transition">
-                    + Panier
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </main>
-
-        {/* Barre de navigation basse */}
-        <nav className="fixed bottom-0 left-0 right-0 bg-gray-950/90 backdrop-blur-2xl border-t border-gray-800 py-2 px-5 flex justify-between items-center z-30">
-          <button className="flex flex-col items-center text-green-400">
-            <Home size={26} />
-            <span className="text-xs mt-1">Accueil</span>
-          </button>
-          <button className="flex flex-col items-center text-gray-500 hover:text-green-400 transition">
-            <Star size={26} />
-            <span className="text-xs mt-1">Avis</span>
-          </button>
-          <button className="flex flex-col items-center text-gray-500 hover:text-green-400 transition relative">
-            <ShoppingCart size={26} />
-            <span className="text-xs mt-1">Panier</span>
-            <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] rounded-full w-5 h-5 flex items-center justify-center font-bold">
-              0
-            </span>
-          </button>
-          <button className="flex flex-col items-center text-gray-500 hover:text-green-400 transition">
-            <Info size={26} />
-            <span className="text-xs mt-1">Infos</span>
-          </button>
-          <button className="flex flex-col items-center text-gray-500 hover:text-green-400 transition">
-            <MessageSquare size={26} />
-            <span className="text-xs mt-1">Contact</span>
-          </button>
-        </nav>
       </div>
-    </div>
-  );
-}
 
-export default App;
+      <div class="card">
+        <div class="card-img">BLUE</div>
+        <div class="badge-star">★</div>
+        <div class="badge-farm">MACONHA</div>
+        <div class="card-body">
+          <div class="card-title">Blue Cookies</div>
+          <div class="card-info">STATIC SIFT – 139u 🇺🇸</div>
+          <div class="card-footer">
+            <div class="price">50g</div>
+            <button class="add-btn">+ Panier</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img">GAS</div>
+        <div class="badge-star">★</div>
+        <div class="badge-farm">VOLTIO</div>
+        <div class="card-body">
+          <div class="card-title">Gas Mask</div>
+          <div class="card-info">GARDEN – 139u 🇺🇸</div>
+          <div class="card-footer">
+            <div class="price">50g</div>
+            <button class="add-btn">+ Panier</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img">POP</div>
+        <div class="badge-star">★</div>
+        <div class="badge-farm">VOLTIO</div>
+        <div class="card-body">
+          <div class="card-title">Popsicle</div>
+          <div class="card-info">GARDEN – 73u 🇺🇸</div>
+          <div class="card-footer">
+            <div class="price">50g</div>
+            <button class="add-btn">+ Panier</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <nav>
+      <div class="nav-item active"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg><span>Accueil</span></div>
+      <div class="nav-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>Avis</span></div>
+      <div class="nav-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Panier</span></div>
+      <div class="nav-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>Infos</span></div>
+      <div class="nav-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><span>Contact</span></div>
+    </nav>
+  </div>
+</div>
+
+<script>
+  // Initialisation Telegram Mini App
+  const tg = window.Telegram.WebApp;
+  tg.ready();
+  tg.expand(); // Plein écran
+
+  // Récupère les infos utilisateur
+  const user = tg.initDataUnsafe.user;
+
+  if (user) {
+    document.getElementById('welcome-name').textContent = `Salut ${user.first_name || 'Farmer'} !`;
+    document.getElementById('user-info').textContent = `@${user.username || 'anonyme'}`;
+  } else {
+    document.getElementById('welcome-name').textContent = 'Bienvenue voyageur !';
+  }
+
+  // Optionnel : change le thème selon Telegram
+  tg.themeParams && document.body.style.setProperty('--tg-theme-bg-color', tg.themeParams.bg_color);
+</script>
+
+</body>
+</html>
