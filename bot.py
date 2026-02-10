@@ -4,7 +4,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 
 # Remplace ces valeurs
 TOKEN = '8041091140:AAGdu3oR3Ag1L_mx_MHytlX4OjfB9wwJ5jo'
-MINI_APP_URL = 'https://french-cali-farmz.vercel.app'
+MINI_APP_URL = 'https://leroimerlin1.github.io/Thefrench/'
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
