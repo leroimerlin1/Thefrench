@@ -258,6 +258,80 @@
       box-shadow:0 0 15px rgba(57,255,20,0.5);
     }
 
+    /* Page Panier */
+    #cart-page {
+      display:none;
+      padding:16px 16px 100px;
+    }
+    .cart-item {
+      background:rgba(15,25,15,0.65);
+      border:1px solid rgba(57,255,20,0.35);
+      border-radius:10px;
+      padding:12px;
+      margin-bottom:12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .cart-item-name {
+      font-size:1rem;
+      color:#fff;
+    }
+    .cart-item-qty {
+      color:#39ff14;
+      font-weight:bold;
+    }
+    .questionnaire {
+      margin-top:20px;
+    }
+    .question {
+      margin-bottom:20px;
+    }
+    .question-label {
+      font-size:1.1rem;
+      color:#39ff14;
+      margin-bottom:10px;
+      display:block;
+    }
+    .option-btn {
+      background:rgba(57,255,20,0.15);
+      border:1px solid #39ff14;
+      color:#fff;
+      padding:12px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:bold;
+      width:100%;
+      margin-bottom:8px;
+      text-align:center;
+    }
+    .option-btn.selected {
+      background:#39ff14;
+      color:#000;
+    }
+    input, textarea {
+      background:rgba(0,0,0,0.5);
+      border:1px solid #39ff14;
+      color:#fff;
+      padding:12px;
+      border-radius:10px;
+      width:100%;
+      margin-bottom:12px;
+      font-family:inherit;
+    }
+    .submit-order {
+      background:#39ff14;
+      color:#000;
+      border:none;
+      padding:16px;
+      font-size:1.1rem;
+      font-weight:bold;
+      border-radius:12px;
+      cursor:pointer;
+      width:100%;
+      box-shadow:0 0 15px rgba(57,255,20,0.5);
+    }
+
     nav {
       position:fixed;
       bottom:0;
@@ -277,6 +351,7 @@
       color:#88ff88;
       font-size:0.7rem;
       gap:3px;
+      cursor:pointer;
     }
     .nav-item.active { color:#39ff14; }
   </style>
@@ -338,7 +413,7 @@
       </div>
     </div>
 
-    <div id="product-detail">
+    <div id="product-detail" style="display:none;">
       <div class="product-hero">
         <img id="detail-img" src="" alt="Produit">
       </div>
@@ -364,10 +439,46 @@
       </button>
     </div>
 
+    <!-- Page Panier -->
+    <div id="cart-page" style="display:none;">
+      <div id="cart-items"></div>
+      <div class="questionnaire" id="questionnaire" style="display:none;">
+        <div class="question">
+          <span class="question-label">Venir sur place ou Livré ?</span>
+          <button class="option-btn" data-type="pickup">Venir sur place</button>
+          <button class="option-btn" data-type="delivery">Livré</button>
+        </div>
+
+        <div id="pickup-questions" style="display:none;">
+          <div class="question">
+            <span class="question-label">Pour quelle heure ?</span>
+            <input type="time" id="pickup-time" placeholder="HH:MM">
+          </div>
+        </div>
+
+        <div id="delivery-questions" style="display:none;">
+          <div class="question">
+            <span class="question-label">Pour quelle heure ?</span>
+            <input type="time" id="delivery-time" placeholder="HH:MM">
+          </div>
+          <div class="question">
+            <span class="question-label">Votre adresse :</span>
+            <input type="text" id="delivery-address" placeholder="Adresse complète">
+          </div>
+          <div class="question">
+            <span class="question-label">Détails de la livraison ou questions ?</span>
+            <textarea id="delivery-details" placeholder="Précisez ici..."></textarea>
+          </div>
+        </div>
+
+        <button class="submit-order" id="submit-order-btn">Commander</button>
+      </div>
+    </div>
+
     <nav>
-      <div class="nav-item active"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg><span>Accueil</span></div>
+      <div class="nav-item active" id="nav-home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg><span>Accueil</span></div>
       <div class="nav-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>Avis</span></div>
-      <div class="nav-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Panier</span></div>
+      <div class="nav-item" id="nav-cart"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Panier</span></div>
       <div class="nav-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>Infos</span></div>
       <div class="nav-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><span>Contact</span></div>
     </nav>
@@ -397,11 +508,11 @@
       info: '◆ frozen single source 🇺🇸',
       quantities: [
         { qty: '0.5g', price: '40 €' },
-        { qty: '1g',   price: '80 €' },
-        { qty: '2g',   price: '130 €' },
-        { qty: '5g',   price: '280 €' },
-        { qty: '10g',  price: '500 €' },
-        { qty: '20g',  price: '950 €' }
+        { qty: '1g', price: '80 €' },
+        { qty: '2g', price: '130 €' },
+        { qty: '5g', price: '280 €' },
+        { qty: '10g', price: '500 €' },
+        { qty: '20g', price: '950 €' }
       ]
     },
     '35u': {
@@ -411,16 +522,18 @@
       farm: 'KGF 🦊',
       info: '◆ KGF 🦊',
       quantities: [
-        { qty: '5g',   price: '30 €' },
-        { qty: '10g',  price: '60 €' },
-        { qty: '25g',  price: '100 €' },
-        { qty: '50g',  price: '180 €' },
+        { qty: '5g', price: '30 €' },
+        { qty: '10g', price: '60 €' },
+        { qty: '25g', price: '100 €' },
+        { qty: '50g', price: '180 €' },
         { qty: '100g', price: '350 €' },
         { qty: '500g', price: '1600 €' },
-        { qty: '1000g',price: '3200 €' }
+        { qty: '1000g', price: '3200 €' }
       ]
     }
   };
+
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', () => {
@@ -435,9 +548,10 @@
 
       const grid = document.getElementById('qty-grid');
       grid.innerHTML = '';
-      p.quantities.forEach(item => {
+      p.quantities.forEach((item, index) => {
         const btn = document.createElement('button');
         btn.className = 'qty-btn';
+        btn.dataset.index = index;
         btn.innerHTML = `${item.qty}<br>${item.price}`;
         btn.onclick = () => {
           grid.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('selected'));
@@ -456,12 +570,92 @@
   document.getElementById('btn-back').onclick = () => {
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('product-detail').style.display = 'none';
+    document.getElementById('cart-page').style.display = 'none';
     document.getElementById('btn-back').style.display = 'none';
     document.getElementById('page-title').textContent = 'The French Cali Farmz';
   };
 
+  // Ajouter au panier
   document.getElementById('add-to-cart-btn').onclick = () => {
-    alert('Produit ajouté au panier ! (simulation)');
+    const selectedBtn = document.querySelector('.qty-btn.selected');
+    if (!selectedBtn) return alert('Sélectionnez une quantité !');
+
+    const key = document.querySelector('#product-detail').dataset.currentProduct || document.querySelector('.card').dataset.product; // À adapter si besoin
+    const p = products[document.querySelector('.card[data-product]').dataset.product] || products.cali; // Simplifié
+    const index = selectedBtn.dataset.index;
+    const item = p.quantities[index];
+
+    cart.push({
+      title: p.title,
+      qty: item.qty,
+      price: item.price
+    });
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert('Ajouté au panier !');
+  };
+
+  // Ouvrir panier
+  document.getElementById('nav-cart').onclick = () => {
+    document.getElementById('home-page').style.display = 'none';
+    document.getElementById('product-detail').style.display = 'none';
+    document.getElementById('cart-page').style.display = 'block';
+    document.getElementById('btn-back').style.display = 'inline-block';
+    document.getElementById('page-title').textContent = 'Panier';
+
+    const itemsDiv = document.getElementById('cart-items');
+    itemsDiv.innerHTML = '';
+    cart.forEach((item, i) => {
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `<span class="cart-item-name">${item.title}</span><span class="cart-item-qty">${item.qty} - ${item.price}</span>`;
+      itemsDiv.appendChild(div);
+    });
+
+    document.getElementById('questionnaire').style.display = cart.length > 0 ? 'block' : 'none';
+  };
+
+  // Gestion questionnaire
+  let deliveryType = '';
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      deliveryType = btn.dataset.type;
+
+      document.getElementById('pickup-questions').style.display = deliveryType === 'pickup' ? 'block' : 'none';
+      document.getElementById('delivery-questions').style.display = deliveryType === 'delivery' ? 'block' : 'none';
+    };
+  });
+
+  // Soumettre commande
+  document.getElementById('submit-order-btn').onclick = () => {
+    if (!deliveryType) return alert('Choisissez un type de livraison !');
+
+    let message = 'Commande :\n';
+    cart.forEach(item => {
+      message += `- ${item.title} : ${item.qty} (${item.price})\n`;
+    });
+
+    if (deliveryType === 'pickup') {
+      const time = document.getElementById('pickup-time').value;
+      if (!time) return alert('Indiquez une heure !');
+      message += `\nType : Venir sur place\nHeure : ${time}`;
+    } else {
+      const time = document.getElementById('delivery-time').value;
+      const address = document.getElementById('delivery-address').value;
+      const details = document.getElementById('delivery-details').value;
+      if (!time || !address) return alert('Remplissez heure et adresse !');
+      message += `\nType : Livré\nHeure : ${time}\nAdresse : ${address}\nDétails : ${details || 'Aucun'}`;
+    }
+
+    // Ouvrir chat Telegram avec pré-message
+    const encodedMessage = encodeURIComponent(message);
+    tg.openTelegramLink(`https://t.me/orderthefrenchcalifarmz26?text=${encodedMessage}`);
+
+    // Reset panier après envoi
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert('Commande envoyée !');
   };
 </script>
 
