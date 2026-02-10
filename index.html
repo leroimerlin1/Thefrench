@@ -5,259 +5,280 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>The French Cali Farmz</title>
   
-  <!-- Script Telegram officiel (obligatoire pour Mini App) -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap');
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
       font-family: 'Orbitron', sans-serif;
-      background: #000;
-      color: #e0ffe0;
-      min-height: 100vh;
-      overflow-x: hidden;
+      background:#000;
+      color:#e0ffe0;
+      min-height:100vh;
+      overflow-x:hidden;
     }
-
     .container {
-      position: relative;
-      min-height: 100vh;
-      background: url('https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover no-repeat fixed;
+      position:relative;
+      min-height:100vh;
+      background:url('https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover no-repeat fixed;
     }
-
     .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(1px);
-      z-index: 1;
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.78);
+      backdrop-filter:blur(1.5px);
+      z-index:1;
     }
-
     .content {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+      position:relative;
+      z-index:2;
+      min-height:100vh;
     }
 
     header {
-      position: sticky;
-      top: 0;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(8px);
-      padding: 12px 16px;
-      border-bottom: 1px solid rgba(57,255,20,0.3);
-      z-index: 10;
+      position:sticky;
+      top:0;
+      background:rgba(0,0,0,0.75);
+      backdrop-filter:blur(10px);
+      padding:10px 16px;
+      border-bottom:1px solid rgba(57,255,20,0.35);
+      z-index:10;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
     }
-
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .back-btn {
+      background:rgba(57,255,20,0.15);
+      color:#39ff14;
+      border:1px solid #39ff14;
+      padding:8px 14px;
+      border-radius:8px;
+      font-weight:bold;
+      cursor:pointer;
     }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-circle {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(57,255,20,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      font-size: 1.4rem;
-      color: #39ff14;
-      box-shadow: 0 0 15px rgba(57,255,20,0.4);
-    }
-
     h1 {
-      font-size: 1.4rem;
-      font-weight: 900;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #39ff14;
-      text-shadow: 0 0 10px rgba(57,255,20,0.6);
+      font-size:1.35rem;
+      font-weight:900;
+      letter-spacing:1.5px;
+      color:#39ff14;
+      text-shadow:0 0 12px rgba(57,255,20,0.7);
     }
 
     .welcome {
-      padding: 20px 16px;
-      background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(10,50,10,0.3));
-      border-bottom: 1px solid rgba(57,255,20,0.2);
+      padding:18px 16px;
+      background:linear-gradient(to right, rgba(0,0,0,0.65), rgba(10,50,10,0.35));
+      border-bottom:1px solid rgba(57,255,20,0.25);
     }
-
     .welcome-inner {
-      display: flex;
-      align-items: center;
-      gap: 16px;
+      display:flex;
+      align-items:center;
+      gap:14px;
     }
-
     .welcome-emoji {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: rgba(57,255,20,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.2rem;
-      box-shadow: 0 0 15px rgba(57,255,20,0.3);
+      width:52px;
+      height:52px;
+      border-radius:50%;
+      background:rgba(57,255,20,0.12);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:2rem;
+      box-shadow:0 0 16px rgba(57,255,20,0.35);
     }
 
     .filters {
-      padding: 12px 16px;
-      display: flex;
-      gap: 12px;
-      overflow-x: auto;
-      background: rgba(0,0,0,0.4);
-      border-bottom: 1px solid rgba(57,255,20,0.15);
+      padding:10px 16px;
+      display:flex;
+      gap:10px;
+      overflow-x:auto;
+      background:rgba(0,0,0,0.45);
+      border-bottom:1px solid rgba(57,255,20,0.2);
     }
-
     .filter-btn {
-      padding: 8px 16px;
-      background: rgba(20,30,20,0.7);
-      border: 1px solid rgba(57,255,20,0.5);
-      border-radius: 999px;
-      color: #39ff14;
-      white-space: nowrap;
-      font-size: 0.9rem;
-      cursor: pointer;
+      padding:7px 15px;
+      background:rgba(20,30,20,0.75);
+      border:1px solid rgba(57,255,20,0.55);
+      border-radius:999px;
+      color:#39ff14;
+      font-size:0.85rem;
+      white-space:nowrap;
     }
 
-    .products {
-      padding: 16px;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      padding-bottom: 90px;
+    #products-list {
+      padding:16px;
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+      padding-bottom:90px;
     }
-
     .card {
-      background: rgba(15,25,15,0.6);
-      border: 1px solid rgba(57,255,20,0.3);
-      border-radius: 12px;
-      overflow: hidden;
-      backdrop-filter: blur(4px);
-      transition: all 0.25s;
+      background:rgba(15,25,15,0.65);
+      border:1px solid rgba(57,255,20,0.35);
+      border-radius:10px;
+      overflow:hidden;
+      backdrop-filter:blur(5px);
+      transition:all 0.2s;
+      cursor:pointer;
     }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px rgba(57,255,20,0.25);
-      border-color: #39ff14;
-    }
-
+    .card:hover { transform:scale(1.03); border-color:#39ff14; }
     .card-img {
-      height: 180px;
-      background: #0a0f0a;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      color: rgba(57,255,20,0.4);
-      font-weight: 900;
+      height:170px;
+      position:relative;
     }
-
+    .card-img img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
     .badge-star {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      background: #39ff14;
-      color: black;
-      font-size: 0.7rem;
-      font-weight: bold;
-      padding: 4px 10px;
-      border-radius: 999px;
+      position:absolute;
+      top:6px;
+      left:6px;
+      background:#39ff14;
+      color:#000;
+      font-size:0.65rem;
+      padding:3px 8px;
+      border-radius:999px;
+      font-weight:bold;
     }
-
     .badge-farm {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
-      background: rgba(0,0,0,0.7);
-      color: #39ff14;
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 6px;
+      position:absolute;
+      bottom:6px;
+      right:6px;
+      background:rgba(0,0,0,0.75);
+      color:#39ff14;
+      font-size:0.7rem;
+      padding:4px 9px;
+      border-radius:6px;
     }
-
     .card-body {
-      padding: 12px;
+      padding:10px;
     }
-
     .card-title {
-      font-size: 1.1rem;
-      margin-bottom: 4px;
-      color: white;
+      font-size:1rem;
+      color:#fff;
+      margin-bottom:3px;
+      font-weight:700;
     }
-
     .card-info {
-      font-size: 0.8rem;
-      color: #aaffaa;
-      margin-bottom: 12px;
+      font-size:0.75rem;
+      color:#aaffaa;
     }
 
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    #product-detail {
+      display:none;
+      padding:0 0 100px 0;
     }
-
-    .price {
-      color: #39ff14;
-      font-weight: bold;
-      font-size: 1.2rem;
+    .product-hero {
+      height:260px;
+      position:relative;
     }
-
-    .add-btn {
-      background: rgba(57,255,20,0.2);
-      color: #39ff14;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 999px;
-      font-weight: bold;
-      cursor: pointer;
+    .product-hero img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .product-title {
+      padding:16px;
+      font-size:1.5rem;
+      font-weight:900;
+      color:#39ff14;
+      text-shadow:0 0 10px rgba(57,255,20,0.6);
+    }
+    .badges {
+      padding:0 16px 12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .badge {
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:0.85rem;
+      font-weight:bold;
+    }
+    .badge-strain { background:rgba(57,255,20,0.2); color:#39ff14; border:1px solid #39ff14; }
+    .badge-farm { background:rgba(0,80,0,0.4); color:#aaffaa; border:1px solid #39ff14; }
+    .info-diamond {
+      padding:0 16px 16px;
+      color:#39ff14;
+      font-size:0.9rem;
+    }
+    .quantity-section {
+      padding:16px;
+      background:rgba(0,0,0,0.5);
+      margin:12px 16px;
+      border-radius:12px;
+      border:1px solid rgba(57,255,20,0.4);
+    }
+    .quantity-title {
+      font-size:1.1rem;
+      color:#39ff14;
+      margin-bottom:12px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .quantity-grid {
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+    }
+    .qty-btn {
+      background:rgba(57,255,20,0.15);
+      border:1px solid #39ff14;
+      color:#fff;
+      padding:12px 8px;
+      border-radius:10px;
+      text-align:center;
+      cursor:pointer;
+      font-weight:bold;
+      transition:0.2s;
+      line-height:1.3;
+    }
+    .qty-btn:hover, .qty-btn.selected {
+      background:#39ff14;
+      color:#000;
+    }
+    .add-to-cart {
+      margin:16px;
+      background:#39ff14;
+      color:#000;
+      border:none;
+      padding:16px;
+      font-size:1.1rem;
+      font-weight:bold;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      cursor:pointer;
+      box-shadow:0 0 15px rgba(57,255,20,0.5);
     }
 
     nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(5,15,5,0.9);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(57,255,20,0.2);
-      padding: 10px 0;
-      display: flex;
-      justify-content: space-around;
-      z-index: 20;
+      position:fixed;
+      bottom:0;
+      left:0; right:0;
+      background:rgba(5,15,5,0.92);
+      backdrop-filter:blur(14px);
+      border-top:1px solid rgba(57,255,20,0.25);
+      padding:8px 0;
+      display:flex;
+      justify-content:space-around;
+      z-index:20;
     }
-
     .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #88ff88;
-      font-size: 0.75rem;
-      gap: 4px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      color:#88ff88;
+      font-size:0.7rem;
+      gap:3px;
     }
-
-    .nav-item.active {
-      color: #39ff14;
-    }
+    .nav-item.active { color:#39ff14; }
   </style>
 </head>
 <body>
@@ -266,90 +287,82 @@
   <div class="overlay"></div>
   
   <div class="content">
-    <header>
-      <div class="header-inner">
-        <div class="logo">
-          <div class="logo-circle">FCF</div>
-          <h1>The French Cali Farmz</h1>
-        </div>
-        <div id="user-info"></div>
-      </div>
+
+    <header id="main-header">
+      <button class="back-btn" id="btn-back" style="display:none;">← Retour</button>
+      <h1 id="page-title">The French Cali Farmz</h1>
+      <div id="user-info"></div>
     </header>
 
-    <section class="welcome">
-      <div class="welcome-inner">
-        <div class="welcome-emoji">👋</div>
-        <div>
-          <h2 id="welcome-name">Chargement...</h2>
-          <p>Bienvenue sur le shop premium</p>
+    <div id="home-page">
+      <section class="welcome">
+        <div class="welcome-inner">
+          <div class="welcome-emoji">👋</div>
+          <div>
+            <h2 id="welcome-name">Chargement...</h2>
+            <p>Bienvenue sur le shop premium</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="filters">
+        <button class="filter-btn">Catégories ▼</button>
+        <button class="filter-btn">Farms ▼</button>
+        <span style="margin-left:auto; align-self:center; opacity:0.7; font-size:0.85rem;">2 produits</span>
+      </div>
+
+      <div id="products-list">
+        <div class="card" data-product="cali">
+          <div class="card-img">
+            <img src="caliplates.jpg" alt="Caliplates">
+            <div class="badge-star">★</div>
+            <div class="badge-farm">Frozen Single Source 🇺🇸</div>
+          </div>
+          <div class="card-body">
+            <div class="card-title">Caliplates🇺🇸</div>
+            <div class="card-info">Frozen Single Source 🇺🇸</div>
+          </div>
+        </div>
+
+        <div class="card" data-product="35u">
+          <div class="card-img">
+            <img src="35u.jpg" alt="35u KGF">
+            <div class="badge-star">★</div>
+            <div class="badge-farm">KGF 🦊</div>
+          </div>
+          <div class="card-body">
+            <div class="card-title">35u KGF🦊</div>
+            <div class="card-info">KGF 🦊</div>
+          </div>
         </div>
       </div>
-    </section>
-
-    <div class="filters">
-      <button class="filter-btn">Catégories ▼</button>
-      <button class="filter-btn">Farms ▼</button>
-      <span style="margin-left:auto; align-self:center; opacity:0.7; font-size:0.9rem;">4 produits</span>
     </div>
 
-    <main class="products">
-      <!-- Exemples de produits -->
-      <div class="card">
-        <div class="card-img">SNOW</div>
-        <div class="badge-star">★</div>
-        <div class="badge-farm">GARDEN</div>
-        <div class="card-body">
-          <div class="card-title">Snow Heads</div>
-          <div class="card-info">STATIC SIFT – 73u 🇺🇸</div>
-          <div class="card-footer">
-            <div class="price">50g</div>
-            <button class="add-btn">+ Panier</button>
-          </div>
-        </div>
+    <div id="product-detail">
+      <div class="product-hero">
+        <img id="detail-img" src="" alt="Produit">
       </div>
 
-      <div class="card">
-        <div class="card-img">BLUE</div>
-        <div class="badge-star">★</div>
-        <div class="badge-farm">MACONHA</div>
-        <div class="card-body">
-          <div class="card-title">Blue Cookies</div>
-          <div class="card-info">STATIC SIFT – 139u 🇺🇸</div>
-          <div class="card-footer">
-            <div class="price">50g</div>
-            <button class="add-btn">+ Panier</button>
-          </div>
-        </div>
+      <div class="product-title" id="detail-title"></div>
+
+      <div class="badges">
+        <div class="badge badge-strain" id="detail-strain"></div>
+        <div class="badge badge-farm" id="detail-farm"></div>
       </div>
 
-      <div class="card">
-        <div class="card-img">GAS</div>
-        <div class="badge-star">★</div>
-        <div class="badge-farm">VOLTIO</div>
-        <div class="card-body">
-          <div class="card-title">Gas Mask</div>
-          <div class="card-info">GARDEN – 139u 🇺🇸</div>
-          <div class="card-footer">
-            <div class="price">50g</div>
-            <button class="add-btn">+ Panier</button>
-          </div>
+      <div class="info-diamond" id="detail-info"></div>
+
+      <div class="quantity-section">
+        <div class="quantity-title">
+          <span>🛍️</span> Sélectionner la Quantité
         </div>
+        <div class="quantity-grid" id="qty-grid"></div>
       </div>
 
-      <div class="card">
-        <div class="card-img">POP</div>
-        <div class="badge-star">★</div>
-        <div class="badge-farm">VOLTIO</div>
-        <div class="card-body">
-          <div class="card-title">Popsicle</div>
-          <div class="card-info">GARDEN – 73u 🇺🇸</div>
-          <div class="card-footer">
-            <div class="price">50g</div>
-            <button class="add-btn">+ Panier</button>
-          </div>
-        </div>
-      </div>
-    </main>
+      <button class="add-to-cart" id="add-to-cart-btn">
+        <span>🛒</span> Ajouter au Panier
+      </button>
+    </div>
 
     <nav>
       <div class="nav-item active"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg><span>Accueil</span></div>
@@ -358,27 +371,98 @@
       <div class="nav-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>Infos</span></div>
       <div class="nav-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><span>Contact</span></div>
     </nav>
+
   </div>
 </div>
 
 <script>
-  // Initialisation Telegram Mini App
   const tg = window.Telegram.WebApp;
   tg.ready();
-  tg.expand(); // Plein écran
+  tg.expand();
 
-  // Récupère les infos utilisateur
-  const user = tg.initDataUnsafe.user;
-
+  const user = tg.initDataUnsafe?.user;
   if (user) {
     document.getElementById('welcome-name').textContent = `Salut ${user.first_name || 'Farmer'} !`;
     document.getElementById('user-info').textContent = `@${user.username || 'anonyme'}`;
   } else {
-    document.getElementById('welcome-name').textContent = 'Bienvenue voyageur !';
+    document.getElementById('welcome-name').textContent = 'Bienvenue !';
   }
 
-  // Optionnel : change le thème selon Telegram
-  tg.themeParams && document.body.style.setProperty('--tg-theme-bg-color', tg.themeParams.bg_color);
+  const products = {
+    cali: {
+      title: 'Caliplates🇺🇸',
+      img: 'caliplates.jpg',
+      strain: 'Frozen Single Source 🇺🇸',
+      farm: 'Frozen Single Source 🇺🇸',
+      info: '◆ frozen single source 🇺🇸',
+      quantities: [
+        { qty: '0.5g', price: '40 €' },
+        { qty: '1g',   price: '80 €' },
+        { qty: '2g',   price: '130 €' },
+        { qty: '5g',   price: '280 €' },
+        { qty: '10g',  price: '500 €' },
+        { qty: '20g',  price: '950 €' }
+      ]
+    },
+    '35u': {
+      title: '35u KGF🦊',
+      img: '35u.jpg',
+      strain: 'KGF 🦊',
+      farm: 'KGF 🦊',
+      info: '◆ KGF 🦊',
+      quantities: [
+        { qty: '5g',   price: '30 €' },
+        { qty: '10g',  price: '60 €' },
+        { qty: '25g',  price: '100 €' },
+        { qty: '50g',  price: '180 €' },
+        { qty: '100g', price: '350 €' },
+        { qty: '500g', price: '1600 €' },
+        { qty: '1000g',price: '3200 €' }
+      ]
+    }
+  };
+
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+      const key = card.dataset.product;
+      const p = products[key];
+
+      document.getElementById('detail-img').src = p.img;
+      document.getElementById('detail-title').textContent = p.title;
+      document.getElementById('detail-strain').textContent = p.strain;
+      document.getElementById('detail-farm').textContent = p.farm;
+      document.getElementById('detail-info').textContent = p.info;
+
+      const grid = document.getElementById('qty-grid');
+      grid.innerHTML = '';
+      p.quantities.forEach(item => {
+        const btn = document.createElement('button');
+        btn.className = 'qty-btn';
+        btn.innerHTML = `${item.qty}<br>${item.price}`;
+        btn.onclick = () => {
+          grid.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+        };
+        grid.appendChild(btn);
+      });
+
+      document.getElementById('home-page').style.display = 'none';
+      document.getElementById('product-detail').style.display = 'block';
+      document.getElementById('btn-back').style.display = 'inline-block';
+      document.getElementById('page-title').textContent = p.title;
+    });
+  });
+
+  document.getElementById('btn-back').onclick = () => {
+    document.getElementById('home-page').style.display = 'block';
+    document.getElementById('product-detail').style.display = 'none';
+    document.getElementById('btn-back').style.display = 'none';
+    document.getElementById('page-title').textContent = 'The French Cali Farmz';
+  };
+
+  document.getElementById('add-to-cart-btn').onclick = () => {
+    alert('Produit ajouté au panier ! (simulation)');
+  };
 </script>
 
 </body>
