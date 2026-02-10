@@ -1,0 +1,231 @@
+// src/App.tsx
+// -----------------------------------------------------------------------------
+// THE FRENCH CALI FARMZ - Mini App Telegram
+// Single-file version (tout regroupé pour facilité)
+// -----------------------------------------------------------------------------
+
+import { useEffect } from 'react';
+import {
+  useInitData,
+  useThemeParams,
+  useMainButton,
+  // useBackButton, // décommente si tu veux un bouton retour
+} from '@telegram-apps/sdk-react';
+import { Home, Star, ShoppingCart, Info, MessageSquare } from 'lucide-react';
+
+// -----------------------------------------------------------------------------
+// Données produits (hardcodées pour l'exemple)
+// -----------------------------------------------------------------------------
+const products = [
+  {
+    id: '1',
+    name: 'Snow Heads',
+    strain: 'STATIC SIFT',
+    weight: '73u',
+    farm: 'GARDEN SERIES',
+    origin: 'USA',
+    qty: '50g',
+    starred: true,
+  },
+  {
+    id: '2',
+    name: 'Blue Cookies',
+    strain: 'STATIC SIFT',
+    weight: '139u – 730',
+    farm: 'MACONHA FARMS',
+    origin: 'USA',
+    qty: '50g',
+    starred: true,
+  },
+  {
+    id: '3',
+    name: 'Gas Mask',
+    strain: 'GARDEN SERIES',
+    weight: '139u – 730',
+    farm: 'VOLTIO FARMS',
+    origin: 'USA',
+    qty: '50g',
+    starred: true,
+  },
+  {
+    id: '4',
+    name: 'Popsicle',
+    strain: 'GARDEN SERIES',
+    weight: '73u – 390',
+    farm: 'VOLTIO FARMS',
+    origin: 'USA',
+    qty: '50g',
+    starred: true,
+  },
+  {
+    id: '5',
+    name: 'Pink Panties',
+    strain: 'STATIC SIFT',
+    weight: '50g',
+    farm: 'STATIC GIFT',
+    origin: 'USA',
+    qty: '50g',
+    starred: false,
+  },
+  // Ajoute d'autres produits ici si besoin
+];
+
+// -----------------------------------------------------------------------------
+// Composant principal
+// -----------------------------------------------------------------------------
+function App() {
+  const initData = useInitData();
+  const themeParams = useThemeParams();
+  const mainButton = useMainButton();
+  // const backButton = useBackButton(); // optionnel
+
+  const username = initData?.user?.username || 'Farmer';
+  const firstName = initData?.user?.firstName || 'Bienvenue';
+
+  useEffect(() => {
+    // Configuration du Main Button Telegram (en bas)
+    mainButton.setText('Panier (0)');
+    mainButton.show();
+    mainButton.enable();
+
+    // Optionnel : back button si tu ajoutes des pages
+    // backButton.show();
+    // backButton.on('click', () => window.history.back());
+  }, [mainButton]);
+
+  return (
+    <div
+      className="min-h-screen flex flex-col bg-cover bg-center bg-fixed text-white relative"
+      style={{
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')",
+        // Alternative smoke green :
+        // "url('https://images.unsplash.com/photo-1553356084-58ef4a67b2a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80')"
+      }}
+    >
+      {/* Overlay sombre + léger flou pour lisibilité */}
+      <div className="absolute inset-0 bg-black/75 backdrop-blur-[1px]"></div>
+
+      {/* Contenu principal */}
+      <div className="relative z-10 flex flex-col min-h-screen">
+
+        {/* Header */}
+        <header className="sticky top-0 z-20 bg-black/70 backdrop-blur-md px-4 py-3.5 border-b border-green-500/30">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 font-bold text-xl shadow-lg shadow-green-500/30">
+                FCF
+              </div>
+              <div>
+                <h1 className="text-xl font-black tracking-wider text-green-400 uppercase">
+                  The French Cali Farmz
+                </h1>
+                <p className="text-xs text-gray-400">@{username}</p>
+              </div>
+            </div>
+            <Star className="text-green-400" size={24} fill="currentColor" />
+          </div>
+        </header>
+
+        {/* Welcome */}
+        <section className="px-5 py-6 bg-gradient-to-r from-black/60 to-green-950/30 border-b border-green-500/20">
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 rounded-full bg-green-500/10 flex items-center justify-center text-3xl shadow-green-500/20 shadow-md">
+              👋
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-green-300">Salut {firstName}</h2>
+              <p className="text-green-400/90">Bienvenue sur le shop</p>
+            </div>
+            <div className="ml-auto text-green-400 text-2xl animate-pulse">✦</div>
+          </div>
+        </section>
+
+        {/* Filtres */}
+        <div className="px-4 py-3.5 flex gap-3 overflow-x-auto bg-black/40 backdrop-blur-sm border-b border-green-900/50">
+          <button className="px-5 py-2 bg-gray-900/70 rounded-full text-sm border border-green-600/60 text-green-400 whitespace-nowrap hover:bg-green-900/40 transition">
+            Catégories ▼
+          </button>
+          <button className="px-5 py-2 bg-gray-900/70 rounded-full text-sm border border-green-600/60 text-green-400 whitespace-nowrap hover:bg-green-900/40 transition">
+            Farms ▼
+          </button>
+          <div className="ml-auto text-sm text-gray-400 self-center">
+            {products.length} produits
+          </div>
+        </div>
+
+        {/* Grille produits */}
+        <main className="flex-1 p-4 pb-24 grid grid-cols-2 gap-4">
+          {products.map((p) => (
+            <div
+              key={p.id}
+              className="bg-gray-950/70 rounded-xl overflow-hidden border border-gray-800 hover:border-green-600/70 transition-all duration-200 shadow-lg shadow-black/50 hover:shadow-green-900/30 backdrop-blur-sm"
+            >
+              <div className="relative h-44 bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
+                {/* Placeholder image – remplace par vraies photos */}
+                <div className="text-green-500/30 text-5xl font-black tracking-widest">
+                  {p.name.split(' ')[0]}
+                </div>
+
+                {p.starred && (
+                  <div className="absolute top-2.5 left-2.5 bg-green-500/90 text-black text-xs font-bold px-2.5 py-1 rounded-full shadow">
+                    ★
+                  </div>
+                )}
+                <div className="absolute bottom-2.5 right-2.5 bg-black/70 text-green-400 text-xs px-2.5 py-1 rounded font-medium">
+                  {p.farm}
+                </div>
+              </div>
+
+              <div className="p-3.5">
+                <h3 className="font-bold text-base mb-1 text-white truncate">
+                  {p.name}
+                </h3>
+                <p className="text-xs text-gray-400 flex items-center gap-1.5">
+                  {p.origin === 'USA' && <span>🇺🇸</span>}
+                  {p.strain} – {p.weight}
+                </p>
+
+                <div className="mt-3 flex justify-between items-center">
+                  <span className="text-green-400 font-bold text-lg">{p.qty}</span>
+                  <button className="bg-green-600/20 hover:bg-green-600/40 text-green-300 px-4 py-1.5 rounded-full text-sm font-medium transition">
+                    + Panier
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </main>
+
+        {/* Barre de navigation basse */}
+        <nav className="fixed bottom-0 left-0 right-0 bg-gray-950/90 backdrop-blur-2xl border-t border-gray-800 py-2 px-5 flex justify-between items-center z-30">
+          <button className="flex flex-col items-center text-green-400">
+            <Home size={26} />
+            <span className="text-xs mt-1">Accueil</span>
+          </button>
+          <button className="flex flex-col items-center text-gray-500 hover:text-green-400 transition">
+            <Star size={26} />
+            <span className="text-xs mt-1">Avis</span>
+          </button>
+          <button className="flex flex-col items-center text-gray-500 hover:text-green-400 transition relative">
+            <ShoppingCart size={26} />
+            <span className="text-xs mt-1">Panier</span>
+            <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] rounded-full w-5 h-5 flex items-center justify-center font-bold">
+              0
+            </span>
+          </button>
+          <button className="flex flex-col items-center text-gray-500 hover:text-green-400 transition">
+            <Info size={26} />
+            <span className="text-xs mt-1">Infos</span>
+          </button>
+          <button className="flex flex-col items-center text-gray-500 hover:text-green-400 transition">
+            <MessageSquare size={26} />
+            <span className="text-xs mt-1">Contact</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+  );
+}
+
+export default App;
