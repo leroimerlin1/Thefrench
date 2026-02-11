@@ -320,16 +320,16 @@
           </div>
         </div>
 
-        <div class="card" data-key="120u">
+        <div class="card" data-key="90u">
           <div class="card-img">
             <video autoplay muted loop playsinline>
-              <source src="120u.mp4" type="video/mp4">
+              <source src="90u.mp4" type="video/mp4">
             </video>
             <div class="badge-star">★</div>
             <div class="badge-farm">KGF 🦊</div>
           </div>
           <div class="card-body">
-            <div class="card-title">🧊Frozen 120u</div>
+            <div class="card-title">🧊Frozen 90u</div>
             <div class="card-info">ZUNZET GUSHER 🍣 • ZUAPANGA</div>
           </div>
         </div>
@@ -466,12 +466,12 @@
         { qty: '10g', price: '270 €' }
       ]
     },
-    '120u': {
-      key: '120u',
-      title: '🧊Frozen 120u',
+    '90u': {
+      key: '90u',
+      title: '🧊Frozen 90u',
       subtitle: 'KGF🦊',
       strains: ['🦊 ZUNZET GUSHER 🍣', '🦊 ZUAPANGA'],
-      video: '120u.mp4',
+      video: '90u.mp4',
       info: 'KGF 🦊 – Zunzet Gusher & Zuapanga',
       quantities: [
         { qty: '5g',   price: '60 €' },
@@ -593,7 +593,7 @@
     const selected = document.querySelector('.qty-btn.selected');
     if (!selected) return alert('Sélectionnez une quantité !');
 
-    const key = document.getElementById('detail-title').textContent.includes('Frozen sift') ? 'cali' : '120u';
+    const key = document.getElementById('detail-title').textContent.includes('Frozen sift') ? 'cali' : '90u';
     const p = products[key];
     const idx = selected.dataset.index;
     const item = p.quantities[idx];
