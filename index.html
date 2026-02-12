@@ -2,120 +2,114 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>leroimerlin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>LEROIMERLIN</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0f0f0f;
-      color: #ffffff;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%);
+      color: #eee;
       min-height: 100vh;
-      padding-bottom: 80px; /* espace pour la barre du bas */
+      padding-bottom: 90px;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255,100,0,0.04) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(150,0,255,0.04) 0%, transparent 25%);
     }
 
     .header {
       text-align: center;
-      padding: 20px 16px 12px;
-      background: linear-gradient(to bottom, #1a1a1a, #0f0f0f);
+      padding: 28px 16px 16px;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
       border-bottom: 1px solid #222;
     }
 
     .title {
-      font-size: 2.2rem;
+      font-size: 3rem;
       font-weight: 900;
-      letter-spacing: 4px;
-      background: linear-gradient(90deg, #ffcc00, #ff6600, #cc00ff);
+      letter-spacing: 8px;
+      background: linear-gradient(90deg, #ffdd00, #ff5500, #cc00ff);
+      background-size: 300%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 20px rgba(255, 100, 0, 0.6);
+      animation: glow 6s ease infinite;
+      text-shadow: 0 0 40px rgba(255,100,0,0.8);
+    }
+
+    @keyframes glow {
+      0%,100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      padding: 16px;
+      gap: 20px;
+      padding: 20px 16px;
     }
 
     .card {
       position: relative;
-      background: #1a1a1a;
-      border-radius: 16px;
+      background: #141414;
+      border-radius: 20px;
       overflow: hidden;
-      border: 1px solid #333;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      border: 1px solid #2a2a2a;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+      transition: all 0.2s ease;
+      cursor: pointer;
     }
 
-    .card:active {
+    .card:hover, .card:active {
       transform: scale(0.97);
-      box-shadow: 0 0 0 3px #ffcc0066;
+      box-shadow: 0 0 0 4px #ffcc00aa;
     }
 
     .card img {
       width: 100%;
       height: 220px;
       object-fit: cover;
-      display: block;
     }
 
     .badge {
       position: absolute;
       top: 12px;
       right: 12px;
-      padding: 6px 10px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      font-weight: 800;
       text-transform: uppercase;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      box-shadow: 0 3px 12px rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .badge-usa {
-      background: #0066cc;
-      color: white;
-    }
+    .badge-usa { background: #0055aa; color: white; }
+    .badge-es  { background: #c8102e; color: gold; }
+    .badge-premium { background: linear-gradient(45deg, gold, #ffaa00); color: black; }
+    .badge-hot { background: #ff2200; color: white; font-weight: 900; }
 
-    .badge-es {
-      background: #cc0000;
-      color: white;
-    }
-
-    .badge-premium {
-      background: linear-gradient(45deg, #ffd700, #ffaa00);
-      color: #000;
-    }
-
-    .badge-hot {
-      background: #ff3300;
-      color: white;
-      font-weight: 900;
-    }
-
-    .info {
-      padding: 12px 10px;
+    .product-name {
+      padding: 14px 10px;
       text-align: center;
-      font-size: 1.05rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      background: #111;
+      border-top: 1px solid #222;
     }
 
     .bottom-bar {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 70px;
-      background: #111;
+      bottom: 0; left: 0; right: 0;
+      height: 80px;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(12px);
       border-top: 1px solid #222;
       display: flex;
       justify-content: space-around;
@@ -123,112 +117,108 @@
       z-index: 100;
     }
 
-    .bar-item {
+    .bar-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: #aaa;
-      font-size: 0.75rem;
-      gap: 4px;
-      cursor: pointer;
-      transition: color 0.2s;
+      color: #888;
+      font-size: 0.8rem;
+      font-weight: 600;
+      gap: 6px;
     }
 
-    .bar-item.active {
-      color: #ffcc00;
-    }
-
-    .bar-item svg {
-      width: 26px;
-      height: 26px;
-      fill: currentColor;
-    }
-
-    /* Pour adapter au thème Telegram automatiquement */
-    :root {
-      --bg-color: #0f0f0f;
-      --card-bg: #1a1a1a;
-      --text: #ffffff;
-      --accent: #ffcc00;
-    }
-
-    body {
-      background: var(--bg-color);
-      color: var(--text);
-    }
+    .bar-btn.active { color: #ffdd00; }
+    .bar-btn svg { width: 30px; height: 30px; fill: currentColor; }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <h1 class="title">Leroimerlin</h1>
+    <h1 class="title">LEROIMERLIN</h1>
   </div>
 
   <div class="grid">
 
-    <div class="card">
-      <div class="badge badge-usa badge-premium">Cali USA Premium</div>
-      <img src="https://via.placeholder.com/400x500/222/aaa?text=OG+ZELATO" alt="OG Zelato">
-      <div class="info">OG ZELATO</div>
+    <div class="card" data-product='{"name":"OG ZELATO", "origin":"🇺🇸 Cali USA Premium", "desc":"Saveur fruitée intense, gelato x OG Kush, très résineux", "price":"45€/g"}'>
+      <div class="badge badge-usa badge-premium">🇺🇸 O6Zelato</div>
+      <img src="https://via.placeholder.com/500x550/222/444?text=OG+ZELATO" alt="OG Zelato">
+      <div class="product-name">OG ZELATO</div>
     </div>
 
-    <div class="card">
-      <div class="badge badge-es badge-premium">Cali Spain Premium</div>
-      <img src="https://via.placeholder.com/400x500/222/aaa?text=King+Louis" alt="King Louis">
-      <div class="info">KING LOUIS</div>
+    <div class="card" data-product='{"name":"KING LOUIS", "origin":"🇪🇸 King Louis 👑", "desc":"Puissant indica, saveur diesel & pin, Cali x Spain", "price":"50€/g"}'>
+      <div class="badge badge-es badge-premium">🇪🇸 King Louis 👑</div>
+      <img src="https://via.placeholder.com/500x550/222/444?text=King+Louis" alt="King Louis">
+      <div class="product-name">KING LOUIS</div>
     </div>
 
-    <div class="card">
-      <div class="badge badge-usa badge-hot">!!</div>
-      <img src="https://via.placeholder.com/400x500/222/aaa?text=FORBIDDEN" alt="Forbidden">
-      <div class="info">FORBIDDEN</div>
+    <div class="card" data-product='{"name":"FORBIDDEN", "origin":"🇺🇸 FORBI !!", "desc":"Variété rare, effet coup de massue, très demandé", "price":"60€/g"}'>
+      <div class="badge badge-usa badge-hot">🇺🇸 FORBI !!</div>
+      <img src="https://via.placeholder.com/500x550/222/444?text=FORBIDDEN" alt="Forbidden">
+      <div class="product-name">FORBIDDEN</div>
     </div>
 
-    <div class="card">
-      <div class="badge badge-es">Cali Spain</div>
-      <img src="https://via.placeholder.com/400x500/222/aaa?text=Purple+Candy" alt="Purple Candy">
-      <div class="info">PURPLE CANDY</div>
+    <div class="card" data-product='{"name":"PURPLE CANDY", "origin":"🇪🇸 PurPle Candy", "desc":"Couleurs violettes, goût sucré bonbon, relax total", "price":"48€/g"}'>
+      <div class="badge badge-es">🇪🇸 PurPle Candy</div>
+      <img src="https://via.placeholder.com/500x550/222/444?text=Purple+Candy" alt="Purple Candy">
+      <div class="product-name">PURPLE CANDY</div>
     </div>
-
-    <!-- Ajoute ici autant de cards que tu veux -->
 
   </div>
 
   <div class="bottom-bar">
-    <div class="bar-item active">
+    <div class="bar-btn active">
       <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
       <span>Menu</span>
     </div>
-    <div class="bar-item">
+    <div class="bar-btn">
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
       <span>Info</span>
     </div>
-    <div class="bar-item">
-      <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71.5-3.39 1.41-4.8L2 5.27 5.27 2l2.49 2.26C9.12 3.5 10.53 3 12 3c1.71 0 3.39.5 4.8 1.41L19 2l2.73 3.27-3.31 2.93C19.5 8.61 20 10.29 20 12c0 1.71-.5 3.39-1.41 4.8L22 19l-2.73 2.73-2.93-3.31C15.39 19.5 13.71 20 12 20c-1.71 0-3.39-.5-4.8-1.41L5 22l-2.73-2.73 3.31-2.93C3.5 15.39 3 13.71 3 12z"/></svg>
+    <div class="bar-btn">
+      <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
       <span>Liens</span>
     </div>
   </div>
 
   <script>
-    // Initialise Telegram Web App
     const tg = window.Telegram.WebApp;
     tg.ready();
-    tg.expand(); // plein écran
+    tg.expand();
 
-    // Adapter le thème Telegram automatiquement (dark/light)
-    if (tg.themeParams) {
-      document.documentElement.style.setProperty('--bg-color', tg.themeParams.bg_color || '#0f0f0f');
-      document.documentElement.style.setProperty('--card-bg', tg.themeParams.secondary_bg_color || '#1a1a1a');
-      document.documentElement.style.setProperty('--text', tg.themeParams.text_color || '#ffffff');
-      document.documentElement.style.setProperty('--accent', tg.themeParams.button_color || '#ffcc00');
+    // Adaptation thème Telegram (optionnel)
+    if (tg.themeParams?.bg_color) {
+      document.body.style.background = tg.themeParams.bg_color;
     }
 
-    // Optionnel : bouton principal Telegram (MainButton) pour "Commander" ou autre
-    tg.MainButton.setText("Voir le panier");
+    // Gestion clic sur produit → popup
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', () => {
+        const data = JSON.parse(card.getAttribute('data-product') || '{}');
+        if (!data.name) return;
+
+        tg.showPopup({
+          title: data.name,
+          message: `${data.origin}\n\n${data.desc}\n\nPrix: ${data.price}\n\nQue veux-tu faire ?`,
+          buttons: [
+            { id: 'add', type: 'default', text: 'Ajouter au panier' },
+            { type: 'cancel' }
+          ]
+        }, (buttonId) => {
+          if (buttonId === 'add') {
+            tg.showAlert(`✅ ${data.name} ajouté au panier !`);
+            // Plus tard : ici tu peux updater un vrai panier avec localStorage ou tg.sendData()
+          }
+        });
+      });
+    });
+
+    // Bouton principal (panier global)
+    tg.MainButton.setText("PANIER • 0");
+    tg.MainButton.color = "#ffdd00";
+    tg.MainButton.textColor = "#000";
     tg.MainButton.show();
     tg.MainButton.onClick(() => {
-      alert("Panier pas encore implémenté !");
-      // Plus tard : tg.sendData(JSON.stringify(cart)) pour envoyer au bot
+      tg.showAlert("Panier vide pour l'instant ! Ajoute des produits en cliquant dessus.");
     });
   </script>
 
