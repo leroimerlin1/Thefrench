@@ -37,16 +37,11 @@
     .chip {
       transition: all 0.3s ease;
     }
-    .chip:hover {
-      background-color: #39ff14;
-      color: black;
-      transform: scale(1.05);
-    }
   </style>
 </head>
 <body class="min-h-screen pb-20">
 
-  <!-- HEADER (inchangé) -->
+  <!-- HEADER -->
   <div class="bg-black border-b border-[#39ff14]/30 sticky top-0 z-50">
     <div class="flex items-center justify-between px-4 py-3">
       <button onclick="closeApp()" class="bg-zinc-900 hover:bg-zinc-800 px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1">
@@ -66,18 +61,17 @@
           <p class="font-bold text-xl">LeRoiMerlin</p>
         </div>
       </div>
-      <div class="bg-gradient-to-br from-[#39ff14] to-emerald-400 text-black font-bold text-3xl w-11 h-11 rounded-2xl flex items-center justify-center shadow-lg shadow-[#39ff14]/50">⭐</div>
+      <div class="bg-gradient-to-br from-[#39ff14] to-emerald-400 text-black font-bold text-3xl w-11 h-11 rounded-2xl flex items-center justify-center">⭐</div>
     </div>
   </div>
 
   <div class="px-4 pt-2">
-    <!-- Filtres actifs (Chips) -->
+    <!-- Filtres actifs -->
     <div id="active-filters" class="flex gap-2 mb-4 flex-wrap"></div>
 
-    <!-- Boutons Filtres 2.0 -->
+    <!-- Boutons filtres -->
     <div class="grid grid-cols-2 gap-3 mb-6">
-      <button onclick="showCategorySheet()" 
-              class="glass hover:border-[#39ff14] rounded-3xl p-5 flex items-center justify-between group">
+      <button onclick="showCategorySheet()" class="glass hover:border-[#39ff14] rounded-3xl p-5 flex items-center justify-between group">
         <div class="flex items-center gap-3">
           <i class="fa-solid fa-tags text-[#39ff14] text-2xl"></i>
           <div>
@@ -85,11 +79,10 @@
             <p id="selected-cat-text" class="text-xs text-gray-400">Toutes</p>
           </div>
         </div>
-        <i class="fa-solid fa-chevron-down text-[#39ff14] group-active:rotate-180 transition-transform"></i>
+        <i class="fa-solid fa-chevron-down text-[#39ff14]"></i>
       </button>
 
-      <button onclick="showFarmSheet()" 
-              class="glass hover:border-[#39ff14] rounded-3xl p-5 flex items-center justify-between group">
+      <button onclick="showFarmSheet()" class="glass hover:border-[#39ff14] rounded-3xl p-5 flex items-center justify-between group">
         <div class="flex items-center gap-3">
           <i class="fa-solid fa-leaf text-[#39ff14] text-2xl"></i>
           <div>
@@ -97,12 +90,11 @@
             <p id="selected-farm-text" class="text-xs text-gray-400">Toutes</p>
           </div>
         </div>
-        <i class="fa-solid fa-chevron-down text-[#39ff14] group-active:rotate-180 transition-transform"></i>
+        <i class="fa-solid fa-chevron-down text-[#39ff14]"></i>
       </button>
     </div>
 
-    <!-- Products -->
-    <div class="flex items-center justify-between mb-4">
+    <div class="flex justify-between items-center mb-4">
       <span class="text-lg font-bold">Produits</span>
       <span id="product-count" class="text-[#39ff14] font-medium">67 produits</span>
     </div>
@@ -116,69 +108,73 @@
       <a href="#" class="flex flex-col items-center text-[#39ff14]"><i class="fa-solid fa-house text-2xl"></i><span class="text-xs">Accueil</span></a>
       <a href="#" class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-star text-2xl"></i><span class="text-xs">Avis</span></a>
       <a href="#" onclick="showCart()" class="flex flex-col items-center -mt-8">
-        <div class="bg-[#39ff14] text-black w-16 h-16 rounded-3xl flex items-center justify-center shadow-2xl shadow-[#39ff14]/60"><i class="fa-solid fa-cart-shopping text-3xl"></i></div>
+        <div class="bg-[#39ff14] text-black w-16 h-16 rounded-3xl flex items-center justify-center shadow-2xl"><i class="fa-solid fa-cart-shopping text-3xl"></i></div>
       </a>
       <a href="#" class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-circle-info text-2xl"></i><span class="text-xs">Infos</span></a>
       <a href="#" class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-envelope text-2xl"></i><span class="text-xs">Contact</span></a>
     </div>
   </div>
 
-  <!-- CATEGORY BOTTOM SHEET -->
-  <div id="category-sheet" class="hidden fixed inset-0 z-[100] bg-black/70 flex items-end">
-    <div class="glass bottom-sheet w-full rounded-t-3xl max-h-[70vh] overflow-hidden">
+  <!-- CATEGORY SHEET -->
+  <div id="category-sheet" class="hidden fixed inset-0 z-[100] bg-black/80 flex items-end">
+    <div class="glass bottom-sheet w-full rounded-t-3xl max-h-[75vh]">
       <div class="p-4 border-b border-white/10">
         <div class="w-12 h-1.5 bg-white/30 mx-auto rounded-full mb-4"></div>
-        <h2 class="text-center text-xl font-bold">Catégories</h2>
+        <h2 class="text-center text-xl font-bold">Catégories <span class="text-[#39ff14] text-sm">(Multi)</span></h2>
       </div>
       <div class="p-4 space-y-2 max-h-[55vh] overflow-auto" id="category-list"></div>
-      <div class="p-4 border-t border-white/10">
-        <button onclick="closeSheets()" class="w-full py-4 bg-zinc-800 hover:bg-zinc-700 rounded-2xl font-medium">Fermer</button>
+      <div class="p-4 border-t border-white/10 flex gap-3">
+        <button onclick="closeSheets()" class="flex-1 py-4 bg-zinc-800 rounded-2xl">Fermer</button>
+        <button onclick="applyFilters()" class="flex-1 py-4 bg-[#39ff14] text-black font-bold rounded-2xl">Appliquer</button>
       </div>
     </div>
   </div>
 
-  <!-- FARM BOTTOM SHEET -->
-  <div id="farm-sheet" class="hidden fixed inset-0 z-[100] bg-black/70 flex items-end">
-    <div class="glass bottom-sheet w-full rounded-t-3xl max-h-[70vh] overflow-hidden">
+  <!-- FARM SHEET -->
+  <div id="farm-sheet" class="hidden fixed inset-0 z-[100] bg-black/80 flex items-end">
+    <div class="glass bottom-sheet w-full rounded-t-3xl max-h-[75vh]">
       <div class="p-4 border-b border-white/10">
         <div class="w-12 h-1.5 bg-white/30 mx-auto rounded-full mb-4"></div>
-        <h2 class="text-center text-xl font-bold">Farms</h2>
+        <h2 class="text-center text-xl font-bold">Farms <span class="text-[#39ff14] text-sm">(Multi)</span></h2>
       </div>
       <div class="p-4 space-y-2 max-h-[55vh] overflow-auto" id="farm-list"></div>
-      <div class="p-4 border-t border-white/10">
-        <button onclick="closeSheets()" class="w-full py-4 bg-zinc-800 hover:bg-zinc-700 rounded-2xl font-medium">Fermer</button>
+      <div class="p-4 border-t border-white/10 flex gap-3">
+        <button onclick="closeSheets()" class="flex-1 py-4 bg-zinc-800 rounded-2xl">Fermer</button>
+        <button onclick="applyFilters()" class="flex-1 py-4 bg-[#39ff14] text-black font-bold rounded-2xl">Appliquer</button>
       </div>
     </div>
   </div>
 
   <script>
     const products = [
-      { id: 1, name: "Fruity Runtz", category: "Fleurs", farm: "Unbranded", tag: "Dry TOP", img: "https://picsum.photos/id/1015/400/300" },
-      { id: 2, name: "Cake Fruit", category: "Fleurs", farm: "Darks Farm", tag: "90u Premium", img: "https://picsum.photos/id/201/400/300" },
+      { id: 1, name: "Fruity Runtz", category: "Fleurs", farm: "Unbranded", img: "https://picsum.photos/id/1015/400/300" },
+      { id: 2, name: "Cake Fruit", category: "Fleurs", farm: "Darks Farm", img: "https://picsum.photos/id/201/400/300" },
       { id: 3, name: "House of Hash", category: "Hash", farm: "House of Hash", img: "https://picsum.photos/id/301/400/300" },
-      { id: 4, name: "Gold Crown", category: "Hash", farm: "Gold Crown", tag: "Premium", img: "https://picsum.photos/id/401/400/300" },
+      { id: 4, name: "Gold Crown", category: "Hash", farm: "Gold Crown", img: "https://picsum.photos/id/401/400/300" },
       { id: 5, name: "Blueberry Kush", category: "Fleurs", farm: "Darks Farm", img: "https://picsum.photos/id/106/400/300" },
       { id: 6, name: "Live Rosin", category: "Concentrés", farm: "Unbranded", img: "https://picsum.photos/id/180/400/300" },
       { id: 7, name: "Gelato 41", category: "Fleurs", farm: "Darks Farm", img: "https://picsum.photos/id/251/400/300" },
+      { id: 8, name: "Moroccan Hash", category: "Hash", farm: "House of Hash", img: "https://picsum.photos/id/866/400/300" },
     ];
 
-    let selectedCategory = null;
-    let selectedFarm = null;
+    let selectedCategories = [];
+    let selectedFarms = [];
 
     function renderProducts() {
       const grid = document.getElementById('products-grid');
       grid.innerHTML = '';
 
-      const filtered = products.filter(p => 
-        (!selectedCategory || p.category === selectedCategory) &&
-        (!selectedFarm || p.farm === selectedFarm)
-      );
+      const filtered = products.filter(p => {
+        const catMatch = selectedCategories.length === 0 || selectedCategories.includes(p.category);
+        const farmMatch = selectedFarms.length === 0 || selectedFarms.includes(p.farm);
+        return catMatch && farmMatch;
+      });
 
       document.getElementById('product-count').textContent = `${filtered.length} produits`;
 
       filtered.forEach(p => {
         const div = document.createElement('div');
-        div.className = "product-card bg-zinc-950 border border-zinc-800 rounded-3xl overflow-hidden";
+        div.className = "bg-zinc-950 border border-zinc-800 rounded-3xl overflow-hidden";
         div.innerHTML = `
           <img src="${p.img}" class="w-full h-40 object-cover">
           <div class="p-4">
@@ -194,85 +190,82 @@
       const container = document.getElementById('active-filters');
       container.innerHTML = '';
 
-      if (selectedCategory) {
+      // Catégories
+      selectedCategories.forEach(cat => {
         const chip = document.createElement('div');
-        chip.className = "chip bg-[#39ff14] text-black text-sm px-4 py-1.5 rounded-2xl flex items-center gap-2 cursor-pointer";
-        chip.innerHTML = `${selectedCategory} <i onclick="event.stopImmediatePropagation(); clearCategory()" class="fa-solid fa-xmark"></i>`;
-        chip.onclick = () => clearCategory();
+        chip.className = "chip bg-[#39ff14] text-black px-4 py-2 rounded-2xl flex items-center gap-2 text-sm cursor-pointer";
+        chip.innerHTML = `${cat} <i class="fa-solid fa-xmark" onclick="event.stopImmediatePropagation(); removeCategory('${cat}')"></i>`;
         container.appendChild(chip);
-      }
+      });
 
-      if (selectedFarm) {
+      // Farms
+      selectedFarms.forEach(farm => {
         const chip = document.createElement('div');
-        chip.className = "chip bg-[#39ff14] text-black text-sm px-4 py-1.5 rounded-2xl flex items-center gap-2 cursor-pointer";
-        chip.innerHTML = `${selectedFarm} <i onclick="event.stopImmediatePropagation(); clearFarm()" class="fa-solid fa-xmark"></i>`;
-        chip.onclick = () => clearFarm();
+        chip.className = "chip bg-[#39ff14] text-black px-4 py-2 rounded-2xl flex items-center gap-2 text-sm cursor-pointer";
+        chip.innerHTML = `${farm} <i class="fa-solid fa-xmark" onclick="event.stopImmediatePropagation(); removeFarm('${farm}')"></i>`;
         container.appendChild(chip);
-      }
+      });
     }
 
     function showCategorySheet() {
       const categories = ["Fleurs", "Hash", "Concentrés"];
       const list = document.getElementById('category-list');
-      list.innerHTML = `
-        <div onclick="selectCategory(null)" class="p-4 rounded-2xl hover:bg-white/10 flex justify-between items-center ${!selectedCategory ? 'bg-white/10' : ''}">
-          <span>Toutes les catégories</span>
-          ${!selectedCategory ? '<i class="fa-solid fa-check text-[#39ff14]"></i>' : ''}
+      list.innerHTML = categories.map(cat => `
+        <div onclick="toggleCategory('${cat}')" class="p-4 rounded-2xl hover:bg-white/10 flex justify-between items-center ${selectedCategories.includes(cat) ? 'bg-white/10' : ''}">
+          <span>${cat}</span>
+          ${selectedCategories.includes(cat) ? '<i class="fa-solid fa-check text-[#39ff14]"></i>' : ''}
         </div>
-        ${categories.map(cat => `
-          <div onclick="selectCategory('${cat}')" class="p-4 rounded-2xl hover:bg-white/10 flex justify-between items-center ${selectedCategory === cat ? 'bg-white/10' : ''}">
-            <span>${cat}</span>
-            ${selectedCategory === cat ? '<i class="fa-solid fa-check text-[#39ff14]"></i>' : ''}
-          </div>
-        `).join('')}
-      `;
+      `).join('');
       document.getElementById('category-sheet').classList.remove('hidden');
     }
 
     function showFarmSheet() {
       const farms = ["Darks Farm", "House of Hash", "Unbranded", "Gold Crown"];
       const list = document.getElementById('farm-list');
-      list.innerHTML = `
-        <div onclick="selectFarm(null)" class="p-4 rounded-2xl hover:bg-white/10 flex justify-between items-center ${!selectedFarm ? 'bg-white/10' : ''}">
-          <span>Toutes les farms</span>
-          ${!selectedFarm ? '<i class="fa-solid fa-check text-[#39ff14]"></i>' : ''}
+      list.innerHTML = farms.map(farm => `
+        <div onclick="toggleFarm('${farm}')" class="p-4 rounded-2xl hover:bg-white/10 flex justify-between items-center ${selectedFarms.includes(farm) ? 'bg-white/10' : ''}">
+          <span>${farm}</span>
+          ${selectedFarms.includes(farm) ? '<i class="fa-solid fa-check text-[#39ff14]"></i>' : ''}
         </div>
-        ${farms.map(farm => `
-          <div onclick="selectFarm('${farm}')" class="p-4 rounded-2xl hover:bg-white/10 flex justify-between items-center ${selectedFarm === farm ? 'bg-white/10' : ''}">
-            <span>${farm}</span>
-            ${selectedFarm === farm ? '<i class="fa-solid fa-check text-[#39ff14]"></i>' : ''}
-          </div>
-        `).join('')}
-      `;
+      `).join('');
       document.getElementById('farm-sheet').classList.remove('hidden');
     }
 
-    function selectCategory(cat) {
-      selectedCategory = cat;
-      document.getElementById('selected-cat-text').textContent = cat || "Toutes";
+    function toggleCategory(cat) {
+      if (selectedCategories.includes(cat)) {
+        selectedCategories = selectedCategories.filter(c => c !== cat);
+      } else {
+        selectedCategories.push(cat);
+      }
+      // Mise à jour visuelle immédiate
+      showCategorySheet(); // refresh
+    }
+
+    function toggleFarm(farm) {
+      if (selectedFarms.includes(farm)) {
+        selectedFarms = selectedFarms.filter(f => f !== farm);
+      } else {
+        selectedFarms.push(farm);
+      }
+      showFarmSheet(); // refresh
+    }
+
+    function removeCategory(cat) {
+      selectedCategories = selectedCategories.filter(c => c !== cat);
+      updateActiveFilters();
+      renderProducts();
+    }
+
+    function removeFarm(farm) {
+      selectedFarms = selectedFarms.filter(f => f !== farm);
+      updateActiveFilters();
+      renderProducts();
+    }
+
+    function applyFilters() {
+      document.getElementById('selected-cat-text').textContent = selectedCategories.length ? selectedCategories.join(", ") : "Toutes";
+      document.getElementById('selected-farm-text').textContent = selectedFarms.length ? selectedFarms.join(", ") : "Toutes";
       closeSheets();
-      updateActiveFilters();
-      renderProducts();
-    }
-
-    function selectFarm(farm) {
-      selectedFarm = farm;
-      document.getElementById('selected-farm-text').textContent = farm || "Toutes";
-      closeSheets();
-      updateActiveFilters();
-      renderProducts();
-    }
-
-    function clearCategory() {
-      selectedCategory = null;
-      document.getElementById('selected-cat-text').textContent = "Toutes";
-      updateActiveFilters();
-      renderProducts();
-    }
-
-    function clearFarm() {
-      selectedFarm = null;
-      document.getElementById('selected-farm-text').textContent = "Toutes";
       updateActiveFilters();
       renderProducts();
     }
@@ -288,9 +281,10 @@
     }
 
     function showCart() {
-      alert("🛒 Panier (à venir dans la v3.0)");
+      alert("🛒 Panier bientôt disponible");
     }
 
+    // Initialisation
     window.onload = () => {
       renderProducts();
       updateActiveFilters();
