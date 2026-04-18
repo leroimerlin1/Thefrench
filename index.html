@@ -1,976 +1,259 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>DINO TERPS 76</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>BROLY 69 BOT</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap');
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --neon-green: #39ff14;
     }
 
     body {
-      font-family: 'M PLUS Rounded 1c', Orbitron, sans-serif;
-      background: #0f1117;
-      color: #e2e8f0;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    .container {
-      position: relative;
-      min-height: 100vh;
-      background: url('dino.jpg') center/cover no-repeat fixed;
-    }
-
-    .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.88);
-      backdrop-filter: blur(3px);
-      z-index: 1;
-    }
-
-    .content {
-      position: relative;
-      z-index: 2;
-      min-height: 100vh;
-      padding-bottom: 220px;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      background: rgba(15, 23, 42, 0.94);
-      backdrop-filter: blur(14px);
-      padding: 12px 16px;
-      border-bottom: 1px solid rgba(59, 130, 246, 0.3);
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .header-inner {
-      display: flex;
-      align-items: center;
-      max-width: 420px;
-      width: 100%;
-    }
-
-    .header-logo {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-right: 14px;
-      border: 3px solid #60a5fa;
-      box-shadow: 0 0 16px rgba(96, 165, 250, 0.45);
-    }
-
-    .header-title {
-      font-size: 1.55rem;
-      font-weight: 900;
-      letter-spacing: 2px;
-      color: #60a5fa;
-      text-shadow: 0 0 12px rgba(96, 165, 250, 0.6);
-    }
-
-    .back-btn {
-      position: absolute;
-      left: 16px;
-      background: rgba(59, 130, 246, 0.18);
-      color: #60a5fa;
-      border: 1px solid #60a5fa;
-      padding: 8px 14px;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .welcome {
-      padding: 20px 16px;
-      background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.6));
-      border-bottom: 1px solid rgba(59, 130, 246, 0.25);
-    }
-
-    .welcome-inner {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .welcome-emoji {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: rgba(59, 130, 246, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.4rem;
-      box-shadow: 0 0 16px rgba(96, 165, 250, 0.35);
-    }
-
-    #products-grid {
-      padding: 16px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 16px;
-    }
-
-    .card {
-      background: rgba(15, 23, 42, 0.78);
-      border: 1px solid rgba(59, 130, 246, 0.28);
-      border-radius: 14px;
-      overflow: hidden;
-      backdrop-filter: blur(8px);
-      transition: all 0.25s;
-      cursor: pointer;
-    }
-
-    .card:hover {
-      transform: scale(1.03);
-      border-color: #60a5fa;
-      box-shadow: 0 0 20px rgba(96, 165, 250, 0.35);
-    }
-
-    .card-img {
-      height: 240px;
-      position: relative;
-      background: #000;
-    }
-
-    .card-img video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .badge-star {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: #60a5fa;
-      color: #0f172a;
-      font-size: 0.8rem;
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-weight: bold;
-    }
-
-    .card-body {
-      padding: 12px;
-    }
-
-    .card-title {
-      font-size: 1.15rem;
-      color: #f1f5f9;
-      margin-bottom: 4px;
-      font-weight: 700;
-    }
-
-    .card-farm {
-      font-size: 0.95rem;
-      color: #94a3b8;
-      margin-bottom: 8px;
-    }
-
-    .card-info {
-      font-size: 0.9rem;
-      color: #cbd5e1;
-    }
-
-    #product-detail {
-      display: none;
-      padding-bottom: 160px;
-    }
-
-    .product-hero {
-      height: 340px;
-      background: #000;
-      position: relative;
-    }
-
-    .product-hero video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .product-title {
-      padding: 16px;
-      font-size: 2.1rem;
-      font-weight: 900;
-      color: #60a5fa;
-      text-shadow: 0 0 12px rgba(96, 165, 250, 0.6);
-    }
-
-    .product-farm {
-      padding: 0 16px 12px;
-      font-size: 1.15rem;
-      color: #94a3b8;
-    }
-
-    .badges {
-      padding: 0 16px 16px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .badge {
-      padding: 8px 16px;
-      border-radius: 999px;
-      font-size: 0.95rem;
-      font-weight: bold;
-    }
-
-    .badge-strain {
-      background: rgba(59, 130, 246, 0.22);
-      color: #60a5fa;
-      border: 1px solid #60a5fa;
-    }
-
-    .strain-section {
-      padding: 0 16px 24px;
-      color: #cbd5e1;
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
-
-    .quantity-section {
-      padding: 16px;
-      background: rgba(15, 23, 42, 0.7);
-      margin: 12px 16px;
-      border-radius: 16px;
-      border: 1px solid rgba(59, 130, 246, 0.35);
-    }
-
-    .quantity-title {
-      font-size: 1.25rem;
-      color: #60a5fa;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .quantity-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-
-    .qty-btn {
-      background: rgba(59, 130, 246, 0.18);
-      border: 1px solid #60a5fa;
-      color: #e2e8f0;
-      padding: 16px 10px;
-      border-radius: 14px;
-      text-align: center;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.25s;
-    }
-
-    .qty-btn:hover,
-    .qty-btn.selected {
-      background: #60a5fa;
-      color: #0f172a;
-    }
-
-    .add-to-cart {
-      margin: 16px;
-      background: #60a5fa;
-      color: #0f172a;
-      border: none;
-      padding: 18px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      cursor: pointer;
-      box-shadow: 0 0 16px rgba(96, 165, 250, 0.5);
-    }
-
-    /* Panier */
-    #cart-page {
-      padding: 16px;
-    }
-
-    .cart-item {
-      background: rgba(15, 23, 42, 0.82);
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .delete-btn {
-      background: #ef4444;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #0a0a0a;
       color: white;
-      border: none;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      font-weight: bold;
-      cursor: pointer;
     }
 
-    .cart-total {
-      text-align: center;
-      font-size: 1.3rem;
-      color: #60a5fa;
-      margin: 20px 0;
+    .neon-text {
+      text-shadow: 0 0 10px var(--neon-green),
+                   0 0 20px var(--neon-green);
     }
 
-    .questionnaire {
-      background: rgba(15, 23, 42, 0.78);
-      border: 1px solid #60a5fa;
-      border-radius: 14px;
-      padding: 20px;
-      margin-top: 24px;
+    .product-card {
+      transition: all 0.3s ease;
     }
 
-    .question {
-      margin-bottom: 20px;
+    .product-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
     }
 
-    .question-label {
-      display: block;
-      font-size: 1.1rem;
-      color: #94a3b8;
-      margin-bottom: 10px;
-      font-weight: 500;
+    .header-bg {
+      background: linear-gradient(180deg, #111827 0%, #000000 100%);
     }
 
-    .option-btn {
-      width: 100%;
-      padding: 14px;
-      margin: 6px 0;
-      background: rgba(59, 130, 246, 0.18);
-      border: 1px solid #60a5fa;
-      color: #e2e8f0;
-      border-radius: 12px;
-      font-size: 1.05rem;
-      cursor: pointer;
-    }
-
-    .option-btn.active {
-      background: #60a5fa;
-      color: #0f172a;
-      font-weight: bold;
-    }
-
-    input[type="time"],
-    input[type="text"],
-    textarea {
-      width: 100%;
-      padding: 14px;
-      border-radius: 10px;
-      border: 1px solid #60a5fa;
-      background: rgba(30, 41, 59, 0.8);
-      color: #f1f5f9;
-      font-size: 1.05rem;
-    }
-
-    textarea {
-      min-height: 90px;
-      resize: vertical;
-    }
-
-    #submit-order-btn {
-      width: 100%;
-      padding: 18px;
-      background: #10b981;
-      color: white;
-      border: none;
-      border-radius: 14px;
-      font-size: 1.25rem;
-      font-weight: bold;
-      margin-top: 24px;
-      cursor: pointer;
-      box-shadow: 0 0 16px rgba(16, 185, 129, 0.5);
-    }
-
-    /* Infos & Réseaux */
-    #infos-page,
-    #reseaux-page {
-      display: none;
-      padding: 16px;
-      padding-bottom: 200px;
-      font-size: 1.05rem;
-      line-height: 1.6;
-    }
-
-    .section-title {
-      font-size: 1.45rem;
-      color: #60a5fa;
-      margin: 28px 0 12px;
-      font-weight: bold;
-    }
-
-    .depts {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 12px 0;
-    }
-
-    .dept {
-      background: #60a5fa;
-      color: #0f172a;
-      padding: 8px 14px;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 0.95rem;
-    }
-
-    ul {
-      padding-left: 24px;
-      margin: 12px 0;
-    }
-
-    .reseaux-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .reseau-item {
-      background: rgba(59, 130, 246, 0.15);
-      border: 1px solid #60a5fa;
-      border-radius: 14px;
-      padding: 20px 16px;
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: #cbd5e1;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .reseau-item:hover {
-      background: #60a5fa;
-      color: #0f172a;
-      transform: scale(1.02);
-    }
-
-    nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(15, 23, 42, 0.96);
-      backdrop-filter: blur(18px);
-      border-top: 1px solid rgba(59, 130, 246, 0.3);
-      padding: 10px 0;
-      display: flex;
-      justify-content: space-around;
-      z-index: 20;
-    }
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #94a3b8;
-      font-size: 0.78rem;
-      gap: 4px;
-      cursor: pointer;
-      flex: 1;
-      position: relative;
-    }
-
-    .nav-item.active {
-      color: #60a5fa;
-    }
-
-    #cart-badge {
-      position: absolute;
-      top: -6px;
-      right: 12px;
-      background: #ef4444;
-      color: white;
-      border-radius: 50%;
-      padding: 3px 7px;
-      font-size: 0.7rem;
-      min-width: 18px;
-      text-align: center;
-      display: none;
+    .star-badge {
+      background: linear-gradient(45deg, #39ff14, #00ff7f);
     }
   </style>
 </head>
-<body>
+<body class="min-h-screen pb-20">
 
-<div class="container">
-  <div class="overlay"></div>
-  <div class="content">
+  <!-- HEADER -->
+  <div class="header-bg border-b border-[#39ff14]/30 sticky top-0 z-50">
+    <div class="flex items-center justify-between px-4 py-3">
+      <button onclick="closeApp()" 
+              class="bg-zinc-900 hover:bg-zinc-800 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+        <i class="fa-solid fa-xmark"></i>
+        <span>Fermer</span>
+      </button>
 
-    <header>
-      <button class="back-btn" id="btn-back" style="display:none;">← Retour</button>
-      <div class="header-inner">
-        <img src="dino.jpg" alt="Dino Logo" class="header-logo">
-        <div class="header-title">DINO TERPS 76</div>
+      <div class="flex items-center gap-2">
+        <span class="text-2xl font-bold tracking-widest neon-text" style="font-family: 'Press Start 2P', sans-serif;">BROLY</span>
+        <span class="text-[#39ff14] text-3xl font-black">69</span>
       </div>
-    </header>
 
-    <!-- Page d'accueil -->
-    <div id="home-page">
-      <section class="welcome">
-        <div class="welcome-inner">
-          <div class="welcome-emoji">🍣</div>
-          <div>
-            <h2 id="welcome-name">Chargement...</h2>
-            <p>Bienvenue sur le shop premium</p>
-          </div>
+      <div class="flex items-center gap-3">
+        <div class="bg-zinc-900 text-xs px-3 py-1 rounded-full flex items-center gap-1">
+          <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+          <span>En ligne</span>
         </div>
-      </section>
-
-      <div id="products-grid"></div>
-    </div>
-
-    <!-- Page détail produit -->
-    <div id="product-detail">
-      <div class="product-hero">
-        <video id="detail-video" autoplay muted loop playsinline></video>
-      </div>
-      <div class="product-title" id="detail-title"></div>
-      <div class="product-farm" id="detail-farm"></div>
-      <div class="badges">
-        <div class="badge badge-strain" id="detail-strain"></div>
-      </div>
-      <div class="strain-section" id="detail-strain-desc"></div>
-      <div class="quantity-section">
-        <div class="quantity-title"><span>🛍️</span> Sélectionner la Quantité</div>
-        <div class="quantity-grid" id="qty-grid"></div>
-      </div>
-      <button class="add-to-cart" id="add-to-cart-btn"><span>🛒</span> Ajouter au Panier</button>
-    </div>
-
-    <!-- Page Panier -->
-    <div id="cart-page">
-      <h2 style="color:#60a5fa; text-align:center; margin:20px 0;">Votre Panier</h2>
-      <div id="cart-items"></div>
-      <div id="cart-total" class="cart-total"></div>
-
-      <div class="questionnaire" id="questionnaire">
-        <div class="question">
-          <span class="question-label">Mode de récupération :</span>
-          <button class="option-btn" data-type="pickup">Venir sur place</button>
-          <button class="option-btn" data-type="delivery">Livraison</button>
-        </div>
-
-        <div id="pickup-questions" style="display:none;">
-          <div class="question">
-            <span class="question-label">Pour quelle heure ?</span>
-            <input type="time" id="pickup-time">
-          </div>
-        </div>
-
-        <div id="delivery-questions" style="display:none;">
-          <div class="question">
-            <span class="question-label">Heure souhaitée</span>
-            <input type="time" id="delivery-time">
-          </div>
-          <div class="question">
-            <span class="question-label">Adresse complète</span>
-            <input type="text" id="delivery-address" placeholder="Rue, numéro, ville...">
-          </div>
-          <div class="question">
-            <span class="question-label">Précisions (étage, code, etc.)</span>
-            <textarea id="delivery-details" placeholder="Interphone, digicode, remarques..."></textarea>
-          </div>
-        </div>
-
-        <button id="submit-order-btn">Commander</button>
+        <button class="text-white">
+          <i class="fa-solid fa-ellipsis-vertical text-xl"></i>
+        </button>
       </div>
     </div>
 
-    <!-- Page Infos -->
-    <div id="infos-page">
-      <div class="section">
-        <div class="section-title">🚚 Livraison</div>
-        <p><strong>SALUT A TOUS LA TEAM !</strong></p>
-        <p>VOICI LES ZONE DE LIVRAISON 🚚 📦 : 76 / 27 / 14 / 60</p>
-        <p><strong>76 Centre et alentours :</strong></p>
-        <ul>
-          <li>10klm 50€</li>
-          <li>20klm 80€</li>
-          <li>30klm 120€</li>
-          <li>50klm 350€</li>
-          <li>100klm 420€</li>
-        </ul>
-        <p><strong>Payement en Espèce 💶 !</strong></p>
-      </div>
-
-      <div class="section">
-        <div class="section-title">🏠 SERVICE MEET-UP ✅</div>
-        <p>Vous pouvez passer directement sur place la famille, avant de passer venez en privé et précisez votre heure d’arrivée avec votre commande souhaitée au meet-up avec 🚶📦 @dino76s 🍣</p>
-        <p><strong>Payement en Espèce 💶 !</strong></p>
-        <p>Ouvert 12h - 23h</p>
-        <p><strong>SAV : 24h/24h 🕛</strong></p>
-      </div>
-    </div>
-
-    <!-- Page Réseaux -->
-    <div id="reseaux-page">
-      <h2 style="text-align:center; color:#60a5fa; margin:30px 0 40px; font-size:1.8rem;">Nos réseaux</h2>
-      <div class="reseaux-list">
-        <div class="reseau-item" data-link="https://www.instagram.com/dinoterps76?igsh=b3ZjMGo4dGMxc2tz&utm_source=qr">Instagram 📸</div>
-        <div class="reseau-item" data-link="https://duanym138.org/DINOfslmogx8">Potato 🥔</div>
-        <div class="reseau-item" data-link="https://t.me/+j7EMkLSIaV83ZmU8">Canal Telegram 📢</div>
-        <div class="reseau-item" data-link="https://snapchat.com/t/EZAiDCkN">Snapchat 👻</div>
-      </div>
-    </div>
-
-    <!-- Navigation -->
-    <nav>
-      <div class="nav-item active" id="nav-home">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-          <polyline points="9 22 9 12 15 12 15 22"></polyline>
-        </svg>
-        <span>Accueil</span>
-      </div>
-      <div class="nav-item" id="nav-cart">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="9" cy="21" r="1"/>
-          <circle cx="20" cy="21" r="1"/>
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-        </svg>
-        <span>Panier</span>
-        <span id="cart-badge"></span>
-      </div>
-      <div class="nav-item" id="nav-infos">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="12" y1="16" x2="12" y2="12"/>
-          <line x1="12" y1="8" x2="12.01" y2="8"/>
-        </svg>
-        <span>Infos</span>
-      </div>
-      <div class="nav-item" id="nav-reseaux">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-        </svg>
-        <span>Réseaux</span>
-      </div>
-    </nav>
-
-  </div>
-</div>
-
-<script>
-  const tg = window.Telegram.WebApp;
-  tg.ready();
-  tg.expand();
-  tg.disableVerticalSwipes();
-
-  const user = tg.initDataUnsafe?.user || {};
-  document.getElementById('welcome-name').textContent = user.first_name ? `Salut ${user.first_name} !` : 'Bienvenue !';
-
-  // Produits avec les fermes / producteurs demandés
-  const products = {
-    cali: {
-      key: 'cali',
-      title: '🇺🇸 Cali weed🌳',
-      farm: '', // pas de sous-titre pour Cali
-      strain: 'Runtz 🌈✅ Tropicana Strawberry 🌴🍓✅',
-      video: 'cali.mp4',
-      poster: 'cali-thumb.jpg',
-      quantities: [
-        { qty: '3G', price: '40 €' },
-        { qty: '5G', price: '60 €' },
-        { qty: '10G', price: '120 €' },
-        { qty: '20G', price: '230 €' },
-        { qty: '25G', price: '300 €' }
-      ]
-    },
-    gaz: {
-      key: 'gaz',
-      title: '⚡️ Dry 90u',
-      farm: 'Gaz fruit🧃',
-      strain: 'Papaya dolce 🥭 ✅\nMimi cheese 🧀 ✅',
-      video: 'gaz.mp4',
-      poster: 'gaz-thumb.jpg',
-      quantities: [
-        { qty: '10G', price: '130 €' },
-        { qty: '25G', price: '240 €' },
-        { qty: '50G', price: '450 €' }
-      ]
-    },
-    farm: {
-      key: 'farm',
-      title: '🥶 FRESH FROZEN SIFT',
-      farm: 'KINGZ FARMZ 🧑‍🌾',
-      strain: 'PERMANENT MAKER x GELATO 41 ⛽️ 🍦 ✅',
-      video: 'farm.mp4',
-      poster: 'farm-thumb.jpg',
-      quantities: [
-        { qty: '5G', price: '70 €' },
-        { qty: '10G', price: '140 €' },
-        { qty: '20G', price: '250 €' },
-        { qty: '25G', price: '300 €' }
-      ]
-    },
-    '120u': {
-      key: '120u',
-      title: 'Dry 120u⚡️',
-      farm: '🧑‍🌾 CALIMOUNTAIN',
-      strain: 'Candy Gaz 🍬✅ Glitter Bomb 💣✅ Apple Mintz 🍏✅',
-      video: '120u.mp4',
-      poster: '120u-thumb.jpg',
-      quantities: [
-        { qty: '5G', price: '70 €' },
-        { qty: '10G', price: '140 €' },
-        { qty: '20G', price: '260 €' },
-        { qty: '25G', price: '310 €' }
-      ]
-    },
-    french: {
-      key: 'french',
-      title: 'STATIC SIFT⚡️🥇🥇',
-      farm: '🧑🏻‍🌾 DR FRENCH 🧑🏻‍🌾',
-      strain: 'LARRY POP TARTS 🍋🍰 ✅\nCALYPO ⛽️🫐✅',
-      video: 'french.mp4',
-      poster: 'french-thumb.jpg',
-      quantities: [
-        { qty: '5G', price: '80 €' },
-        { qty: '10G', price: '150 €' },
-        { qty: '20G', price: '280 €' },
-        { qty: '25G', price: '330 €' }
-      ]
-    }
-  };
-
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-  function saveCart() {
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateBadge();
-  }
-
-  function updateBadge() {
-    const badge = document.getElementById('cart-badge');
-    badge.textContent = cart.length || '';
-    badge.style.display = cart.length > 0 ? 'inline-block' : 'none';
-  }
-
-  function hideAllPages() {
-    document.getElementById('home-page').style.display = 'none';
-    document.getElementById('product-detail').style.display = 'none';
-    document.getElementById('cart-page').style.display = 'none';
-    document.getElementById('infos-page').style.display = 'none';
-    document.getElementById('reseaux-page').style.display = 'none';
-    document.getElementById('btn-back').style.display = 'none';
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  }
-
-  function renderProducts() {
-    const grid = document.getElementById('products-grid');
-    grid.innerHTML = '';
-    Object.values(products).forEach(p => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <div class="card-img">
-          <video autoplay muted loop playsinline poster="${p.poster}">
-            <source src="${p.video}" type="video/mp4">
-          </video>
-          <div class="badge-star">★</div>
+    <!-- Welcome -->
+    <div class="mx-4 mb-4 bg-zinc-950 border border-[#39ff14]/20 rounded-2xl p-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 bg-green-500/10 rounded-2xl flex items-center justify-center text-4xl">
+          👋
         </div>
-        <div class="card-body">
-          <div class="card-title">${p.title}</div>
-          ${p.farm ? `<div class="card-farm">${p.farm}</div>` : ''}
-          <div class="card-info">${p.strain.split('\n')[0]}</div>
-        </div>
-      `;
-      card.onclick = () => openProductDetail(p.key);
-      grid.appendChild(card);
-    });
-  }
-
-  function openProductDetail(key) {
-    const p = products[key];
-    const videoEl = document.getElementById('detail-video');
-    videoEl.innerHTML = `<source src="${p.video}" type="video/mp4">`;
-    videoEl.poster = p.poster;
-    videoEl.load();
-
-    document.getElementById('detail-title').textContent = p.title;
-    document.getElementById('detail-farm').textContent = p.farm;
-    document.getElementById('detail-farm').style.display = p.farm ? 'block' : 'none';
-
-    document.getElementById('detail-strain').textContent = p.strain.split('\n')[0];
-    document.getElementById('detail-strain-desc').innerHTML = p.strain.replace(/\n/g, '<br>');
-
-    const qtyGrid = document.getElementById('qty-grid');
-    qtyGrid.innerHTML = '';
-    p.quantities.forEach((item, idx) => {
-      const btn = document.createElement('button');
-      btn.className = 'qty-btn';
-      btn.innerHTML = `${item.qty}<br>${item.price}`;
-      btn.dataset.idx = idx;
-      btn.onclick = () => {
-        qtyGrid.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-      };
-      qtyGrid.appendChild(btn);
-    });
-
-    hideAllPages();
-    document.getElementById('product-detail').style.display = 'block';
-    document.getElementById('btn-back').style.display = 'inline-block';
-  }
-
-  document.getElementById('btn-back').onclick = () => {
-    hideAllPages();
-    document.getElementById('home-page').style.display = 'block';
-    document.getElementById('nav-home').classList.add('active');
-  };
-
-  document.getElementById('add-to-cart-btn').onclick = () => {
-    const selected = document.querySelector('.qty-btn.selected');
-    if (!selected) return alert('Sélectionnez une quantité !');
-
-    const title = document.getElementById('detail-title').textContent;
-    const key = Object.keys(products).find(k => products[k].title === title);
-    const item = products[key].quantities[selected.dataset.idx];
-
-    cart.push({ title, qty: item.qty, price: item.price });
-    saveCart();
-    alert('Ajouté au panier !');
-  };
-
-  // Afficher le panier
-  function showCart() {
-    hideAllPages();
-    document.getElementById('cart-page').style.display = 'block';
-    document.getElementById('nav-cart').classList.add('active');
-
-    const itemsDiv = document.getElementById('cart-items');
-    itemsDiv.innerHTML = '';
-
-    if (cart.length === 0) {
-      itemsDiv.innerHTML = '<p style="text-align:center; color:#94a3b8; padding:80px 0;">Votre panier est vide</p>';
-      document.getElementById('questionnaire').style.display = 'none';
-      document.getElementById('cart-total').textContent = '';
-      return;
-    }
-
-    cart.forEach((item, index) => {
-      const div = document.createElement('div');
-      div.className = 'cart-item';
-      div.innerHTML = `
         <div>
-          <strong>${item.title}</strong><br>
-          ${item.qty} — ${item.price}
+          <p class="text-sm text-gray-400">Bienvenue</p>
+          <p class="font-bold text-xl">LeRoiMerlin</p>
         </div>
-        <button class="delete-btn" data-index="${index}">X</button>
-      `;
-      itemsDiv.appendChild(div);
-    });
+      </div>
+      <div class="star-badge text-black font-bold text-3xl w-10 h-10 rounded-2xl flex items-center justify-center shadow-lg">
+        ⭐
+      </div>
+    </div>
+  </div>
 
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.onclick = () => {
-        const idx = parseInt(btn.dataset.index);
-        cart.splice(idx, 1);
-        saveCart();
-        showCart();
-      };
-    });
+  <div class="px-4 pt-2">
+    <!-- Products Header -->
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center gap-3">
+        <div class="bg-[#39ff14] text-black px-4 py-2 rounded-2xl font-semibold flex items-center gap-2">
+          <i class="fa-solid fa-filter"></i>
+          <span>Produits</span>
+        </div>
+        <span class="bg-green-900/50 text-[#39ff14] text-sm px-4 py-2 rounded-2xl font-medium">
+          67 produits
+        </span>
+      </div>
+    </div>
 
-    document.getElementById('cart-total').textContent = `Total : ${cart.length} article${cart.length > 1 ? 's' : ''}`;
-    document.getElementById('questionnaire').style.display = 'block';
-  }
+    <!-- Filters -->
+    <div class="grid grid-cols-2 gap-3 mb-6">
+      <div class="bg-zinc-900 rounded-2xl p-4 flex items-center justify-between cursor-pointer hover:bg-zinc-800">
+        <span class="font-medium">Catégories</span>
+        <i class="fa-solid fa-chevron-down text-[#39ff14]"></i>
+      </div>
+      <div class="bg-zinc-900 rounded-2xl p-4 flex items-center justify-between cursor-pointer hover:bg-zinc-800">
+        <span class="font-medium">Farms</span>
+        <i class="fa-solid fa-chevron-down text-[#39ff14]"></i>
+      </div>
+    </div>
 
-  // Gestion des boutons mode récupération
-  document.querySelectorAll('.option-btn').forEach(btn => {
-    btn.onclick = () => {
-      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const type = btn.dataset.type;
-      document.getElementById('pickup-questions').style.display = type === 'pickup' ? 'block' : 'none';
-      document.getElementById('delivery-questions').style.display = type === 'delivery' ? 'block' : 'none';
-    };
-  });
+    <!-- Products Grid -->
+    <div class="grid grid-cols-2 gap-4" id="products-grid">
+      <!-- Product 1 -->
+      <div class="product-card bg-zinc-950 border border-zinc-800 rounded-3xl overflow-hidden">
+        <div class="relative">
+          <img src="https://picsum.photos/id/1015/400/300" class="w-full h-40 object-cover" alt="Fruity Runtz">
+          <div class="absolute top-3 left-3 bg-black/70 text-xs px-3 py-1 rounded-full flex items-center gap-1">
+            <span>Dry TOP €%</span>
+            <span class="text-red-500">🇫🇷</span>
+          </div>
+          <div class="absolute top-3 right-3 star-badge text-black text-xl w-7 h-7 rounded-2xl flex items-center justify-center">
+            ★
+          </div>
+        </div>
+        <div class="p-4">
+          <p class="font-bold text-lg">Fruity Runtz</p>
+          <p class="text-gray-400 text-sm flex items-center gap-1">
+            <i class="fa-solid fa-house"></i> Unbranded
+          </p>
+        </div>
+      </div>
 
-  // Bouton Commander → envoi message pré-rempli
-  document.getElementById('submit-order-btn').onclick = () => {
-    const modeBtn = document.querySelector('.option-btn.active');
-    if (!modeBtn) return alert('Choisis un mode de récupération !');
+      <!-- Product 2 -->
+      <div class="product-card bg-zinc-950 border border-zinc-800 rounded-3xl overflow-hidden">
+        <div class="relative">
+          <img src="https://picsum.photos/id/201/400/300" class="w-full h-40 object-cover" alt="Cake Fruit">
+          <div class="absolute top-3 left-3 bg-black/70 text-xs px-3 py-1 rounded-full">
+            90u Premium
+          </div>
+          <div class="absolute top-3 right-3 star-badge text-black text-xl w-7 h-7 rounded-2xl flex items-center justify-center">
+            ★
+          </div>
+        </div>
+        <div class="p-4">
+          <p class="font-bold text-lg">Cake Fruit</p>
+          <p class="text-gray-400 text-sm flex items-center gap-1">
+            <i class="fa-solid fa-house"></i> Darks Farm
+          </p>
+        </div>
+      </div>
 
-    const mode = modeBtn.dataset.type;
-    let message = `Commande de ${user.first_name || 'Client'} (@${user.username || 'pas de pseudo'})\n\n`;
-    message += `Mode : ${mode === 'pickup' ? 'Meet-up' : 'Livraison'}\n\n`;
+      <!-- Product 3 -->
+      <div class="product-card bg-zinc-950 border border-zinc-800 rounded-3xl overflow-hidden">
+        <div class="relative">
+          <img src="https://picsum.photos/id/301/400/300" class="w-full h-40 object-cover" alt="House of Hash">
+          <div class="absolute top-3 right-3 star-badge text-black text-xl w-7 h-7 rounded-2xl flex items-center justify-center">
+            ★
+          </div>
+        </div>
+        <div class="p-4">
+          <p class="font-bold text-lg">House of Hash</p>
+          <p class="text-orange-400 text-sm font-medium">Made in California</p>
+        </div>
+      </div>
 
-    cart.forEach(item => {
-      message += `• ${item.title} × ${item.qty} (${item.price})\n`;
-    });
+      <!-- Product 4 -->
+      <div class="product-card bg-zinc-950 border border-zinc-800 rounded-3xl overflow-hidden">
+        <div class="relative">
+          <img src="https://picsum.photos/id/401/400/300" class="w-full h-40 object-cover" alt="Gold Crown">
+          <div class="absolute top-3 right-3 star-badge text-black text-xl w-7 h-7 rounded-2xl flex items-center justify-center">
+            ★
+          </div>
+        </div>
+        <div class="p-4">
+          <p class="font-bold text-lg">Gold Crown</p>
+          <p class="text-yellow-400 text-sm font-medium">Premium Hash</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    if (mode === 'pickup') {
-      const time = document.getElementById('pickup-time').value;
-      if (time) message += `\nHeure meet-up souhaitée : ${time}`;
-    } else {
-      const time = document.getElementById('delivery-time').value;
-      const address = document.getElementById('delivery-address').value.trim();
-      const details = document.getElementById('delivery-details').value.trim();
-      if (time) message += `\nHeure livraison souhaitée : ${time}`;
-      if (address) message += `\nAdresse : ${address}`;
-      if (details) message += `\nDétails : ${details}`;
+  <!-- BOTTOM NAV -->
+  <div class="fixed bottom-0 left-0 right-0 bg-black border-t border-[#39ff14]/30 py-2 px-4 z-50">
+    <div class="flex justify-around items-center text-center">
+      <a href="#" class="flex flex-col items-center text-[#39ff14]">
+        <i class="fa-solid fa-house text-2xl"></i>
+        <span class="text-xs mt-1">Accueil</span>
+      </a>
+      <a href="#" class="flex flex-col items-center text-gray-400 hover:text-gray-200">
+        <i class="fa-solid fa-star text-2xl"></i>
+        <span class="text-xs mt-1">Avis</span>
+      </a>
+      <a href="#" onclick="showCart()" class="flex flex-col items-center -mt-8">
+        <div class="bg-[#39ff14] text-black w-16 h-16 rounded-3xl flex items-center justify-center shadow-2xl shadow-[#39ff14]/50">
+          <i class="fa-solid fa-cart-shopping text-3xl"></i>
+        </div>
+      </a>
+      <a href="#" class="flex flex-col items-center text-gray-400 hover:text-gray-200">
+        <i class="fa-solid fa-circle-info text-2xl"></i>
+        <span class="text-xs mt-1">Infos</span>
+      </a>
+      <a href="#" class="flex flex-col items-center text-gray-400 hover:text-gray-200">
+        <i class="fa-solid fa-envelope text-2xl"></i>
+        <span class="text-xs mt-1">Contact</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Cart Modal -->
+  <div id="cart-modal" class="hidden fixed inset-0 bg-black/90 flex items-end z-[100]">
+    <div class="bg-zinc-900 w-full rounded-t-3xl max-h-[85vh] overflow-auto">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold">Panier</h2>
+          <button onclick="hideCart()" class="text-3xl">×</button>
+        </div>
+        <div class="text-center py-12 text-gray-400">
+          <i class="fa-solid fa-cart-shopping text-6xl mb-4"></i>
+          <p>Votre panier est vide</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function closeApp() {
+      if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.close();
+      } else {
+        alert("Mini App fermée (simulation)");
+      }
     }
 
-    message += `\n\nMerci !`;
+    function showCart() {
+      document.getElementById('cart-modal').classList.remove('hidden');
+    }
 
-    const encoded = encodeURIComponent(message);
-    tg.openTelegramLink(`https://t.me/DINO76S?text=${encoded}`);
-  };
+    function hideCart() {
+      document.getElementById('cart-modal').classList.add('hidden');
+    }
 
-  // Navigation
-  document.getElementById('nav-home').onclick = () => {
-    hideAllPages();
-    document.getElementById('home-page').style.display = 'block';
-    document.getElementById('nav-home').classList.add('active');
-  };
+    // Telegram WebApp initialization
+    window.onload = () => {
+      if (window.Telegram && window.Telegram.WebApp) {
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.setHeaderColor("#000000");
+        tg.setBackgroundColor("#000000");
+      }
+    };
 
-  document.getElementById('nav-cart').onclick = () => {
-    showCart();
-  };
-
-  document.getElementById('nav-infos').onclick = () => {
-    hideAllPages();
-    document.getElementById('infos-page').style.display = 'block';
-    document.getElementById('nav-infos').classList.add('active');
-  };
-
-  document.getElementById('nav-reseaux').onclick = () => {
-    hideAllPages();
-    document.getElementById('reseaux-page').style.display = 'block';
-    document.getElementById('nav-reseaux').classList.add('active');
-  };
-
-  document.querySelectorAll('.reseau-item').forEach(item => {
-    item.onclick = () => tg.openLink(item.dataset.link);
-  });
-
-  // Initialisation
-  renderProducts();
-  updateBadge();
-</script>
+    // Tailwind script already included via CDN
+  </script>
 </body>
 </html>
