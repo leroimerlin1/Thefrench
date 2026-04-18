@@ -17,47 +17,48 @@
       color: white;
     }
 
-    .neon-text { text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green); }
+    .neon-text { text-shadow: 0 0 15px var(--neon-green), 0 0 30px var(--neon-green); }
 
-    .product-card {
+    .glass {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(57, 255, 20, 0.2);
+    }
+
+    .bottom-sheet {
+      animation: slideUp 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .chip {
       transition: all 0.3s ease;
     }
-    .product-card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
-    }
-
-    .filter-active {
-      background-color: #39ff14 !important;
-      color: black !important;
-      font-weight: 700;
+    .chip:hover {
+      background-color: #39ff14;
+      color: black;
+      transform: scale(1.05);
     }
   </style>
 </head>
 <body class="min-h-screen pb-20">
 
-  <!-- HEADER -->
+  <!-- HEADER (inchangé) -->
   <div class="bg-black border-b border-[#39ff14]/30 sticky top-0 z-50">
     <div class="flex items-center justify-between px-4 py-3">
       <button onclick="closeApp()" class="bg-zinc-900 hover:bg-zinc-800 px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1">
         <i class="fa-solid fa-xmark"></i> Fermer
       </button>
-
       <div class="flex items-center gap-2">
         <span class="text-2xl font-bold tracking-widest neon-text" style="font-family: 'Press Start 2P', sans-serif;">BROLY</span>
         <span class="text-[#39ff14] text-3xl font-black">69</span>
       </div>
-
-      <div class="flex items-center gap-3">
-        <div class="bg-zinc-900 text-xs px-3 py-1 rounded-full flex items-center gap-1">
-          <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-          En ligne
-        </div>
-      </div>
     </div>
 
-    <!-- Welcome -->
-    <div class="mx-4 mb-4 bg-zinc-950 border border-[#39ff14]/20 rounded-2xl p-4 flex items-center justify-between">
+    <div class="mx-4 mb-4 glass rounded-3xl p-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <div class="w-12 h-12 bg-green-500/10 rounded-2xl flex items-center justify-center text-4xl">👋</div>
         <div>
@@ -65,214 +66,235 @@
           <p class="font-bold text-xl">LeRoiMerlin</p>
         </div>
       </div>
-      <div class="bg-gradient-to-br from-[#39ff14] to-green-400 text-black font-bold text-3xl w-10 h-10 rounded-2xl flex items-center justify-center">⭐</div>
+      <div class="bg-gradient-to-br from-[#39ff14] to-emerald-400 text-black font-bold text-3xl w-11 h-11 rounded-2xl flex items-center justify-center shadow-lg shadow-[#39ff14]/50">⭐</div>
     </div>
   </div>
 
   <div class="px-4 pt-2">
-    <div class="flex items-center justify-between mb-4">
-      <div class="flex items-center gap-3">
-        <div class="bg-[#39ff14] text-black px-5 py-2.5 rounded-2xl font-semibold flex items-center gap-2">
-          <i class="fa-solid fa-filter"></i> Produits
-        </div>
-        <span id="product-count" class="bg-green-900/50 text-[#39ff14] text-sm px-4 py-2 rounded-2xl font-medium">
-          67 produits
-        </span>
-      </div>
-    </div>
+    <!-- Filtres actifs (Chips) -->
+    <div id="active-filters" class="flex gap-2 mb-4 flex-wrap"></div>
 
-    <!-- Filtres -->
+    <!-- Boutons Filtres 2.0 -->
     <div class="grid grid-cols-2 gap-3 mb-6">
-      <button onclick="toggleCategoryFilter(this)" id="cat-filter"
-              class="bg-zinc-900 hover:bg-zinc-800 rounded-2xl p-4 flex items-center justify-between text-left">
-        <span class="font-medium">Catégories</span>
-        <i class="fa-solid fa-chevron-down text-[#39ff14]"></i>
+      <button onclick="showCategorySheet()" 
+              class="glass hover:border-[#39ff14] rounded-3xl p-5 flex items-center justify-between group">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-tags text-[#39ff14] text-2xl"></i>
+          <div>
+            <p class="font-semibold">Catégories</p>
+            <p id="selected-cat-text" class="text-xs text-gray-400">Toutes</p>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-down text-[#39ff14] group-active:rotate-180 transition-transform"></i>
       </button>
 
-      <button onclick="toggleFarmFilter(this)" id="farm-filter"
-              class="bg-zinc-900 hover:bg-zinc-800 rounded-2xl p-4 flex items-center justify-between text-left">
-        <span class="font-medium">Farms</span>
-        <i class="fa-solid fa-chevron-down text-[#39ff14]"></i>
+      <button onclick="showFarmSheet()" 
+              class="glass hover:border-[#39ff14] rounded-3xl p-5 flex items-center justify-between group">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-leaf text-[#39ff14] text-2xl"></i>
+          <div>
+            <p class="font-semibold">Farms</p>
+            <p id="selected-farm-text" class="text-xs text-gray-400">Toutes</p>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-down text-[#39ff14] group-active:rotate-180 transition-transform"></i>
       </button>
     </div>
 
-    <!-- Products Grid -->
+    <!-- Products -->
+    <div class="flex items-center justify-between mb-4">
+      <span class="text-lg font-bold">Produits</span>
+      <span id="product-count" class="text-[#39ff14] font-medium">67 produits</span>
+    </div>
+
     <div class="grid grid-cols-2 gap-4" id="products-grid"></div>
   </div>
 
   <!-- BOTTOM NAV -->
   <div class="fixed bottom-0 left-0 right-0 bg-black border-t border-[#39ff14]/30 py-2 px-4 z-50">
-    <div class="flex justify-around items-center text-center">
-      <a href="#" class="flex flex-col items-center text-[#39ff14]">
-        <i class="fa-solid fa-house text-2xl"></i>
-        <span class="text-xs mt-1">Accueil</span>
-      </a>
-      <a href="#" class="flex flex-col items-center text-gray-400">
-        <i class="fa-solid fa-star text-2xl"></i>
-        <span class="text-xs mt-1">Avis</span>
-      </a>
+    <div class="flex justify-around items-center">
+      <a href="#" class="flex flex-col items-center text-[#39ff14]"><i class="fa-solid fa-house text-2xl"></i><span class="text-xs">Accueil</span></a>
+      <a href="#" class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-star text-2xl"></i><span class="text-xs">Avis</span></a>
       <a href="#" onclick="showCart()" class="flex flex-col items-center -mt-8">
-        <div class="bg-[#39ff14] text-black w-16 h-16 rounded-3xl flex items-center justify-center shadow-2xl">
-          <i class="fa-solid fa-cart-shopping text-3xl"></i>
-        </div>
+        <div class="bg-[#39ff14] text-black w-16 h-16 rounded-3xl flex items-center justify-center shadow-2xl shadow-[#39ff14]/60"><i class="fa-solid fa-cart-shopping text-3xl"></i></div>
       </a>
-      <a href="#" class="flex flex-col items-center text-gray-400">
-        <i class="fa-solid fa-circle-info text-2xl"></i>
-        <span class="text-xs mt-1">Infos</span>
-      </a>
-      <a href="#" class="flex flex-col items-center text-gray-400">
-        <i class="fa-solid fa-envelope text-2xl"></i>
-        <span class="text-xs mt-1">Contact</span>
-      </a>
+      <a href="#" class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-circle-info text-2xl"></i><span class="text-xs">Infos</span></a>
+      <a href="#" class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-envelope text-2xl"></i><span class="text-xs">Contact</span></a>
+    </div>
+  </div>
+
+  <!-- CATEGORY BOTTOM SHEET -->
+  <div id="category-sheet" class="hidden fixed inset-0 z-[100] bg-black/70 flex items-end">
+    <div class="glass bottom-sheet w-full rounded-t-3xl max-h-[70vh] overflow-hidden">
+      <div class="p-4 border-b border-white/10">
+        <div class="w-12 h-1.5 bg-white/30 mx-auto rounded-full mb-4"></div>
+        <h2 class="text-center text-xl font-bold">Catégories</h2>
+      </div>
+      <div class="p-4 space-y-2 max-h-[55vh] overflow-auto" id="category-list"></div>
+      <div class="p-4 border-t border-white/10">
+        <button onclick="closeSheets()" class="w-full py-4 bg-zinc-800 hover:bg-zinc-700 rounded-2xl font-medium">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FARM BOTTOM SHEET -->
+  <div id="farm-sheet" class="hidden fixed inset-0 z-[100] bg-black/70 flex items-end">
+    <div class="glass bottom-sheet w-full rounded-t-3xl max-h-[70vh] overflow-hidden">
+      <div class="p-4 border-b border-white/10">
+        <div class="w-12 h-1.5 bg-white/30 mx-auto rounded-full mb-4"></div>
+        <h2 class="text-center text-xl font-bold">Farms</h2>
+      </div>
+      <div class="p-4 space-y-2 max-h-[55vh] overflow-auto" id="farm-list"></div>
+      <div class="p-4 border-t border-white/10">
+        <button onclick="closeSheets()" class="w-full py-4 bg-zinc-800 hover:bg-zinc-700 rounded-2xl font-medium">Fermer</button>
+      </div>
     </div>
   </div>
 
   <script>
-    // ==================== DONNÉES DES PRODUITS ====================
     const products = [
-      { id: 1, name: "Fruity Runtz", category: "Fleurs", farm: "Unbranded", tag: "Dry TOP €%", flag: "🇫🇷", img: "https://picsum.photos/id/1015/400/300" },
+      { id: 1, name: "Fruity Runtz", category: "Fleurs", farm: "Unbranded", tag: "Dry TOP", img: "https://picsum.photos/id/1015/400/300" },
       { id: 2, name: "Cake Fruit", category: "Fleurs", farm: "Darks Farm", tag: "90u Premium", img: "https://picsum.photos/id/201/400/300" },
-      { id: 3, name: "House of Hash", category: "Hash", farm: "House of Hash", tag: "Made in California", img: "https://picsum.photos/id/301/400/300" },
-      { id: 4, name: "Gold Crown", category: "Hash", farm: "Gold Crown", tag: "Premium Hash", img: "https://picsum.photos/id/401/400/300" },
-      { id: 5, name: "Blueberry Kush", category: "Fleurs", farm: "Darks Farm", tag: "Indoor", img: "https://picsum.photos/id/106/400/300" },
-      { id: 6, name: "Rosin Press", category: "Concentrés", farm: "Unbranded", tag: "Live Rosin", img: "https://picsum.photos/id/180/400/300" },
-      { id: 7, name: "Gelato 41", category: "Fleurs", farm: "Darks Farm", tag: "90u", img: "https://picsum.photos/id/251/400/300" },
-      { id: 8, name: "Moroccan Hash", category: "Hash", farm: "House of Hash", tag: "Traditional", img: "https://picsum.photos/id/866/400/300" }
+      { id: 3, name: "House of Hash", category: "Hash", farm: "House of Hash", img: "https://picsum.photos/id/301/400/300" },
+      { id: 4, name: "Gold Crown", category: "Hash", farm: "Gold Crown", tag: "Premium", img: "https://picsum.photos/id/401/400/300" },
+      { id: 5, name: "Blueberry Kush", category: "Fleurs", farm: "Darks Farm", img: "https://picsum.photos/id/106/400/300" },
+      { id: 6, name: "Live Rosin", category: "Concentrés", farm: "Unbranded", img: "https://picsum.photos/id/180/400/300" },
+      { id: 7, name: "Gelato 41", category: "Fleurs", farm: "Darks Farm", img: "https://picsum.photos/id/251/400/300" },
     ];
 
     let selectedCategory = null;
     let selectedFarm = null;
 
-    // ==================== RENDU DES PRODUITS ====================
     function renderProducts() {
       const grid = document.getElementById('products-grid');
       grid.innerHTML = '';
 
-      const filtered = products.filter(p => {
-        const catMatch = !selectedCategory || p.category === selectedCategory;
-        const farmMatch = !selectedFarm || p.farm === selectedFarm;
-        return catMatch && farmMatch;
-      });
+      const filtered = products.filter(p => 
+        (!selectedCategory || p.category === selectedCategory) &&
+        (!selectedFarm || p.farm === selectedFarm)
+      );
 
       document.getElementById('product-count').textContent = `${filtered.length} produits`;
 
-      if (filtered.length === 0) {
-        grid.innerHTML = `<p class="col-span-2 text-center text-gray-400 py-10">Aucun produit trouvé</p>`;
-        return;
-      }
-
-      filtered.forEach(product => {
-        const card = document.createElement('div');
-        card.className = "product-card bg-zinc-950 border border-zinc-800 rounded-3xl overflow-hidden cursor-pointer";
-        card.innerHTML = `
-          <div class="relative">
-            <img src="${product.img}" class="w-full h-40 object-cover" alt="${product.name}">
-            ${product.tag ? `
-            <div class="absolute top-3 left-3 bg-black/70 text-xs px-3 py-1 rounded-full">
-              ${product.tag}
-            </div>` : ''}
-            ${product.flag ? `<div class="absolute top-3 left-3 bg-black/70 text-xs px-3 py-1 rounded-full">${product.flag}</div>` : ''}
-            <div class="absolute top-3 right-3 bg-gradient-to-br from-[#39ff14] to-green-400 text-black text-xl w-7 h-7 rounded-2xl flex items-center justify-center font-bold">★</div>
-          </div>
+      filtered.forEach(p => {
+        const div = document.createElement('div');
+        div.className = "product-card bg-zinc-950 border border-zinc-800 rounded-3xl overflow-hidden";
+        div.innerHTML = `
+          <img src="${p.img}" class="w-full h-40 object-cover">
           <div class="p-4">
-            <p class="font-bold text-lg">${product.name}</p>
-            <p class="text-gray-400 text-sm flex items-center gap-1">
-              <i class="fa-solid fa-house"></i> ${product.farm}
-            </p>
-            <p class="text-xs text-[#39ff14] mt-1">${product.category}</p>
+            <p class="font-bold">${p.name}</p>
+            <p class="text-xs text-gray-400">${p.farm} • ${p.category}</p>
           </div>
         `;
-        grid.appendChild(card);
+        grid.appendChild(div);
       });
     }
 
-    // ==================== FILTRES ====================
-    function toggleCategoryFilter(btn) {
-      const categories = ["Fleurs", "Hash", "Concentrés"];
-      
-      let menu = document.getElementById('cat-menu');
-      if (menu) menu.remove();
+    function updateActiveFilters() {
+      const container = document.getElementById('active-filters');
+      container.innerHTML = '';
 
-      menu = document.createElement('div');
-      menu.id = 'cat-menu';
-      menu.className = "fixed inset-0 bg-black/80 flex items-center justify-center z-[100]";
-      menu.innerHTML = `
-        <div class="bg-zinc-900 rounded-3xl p-6 w-[85%] max-w-xs">
-          <h3 class="text-lg font-bold mb-4 text-center">Catégories</h3>
-          <div class="space-y-2">
-            <button onclick="selectCategory(null)" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-800 ${!selectedCategory ? 'filter-active' : ''}">
-              Toutes les catégories
-            </button>
-            ${categories.map(cat => `
-              <button onclick="selectCategory('${cat}')" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-800 ${selectedCategory === cat ? 'filter-active' : ''}">
-                ${cat}
-              </button>
-            `).join('')}
-          </div>
-          <button onclick="this.parentElement.parentElement.remove()" class="mt-6 w-full py-3 text-red-400">Fermer</button>
-        </div>
-      `;
-      document.body.appendChild(menu);
+      if (selectedCategory) {
+        const chip = document.createElement('div');
+        chip.className = "chip bg-[#39ff14] text-black text-sm px-4 py-1.5 rounded-2xl flex items-center gap-2 cursor-pointer";
+        chip.innerHTML = `${selectedCategory} <i onclick="event.stopImmediatePropagation(); clearCategory()" class="fa-solid fa-xmark"></i>`;
+        chip.onclick = () => clearCategory();
+        container.appendChild(chip);
+      }
+
+      if (selectedFarm) {
+        const chip = document.createElement('div');
+        chip.className = "chip bg-[#39ff14] text-black text-sm px-4 py-1.5 rounded-2xl flex items-center gap-2 cursor-pointer";
+        chip.innerHTML = `${selectedFarm} <i onclick="event.stopImmediatePropagation(); clearFarm()" class="fa-solid fa-xmark"></i>`;
+        chip.onclick = () => clearFarm();
+        container.appendChild(chip);
+      }
     }
 
-    function toggleFarmFilter(btn) {
-      const farms = ["Darks Farm", "House of Hash", "Unbranded", "Gold Crown"];
-      
-      let menu = document.getElementById('farm-menu');
-      if (menu) menu.remove();
-
-      menu = document.createElement('div');
-      menu.id = 'farm-menu';
-      menu.className = "fixed inset-0 bg-black/80 flex items-center justify-center z-[100]";
-      menu.innerHTML = `
-        <div class="bg-zinc-900 rounded-3xl p-6 w-[85%] max-w-xs">
-          <h3 class="text-lg font-bold mb-4 text-center">Farms</h3>
-          <div class="space-y-2">
-            <button onclick="selectFarm(null)" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-800 ${!selectedFarm ? 'filter-active' : ''}">
-              Toutes les farms
-            </button>
-            ${farms.map(farm => `
-              <button onclick="selectFarm('${farm}')" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-800 ${selectedFarm === farm ? 'filter-active' : ''}">
-                ${farm}
-              </button>
-            `).join('')}
-          </div>
-          <button onclick="this.parentElement.parentElement.remove()" class="mt-6 w-full py-3 text-red-400">Fermer</button>
+    function showCategorySheet() {
+      const categories = ["Fleurs", "Hash", "Concentrés"];
+      const list = document.getElementById('category-list');
+      list.innerHTML = `
+        <div onclick="selectCategory(null)" class="p-4 rounded-2xl hover:bg-white/10 flex justify-between items-center ${!selectedCategory ? 'bg-white/10' : ''}">
+          <span>Toutes les catégories</span>
+          ${!selectedCategory ? '<i class="fa-solid fa-check text-[#39ff14]"></i>' : ''}
         </div>
+        ${categories.map(cat => `
+          <div onclick="selectCategory('${cat}')" class="p-4 rounded-2xl hover:bg-white/10 flex justify-between items-center ${selectedCategory === cat ? 'bg-white/10' : ''}">
+            <span>${cat}</span>
+            ${selectedCategory === cat ? '<i class="fa-solid fa-check text-[#39ff14]"></i>' : ''}
+          </div>
+        `).join('')}
       `;
-      document.body.appendChild(menu);
+      document.getElementById('category-sheet').classList.remove('hidden');
+    }
+
+    function showFarmSheet() {
+      const farms = ["Darks Farm", "House of Hash", "Unbranded", "Gold Crown"];
+      const list = document.getElementById('farm-list');
+      list.innerHTML = `
+        <div onclick="selectFarm(null)" class="p-4 rounded-2xl hover:bg-white/10 flex justify-between items-center ${!selectedFarm ? 'bg-white/10' : ''}">
+          <span>Toutes les farms</span>
+          ${!selectedFarm ? '<i class="fa-solid fa-check text-[#39ff14]"></i>' : ''}
+        </div>
+        ${farms.map(farm => `
+          <div onclick="selectFarm('${farm}')" class="p-4 rounded-2xl hover:bg-white/10 flex justify-between items-center ${selectedFarm === farm ? 'bg-white/10' : ''}">
+            <span>${farm}</span>
+            ${selectedFarm === farm ? '<i class="fa-solid fa-check text-[#39ff14]"></i>' : ''}
+          </div>
+        `).join('')}
+      `;
+      document.getElementById('farm-sheet').classList.remove('hidden');
     }
 
     function selectCategory(cat) {
       selectedCategory = cat;
-      document.getElementById('cat-menu').remove();
+      document.getElementById('selected-cat-text').textContent = cat || "Toutes";
+      closeSheets();
+      updateActiveFilters();
       renderProducts();
     }
 
     function selectFarm(farm) {
       selectedFarm = farm;
-      document.getElementById('farm-menu').remove();
+      document.getElementById('selected-farm-text').textContent = farm || "Toutes";
+      closeSheets();
+      updateActiveFilters();
       renderProducts();
     }
 
-    // ==================== AUTRES FONCTIONS ====================
+    function clearCategory() {
+      selectedCategory = null;
+      document.getElementById('selected-cat-text').textContent = "Toutes";
+      updateActiveFilters();
+      renderProducts();
+    }
+
+    function clearFarm() {
+      selectedFarm = null;
+      document.getElementById('selected-farm-text').textContent = "Toutes";
+      updateActiveFilters();
+      renderProducts();
+    }
+
+    function closeSheets() {
+      document.getElementById('category-sheet').classList.add('hidden');
+      document.getElementById('farm-sheet').classList.add('hidden');
+    }
+
     function closeApp() {
       if (window.Telegram?.WebApp) window.Telegram.WebApp.close();
       else alert("Mini App fermée");
     }
 
     function showCart() {
-      alert("🛒 Panier bientôt disponible !");
+      alert("🛒 Panier (à venir dans la v3.0)");
     }
 
-    // Initialisation
     window.onload = () => {
       renderProducts();
-      
-      if (window.Telegram?.WebApp) {
-        window.Telegram.WebApp.expand();
-        window.Telegram.WebApp.setHeaderColor("#000000");
-      }
+      updateActiveFilters();
+      if (window.Telegram?.WebApp) window.Telegram.WebApp.expand();
     };
   </script>
 </body>
