@@ -23,16 +23,21 @@
     }
     .product-card { transition: all 0.3s ease; }
     .product-card:hover { transform: translateY(-8px); box-shadow: 0 0 30px rgba(57, 255, 20, 0.3); }
+
+    .support-btn {
+      transition: all 0.3s ease;
+    }
+    .support-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
+    }
   </style>
 </head>
 <body class="flex flex-col">
 
-  <!-- HEADER - Logo + Titre bien visibles -->
+  <!-- HEADER : Logo à gauche + Titre -->
   <header class="bg-black/90 border-b border-white/10 px-4 py-5 flex items-center gap-4 sticky top-0 z-50">
-    <!-- Logo -->
     <img src="sap.jpg" alt="Sap Logo" class="h-11 w-auto flex-shrink-0">
-
-    <!-- Titre à côté du logo -->
     <div class="flex flex-col">
       <span class="text-4xl font-black tracking-widest neon-text text-[#39ff14]">SAP</span>
       <span class="text-2xl font-bold -mt-2 tracking-wider">FACTORY</span>
@@ -79,9 +84,63 @@
       </a>
 
       <a href="#" class="text-gray-400"><i class="fa-solid fa-circle-info text-3xl"></i></a>
-      <a href="#" class="text-gray-400"><i class="fa-solid fa-envelope text-3xl"></i></a>
+      
+      <!-- Contact Support -->
+      <a onclick="showContactModal()" class="text-[#39ff14]">
+        <i class="fa-solid fa-headset text-3xl"></i>
+      </a>
     </div>
   </nav>
+
+  <!-- CONTACT SUPPORT MODAL - Beaux boutons -->
+  <div id="contact-modal" class="hidden fixed inset-0 z-[120] bg-black/95 flex items-center justify-center p-4">
+    <div class="bg-zinc-900 w-full max-w-md rounded-3xl p-8">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-2">Contact Support</h2>
+        <p class="text-gray-400">Choisissez votre moyen de contact</p>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Snapchat -->
+        <a href="https://www.snapchat.com/add/Sap-factory" target="_blank"
+           class="support-btn flex items-center gap-5 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black p-6 rounded-3xl font-semibold text-lg">
+          <i class="fa-brands fa-snapchat text-4xl"></i>
+          <div class="flex-1">
+            <div class="text-xl">Snapchat</div>
+            <div class="text-sm opacity-80">@Sap-factory</div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-2xl"></i>
+        </a>
+
+        <!-- WhatsApp -->
+        <a href="https://wa.me/8618122042569" target="_blank"
+           class="support-btn flex items-center gap-5 bg-gradient-to-r from-green-500 to-emerald-500 text-white p-6 rounded-3xl font-semibold text-lg">
+          <i class="fa-brands fa-whatsapp text-4xl"></i>
+          <div class="flex-1">
+            <div class="text-xl">WhatsApp</div>
+            <div class="text-sm opacity-80">+86 181 2204 2569</div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-2xl"></i>
+        </a>
+
+        <!-- Telegram -->
+        <a href="https://t.me/sapfactory69" target="_blank"
+           class="support-btn flex items-center gap-5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white p-6 rounded-3xl font-semibold text-lg">
+          <i class="fa-brands fa-telegram text-4xl"></i>
+          <div class="flex-1">
+            <div class="text-xl">Telegram</div>
+            <div class="text-sm opacity-80">@sapfactory69</div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-2xl"></i>
+        </a>
+      </div>
+
+      <button onclick="closeContactModal()" 
+              class="w-full mt-8 py-5 bg-zinc-800 hover:bg-zinc-700 transition rounded-3xl text-gray-400 font-medium">
+        Fermer
+      </button>
+    </div>
+  </div>
 
   <!-- PANIER MODAL -->
   <div id="cart-modal" class="hidden fixed inset-0 z-[100] bg-black/95 flex items-end">
@@ -409,6 +468,15 @@
       document.getElementById('category-sheet').classList.add('hidden');
     }
 
+    function showContactModal() {
+      document.getElementById('contact-modal').classList.remove('hidden');
+    }
+
+    function closeContactModal() {
+      document.getElementById('contact-modal').classList.add('hidden');
+    }
+
+    // Initialisation
     window.onload = () => {
       if (window.Telegram?.WebApp) {
         window.Telegram.WebApp.expand();
