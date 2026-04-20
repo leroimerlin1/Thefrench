@@ -32,9 +32,9 @@
       box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
     }
 
-    .star { color: #ffd700; }
-    .review-card {
-      transition: all 0.3s ease;
+    .info-section {
+      background: linear-gradient(145deg, #1a1a1a, #111);
+      border: 1px solid rgba(57, 255, 20, 0.2);
     }
   </style>
 </head>
@@ -85,6 +85,77 @@
     </div>
   </div>
 
+  <!-- PAGE INFO -->
+  <div id="info-page" class="hidden flex-1 overflow-auto pb-20">
+    <div class="px-4 pt-6 max-w-2xl mx-auto">
+      <div class="info-section rounded-3xl p-8 mb-8">
+        <div class="flex items-center gap-4 mb-6">
+          <i class="fa-solid fa-circle-info text-5xl text-[#39ff14]"></i>
+          <div>
+            <h1 class="text-3xl font-bold neon-text">Bienvenue chez Sap Factory</h1>
+            <p class="text-[#39ff14] text-sm mt-1">Canal Officiel • Livraison Mondiale</p>
+          </div>
+        </div>
+
+        <div class="prose prose-invert max-w-none text-gray-300 leading-relaxed space-y-6">
+          <p class="text-lg">
+            Bonjour à tous et bienvenue sur le canal officiel <strong class="text-[#39ff14]">Sap Factory</strong> !
+          </p>
+          
+          <p>
+            Ici, nous vous proposons une sélection des articles tendance et de qualité.<br>
+            Ce canal a été créé spécialement pour vous permettre de commander facilement et de consulter le stock disponible en temps réel.
+          </p>
+
+          <div class="bg-black/50 border-l-4 border-[#39ff14] pl-5 py-2 my-6">
+            <p class="text-[#39ff14] font-semibold">🌍 Envoi dans le monde entier sans frais supplémentaires</p>
+          </div>
+
+          <p>
+            Il vous suffit de capturer l'article qui vous plaît et de nous contacter directement par message privé dans l’onglet <strong>Support</strong>.
+          </p>
+
+          <p class="font-medium">
+            Merci à tous pour votre confiance et bon shopping chez Sap Factory !
+          </p>
+
+          <div class="bg-zinc-900/70 rounded-2xl p-6 border border-white/10">
+            <p class="font-semibold text-[#39ff14] mb-3">Si vous cherchez un article qui n’est pas affiché :</p>
+            <p class="text-sm">N’hésitez pas à me l’envoyer par MP, je me chargerai de vous trouver votre bonheur.</p>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold text-[#39ff14] mb-4 flex items-center gap-2">
+              <i class="fa-solid fa-list-check"></i> Comment commander ?
+            </h3>
+            <div class="space-y-4 text-sm">
+              <div class="flex gap-4">
+                <div class="w-8 h-8 flex-shrink-0 bg-[#39ff14]/10 text-[#39ff14] rounded-2xl flex items-center justify-center font-bold">1</div>
+                <div>Envoyez un message sur WhatsApp ou Telegram pour recevoir le catalogue complet avec tous les articles disponibles.</div>
+              </div>
+              <div class="flex gap-4">
+                <div class="w-8 h-8 flex-shrink-0 bg-[#39ff14]/10 text-[#39ff14] rounded-2xl flex items-center justify-center font-bold">2</div>
+                <div>Contactez-moi avec les articles que vous souhaitez.</div>
+              </div>
+              <div class="flex gap-4">
+                <div class="w-8 h-8 flex-shrink-0 bg-[#39ff14]/10 text-[#39ff14] rounded-2xl flex items-center justify-center font-bold">3</div>
+                <div>Effectuez un virement instantané. Dès réception, j’expédie votre colis.</div>
+              </div>
+              <div class="flex gap-4">
+                <div class="w-8 h-8 flex-shrink-0 bg-[#39ff14]/10 text-[#39ff14] rounded-2xl flex items-center justify-center font-bold">4</div>
+                <div>Une fois le colis expédié, je vous envoie le numéro de suivi (DHL 7-14 jours).</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center text-xs text-gray-500 mt-10">
+        Sap Factory © 2026 • Tous droits réservés
+      </div>
+    </div>
+  </div>
+
   <!-- BOTTOM NAV -->
   <nav class="fixed bottom-0 left-0 right-0 bg-black border-t border-white/10 py-3 z-50">
     <div class="flex justify-around items-center max-w-md mx-auto">
@@ -98,7 +169,9 @@
         </div>
       </a>
 
-      <a href="#" class="text-gray-400"><i class="fa-solid fa-circle-info text-3xl"></i></a>
+      <a href="#" onclick="showInfo()" class="text-gray-400">
+        <i class="fa-solid fa-circle-info text-3xl"></i>
+      </a>
       
       <a onclick="showContactModal()" class="text-[#39ff14]">
         <i class="fa-solid fa-headset text-3xl"></i>
@@ -115,7 +188,8 @@
       </div>
 
       <div class="space-y-4">
-        <a href="https://www.snapchat.com/add/Sap-factory" target="_blank" class="support-btn flex items-center gap-5 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black p-6 rounded-3xl font-semibold text-lg">
+        <a href="https://www.snapchat.com/add/Sap-factory" target="_blank"
+           class="support-btn flex items-center gap-5 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black p-6 rounded-3xl font-semibold text-lg">
           <i class="fa-brands fa-snapchat text-4xl"></i>
           <div class="flex-1">
             <div class="text-xl">Snapchat</div>
@@ -124,7 +198,8 @@
           <i class="fa-solid fa-arrow-right text-2xl"></i>
         </a>
 
-        <a href="https://wa.me/8618122042569" target="_blank" class="support-btn flex items-center gap-5 bg-gradient-to-r from-green-500 to-emerald-500 text-white p-6 rounded-3xl font-semibold text-lg">
+        <a href="https://wa.me/8618122042569" target="_blank"
+           class="support-btn flex items-center gap-5 bg-gradient-to-r from-green-500 to-emerald-500 text-white p-6 rounded-3xl font-semibold text-lg">
           <i class="fa-brands fa-whatsapp text-4xl"></i>
           <div class="flex-1">
             <div class="text-xl">WhatsApp</div>
@@ -133,7 +208,8 @@
           <i class="fa-solid fa-arrow-right text-2xl"></i>
         </a>
 
-        <a href="https://t.me/sapfactory69" target="_blank" class="support-btn flex items-center gap-5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white p-6 rounded-3xl font-semibold text-lg">
+        <a href="https://t.me/sapfactory69" target="_blank"
+           class="support-btn flex items-center gap-5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white p-6 rounded-3xl font-semibold text-lg">
           <i class="fa-brands fa-telegram text-4xl"></i>
           <div class="flex-1">
             <div class="text-xl">Telegram</div>
@@ -143,7 +219,8 @@
         </a>
       </div>
 
-      <button onclick="closeContactModal()" class="w-full mt-8 py-5 bg-zinc-800 hover:bg-zinc-700 transition rounded-3xl text-gray-400 font-medium">
+      <button onclick="closeContactModal()" 
+              class="w-full mt-8 py-5 bg-zinc-800 hover:bg-zinc-700 transition rounded-3xl text-gray-400 font-medium">
         Fermer
       </button>
     </div>
@@ -250,11 +327,11 @@
       <h2 class="text-2xl font-bold text-center mb-6">Donnez votre avis sur votre commande</h2>
       
       <div class="flex justify-center gap-2 mb-6" id="star-rating">
-        <i onclick="setRating(1)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400" data-value="1"></i>
-        <i onclick="setRating(2)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400" data-value="2"></i>
-        <i onclick="setRating(3)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400" data-value="3"></i>
-        <i onclick="setRating(4)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400" data-value="4"></i>
-        <i onclick="setRating(5)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400" data-value="5"></i>
+        <i onclick="setRating(1)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400"></i>
+        <i onclick="setRating(2)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400"></i>
+        <i onclick="setRating(3)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400"></i>
+        <i onclick="setRating(4)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400"></i>
+        <i onclick="setRating(5)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400"></i>
       </div>
 
       <textarea id="review-comment" rows="4" 
@@ -516,7 +593,6 @@
       const total = document.getElementById('final-total').textContent;
       const ref = document.getElementById('order-ref').textContent;
 
-      // Sauvegarde des produits pour l'avis
       lastOrderProducts = cart.map(item => ({ name: item.name }));
 
       let message = `🛍️ *Nouvelle Commande - Sap Factory*\n\n`;
@@ -543,7 +619,6 @@
       updateCartCount();
       closeCheckout();
 
-      // Ouvrir le modal d'avis après la commande
       setTimeout(() => {
         document.getElementById('review-modal').classList.remove('hidden');
       }, 800);
@@ -620,16 +695,25 @@
       document.getElementById('contact-modal').classList.add('hidden');
     }
 
+    // Navigation
+    function showHome() {
+      document.getElementById('reviews-page').classList.add('hidden');
+      document.getElementById('info-page').classList.add('hidden');
+      document.getElementById('main-products').classList.remove('hidden');
+      renderProducts();
+    }
+
     function showReviews() {
       document.getElementById('main-products').classList.add('hidden');
+      document.getElementById('info-page').classList.add('hidden');
       document.getElementById('reviews-page').classList.remove('hidden');
       renderReviews();
     }
 
-    function showHome() {
+    function showInfo() {
+      document.getElementById('main-products').classList.add('hidden');
       document.getElementById('reviews-page').classList.add('hidden');
-      document.getElementById('main-products').classList.remove('hidden');
-      renderProducts();
+      document.getElementById('info-page').classList.remove('hidden');
     }
 
     // Initialisation
