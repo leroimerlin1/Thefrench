@@ -31,11 +31,16 @@
       transform: translateY(-4px);
       box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
     }
+
+    .star { color: #ffd700; }
+    .review-card {
+      transition: all 0.3s ease;
+    }
   </style>
 </head>
 <body class="flex flex-col">
 
-  <!-- HEADER : Logo à gauche + Titre -->
+  <!-- HEADER -->
   <header class="bg-black/90 border-b border-white/10 px-4 py-5 flex items-center gap-4 sticky top-0 z-50">
     <img src="sap.jpg" alt="Sap Logo" class="h-11 w-auto flex-shrink-0">
     <div class="flex flex-col">
@@ -44,8 +49,8 @@
     </div>
   </header>
 
-  <!-- MAIN CONTENT -->
-  <main class="flex-1 overflow-auto pb-20">
+  <!-- MAIN CONTENT - Produits -->
+  <main id="main-products" class="flex-1 overflow-auto pb-20">
     <div class="px-4 pt-6 max-w-2xl mx-auto">
 
       <!-- Catégories -->
@@ -70,11 +75,21 @@
     </div>
   </main>
 
+  <!-- PAGE AVIS -->
+  <div id="reviews-page" class="hidden flex-1 overflow-auto pb-20">
+    <div class="px-4 pt-6 max-w-2xl mx-auto">
+      <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+        <i class="fa-solid fa-star text-[#39ff14]"></i> Avis Clients
+      </h2>
+      <div id="reviews-list" class="space-y-6"></div>
+    </div>
+  </div>
+
   <!-- BOTTOM NAV -->
   <nav class="fixed bottom-0 left-0 right-0 bg-black border-t border-white/10 py-3 z-50">
     <div class="flex justify-around items-center max-w-md mx-auto">
-      <a href="#" class="text-[#39ff14]"><i class="fa-solid fa-house text-3xl"></i></a>
-      <a href="#" class="text-gray-400"><i class="fa-solid fa-star text-3xl"></i></a>
+      <a href="#" onclick="showHome()" class="text-[#39ff14]"><i class="fa-solid fa-house text-3xl"></i></a>
+      <a href="#" onclick="showReviews()" class="text-gray-400"><i class="fa-solid fa-star text-3xl"></i></a>
       
       <a onclick="showCart()" class="relative -mt-10">
         <div id="cart-button" class="bg-[#39ff14] hover:bg-[#2be50f] transition text-black w-20 h-20 rounded-3xl flex items-center justify-center shadow-2xl shadow-[#39ff14]/50 relative">
@@ -85,14 +100,13 @@
 
       <a href="#" class="text-gray-400"><i class="fa-solid fa-circle-info text-3xl"></i></a>
       
-      <!-- Contact Support -->
       <a onclick="showContactModal()" class="text-[#39ff14]">
         <i class="fa-solid fa-headset text-3xl"></i>
       </a>
     </div>
   </nav>
 
-  <!-- CONTACT SUPPORT MODAL - Beaux boutons -->
+  <!-- CONTACT SUPPORT MODAL -->
   <div id="contact-modal" class="hidden fixed inset-0 z-[120] bg-black/95 flex items-center justify-center p-4">
     <div class="bg-zinc-900 w-full max-w-md rounded-3xl p-8">
       <div class="text-center mb-8">
@@ -101,9 +115,7 @@
       </div>
 
       <div class="space-y-4">
-        <!-- Snapchat -->
-        <a href="https://www.snapchat.com/add/Sap-factory" target="_blank"
-           class="support-btn flex items-center gap-5 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black p-6 rounded-3xl font-semibold text-lg">
+        <a href="https://www.snapchat.com/add/Sap-factory" target="_blank" class="support-btn flex items-center gap-5 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black p-6 rounded-3xl font-semibold text-lg">
           <i class="fa-brands fa-snapchat text-4xl"></i>
           <div class="flex-1">
             <div class="text-xl">Snapchat</div>
@@ -112,9 +124,7 @@
           <i class="fa-solid fa-arrow-right text-2xl"></i>
         </a>
 
-        <!-- WhatsApp -->
-        <a href="https://wa.me/8618122042569" target="_blank"
-           class="support-btn flex items-center gap-5 bg-gradient-to-r from-green-500 to-emerald-500 text-white p-6 rounded-3xl font-semibold text-lg">
+        <a href="https://wa.me/8618122042569" target="_blank" class="support-btn flex items-center gap-5 bg-gradient-to-r from-green-500 to-emerald-500 text-white p-6 rounded-3xl font-semibold text-lg">
           <i class="fa-brands fa-whatsapp text-4xl"></i>
           <div class="flex-1">
             <div class="text-xl">WhatsApp</div>
@@ -123,9 +133,7 @@
           <i class="fa-solid fa-arrow-right text-2xl"></i>
         </a>
 
-        <!-- Telegram -->
-        <a href="https://t.me/sapfactory69" target="_blank"
-           class="support-btn flex items-center gap-5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white p-6 rounded-3xl font-semibold text-lg">
+        <a href="https://t.me/sapfactory69" target="_blank" class="support-btn flex items-center gap-5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white p-6 rounded-3xl font-semibold text-lg">
           <i class="fa-brands fa-telegram text-4xl"></i>
           <div class="flex-1">
             <div class="text-xl">Telegram</div>
@@ -135,8 +143,7 @@
         </a>
       </div>
 
-      <button onclick="closeContactModal()" 
-              class="w-full mt-8 py-5 bg-zinc-800 hover:bg-zinc-700 transition rounded-3xl text-gray-400 font-medium">
+      <button onclick="closeContactModal()" class="w-full mt-8 py-5 bg-zinc-800 hover:bg-zinc-700 transition rounded-3xl text-gray-400 font-medium">
         Fermer
       </button>
     </div>
@@ -237,6 +244,34 @@
     </div>
   </div>
 
+  <!-- REVIEW MODAL -->
+  <div id="review-modal" class="hidden fixed inset-0 z-[130] bg-black/95 flex items-center justify-center p-4">
+    <div class="bg-zinc-900 w-full max-w-md rounded-3xl p-8">
+      <h2 class="text-2xl font-bold text-center mb-6">Donnez votre avis sur votre commande</h2>
+      
+      <div class="flex justify-center gap-2 mb-6" id="star-rating">
+        <i onclick="setRating(1)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400" data-value="1"></i>
+        <i onclick="setRating(2)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400" data-value="2"></i>
+        <i onclick="setRating(3)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400" data-value="3"></i>
+        <i onclick="setRating(4)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400" data-value="4"></i>
+        <i onclick="setRating(5)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400" data-value="5"></i>
+      </div>
+
+      <textarea id="review-comment" rows="4" 
+                class="w-full bg-zinc-800 border border-white/20 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#39ff14] text-white"
+                placeholder="Que pensez-vous de votre commande ? (optionnel)"></textarea>
+
+      <div class="flex gap-3 mt-8">
+        <button onclick="skipReview()" class="flex-1 py-5 bg-zinc-800 hover:bg-zinc-700 rounded-3xl text-gray-400">
+          Plus tard
+        </button>
+        <button onclick="submitReview()" class="flex-1 py-5 bg-[#39ff14] text-black font-bold rounded-3xl">
+          Publier l'avis
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- CATEGORY SHEET -->
   <div id="category-sheet" class="hidden fixed inset-0 z-[100] bg-black/95 flex items-end">
     <div class="bg-zinc-900 w-full rounded-t-3xl max-h-[80vh] flex flex-col">
@@ -255,6 +290,8 @@
   <script>
     let selectedCategories = [];
     let cart = [];
+    let currentRating = 0;
+    let lastOrderProducts = [];
 
     const categoriesList = ["Tous", "SACS LUXE", "RUNNING", "T-SHIRT", "CLAQUETTES", "ENSEMBLE", "LUXE", "CHAUSSURE LUXE", "VESTE", "CP/STONE", "CASQUETTE/BONNET", "PULL", "CHAUSSURE SPORT", "LUNETTES", "BIJOUX", "LORO PIANA", "PORTEFEUILLE", "MAILLOT FOOT", "ALO", "SHORT", "ELECTRONIQUE", "MONTRE", "PARFUMS", "CROCS", "JEANS", "CHEMISE", "DOUDOUNE", "SOUS-VÊTEMENTS", "CASQUE ARAI"];
 
@@ -266,6 +303,104 @@
 
     const WHATSAPP_NUMBER = "+8618122042569";
 
+    // ==================== AVIS ====================
+    function getReviews() {
+      return JSON.parse(localStorage.getItem('sapReviews')) || [];
+    }
+
+    function saveReview(review) {
+      const reviews = getReviews();
+      reviews.unshift(review);
+      localStorage.setItem('sapReviews', JSON.stringify(reviews));
+    }
+
+    function renderReviews() {
+      const container = document.getElementById('reviews-list');
+      container.innerHTML = '';
+
+      const reviews = getReviews();
+
+      if (reviews.length === 0) {
+        container.innerHTML = `<p class="text-center text-gray-400 py-10">Aucun avis pour le moment...</p>`;
+        return;
+      }
+
+      reviews.forEach(r => {
+        const div = document.createElement('div');
+        div.className = "review-card bg-zinc-900 rounded-3xl p-6";
+        div.innerHTML = `
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="font-semibold">${r.name || 'Client anonyme'}</p>
+              <p class="text-xs text-gray-500">${new Date(r.date).toLocaleDateString('fr-FR')}</p>
+            </div>
+            <div class="flex text-yellow-400">
+              ${Array(5).fill(0).map((_, i) => 
+                `<i class="fa-solid fa-star ${i < r.rating ? 'text-yellow-400' : 'text-gray-600'}"></i>`
+              ).join('')}
+            </div>
+          </div>
+          ${r.comment ? `<p class="mt-4 text-gray-300">${r.comment}</p>` : ''}
+          ${r.products && r.products.length ? `
+            <div class="mt-4 text-xs text-gray-400">
+              Produits : ${r.products.map(p => p.name).join(', ')}
+            </div>` : ''}
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function setRating(stars) {
+      currentRating = stars;
+      const starsEl = document.querySelectorAll('#star-rating i');
+      starsEl.forEach((star, index) => {
+        star.classList.toggle('text-yellow-400', index < stars);
+        star.classList.toggle('text-gray-600', index >= stars);
+      });
+    }
+
+    function submitReview() {
+      const comment = document.getElementById('review-comment').value.trim();
+
+      if (currentRating === 0) {
+        alert("Veuillez donner au moins 1 étoile.");
+        return;
+      }
+
+      const review = {
+        id: Date.now(),
+        rating: currentRating,
+        comment: comment,
+        date: new Date().toISOString(),
+        name: "Client Sap Factory",
+        products: lastOrderProducts
+      };
+
+      saveReview(review);
+      alert("✅ Merci pour votre avis ! Il est maintenant visible par tous les utilisateurs.");
+
+      closeReviewModal();
+
+      if (!document.getElementById('reviews-page').classList.contains('hidden')) {
+        renderReviews();
+      }
+    }
+
+    function skipReview() {
+      closeReviewModal();
+    }
+
+    function closeReviewModal() {
+      document.getElementById('review-modal').classList.add('hidden');
+      currentRating = 0;
+      document.getElementById('review-comment').value = '';
+      document.querySelectorAll('#star-rating i').forEach(s => {
+        s.classList.remove('text-yellow-400');
+        s.classList.add('text-gray-600');
+      });
+    }
+
+    // ==================== PANIER & COMMANDE ====================
     function addToCart(productId) {
       const product = products.find(p => p.id === productId);
       if (!product) return;
@@ -381,6 +516,9 @@
       const total = document.getElementById('final-total').textContent;
       const ref = document.getElementById('order-ref').textContent;
 
+      // Sauvegarde des produits pour l'avis
+      lastOrderProducts = cart.map(item => ({ name: item.name }));
+
       let message = `🛍️ *Nouvelle Commande - Sap Factory*\n\n`;
       message += `*Client :* ${firstName} ${lastName}\n`;
       message += `*Téléphone :* ${phone}\n`;
@@ -394,7 +532,7 @@
       message += `\n*Total :* ${total}\n`;
       message += `*Référence virement :* ${ref}\n\n`;
       message += `✅ J’ai effectué le virement.\n`;
-      message += `Merci d’envoyer la preuve de virement en pièce jointe dans ce chat.`;
+      message += `Merci d’envoyer la preuve de virement en pièce jointe.`;
 
       const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
       window.open(whatsappUrl, '_blank');
@@ -404,12 +542,18 @@
       cart = [];
       updateCartCount();
       closeCheckout();
+
+      // Ouvrir le modal d'avis après la commande
+      setTimeout(() => {
+        document.getElementById('review-modal').classList.remove('hidden');
+      }, 800);
     }
 
     function closeCheckout() {
       document.getElementById('checkout-modal').classList.add('hidden');
     }
 
+    // ==================== PRODUITS & CATÉGORIES ====================
     function renderProducts() {
       const grid = document.getElementById('products-grid');
       grid.innerHTML = '';
@@ -474,6 +618,18 @@
 
     function closeContactModal() {
       document.getElementById('contact-modal').classList.add('hidden');
+    }
+
+    function showReviews() {
+      document.getElementById('main-products').classList.add('hidden');
+      document.getElementById('reviews-page').classList.remove('hidden');
+      renderReviews();
+    }
+
+    function showHome() {
+      document.getElementById('reviews-page').classList.add('hidden');
+      document.getElementById('main-products').classList.remove('hidden');
+      renderProducts();
     }
 
     // Initialisation
