@@ -41,10 +41,6 @@
       transform: translateY(-8px) scale(1.03);
       box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
     }
-
-    .chip {
-      transition: all 0.3s ease;
-    }
   </style>
 </head>
 <body class="min-h-screen pb-20">
@@ -77,34 +73,22 @@
     <!-- Filtres actifs -->
     <div id="active-filters" class="flex gap-2 mb-4 flex-wrap"></div>
 
-    <!-- Boutons filtres -->
-    <div class="grid grid-cols-2 gap-3 mb-6">
-      <button onclick="showCategorySheet()" class="glass hover:border-[#39ff14] rounded-3xl p-5 flex items-center justify-between group">
-        <div class="flex items-center gap-3">
-          <i class="fa-solid fa-tags text-[#39ff14] text-2xl"></i>
-          <div>
-            <p class="font-semibold">Catégories</p>
-            <p id="selected-cat-text" class="text-xs text-gray-400">Toutes</p>
-          </div>
+    <!-- Bouton Catégories -->
+    <button onclick="showCategorySheet()" 
+            class="w-full glass hover:border-[#39ff14] rounded-3xl p-5 flex items-center justify-between mb-6">
+      <div class="flex items-center gap-3">
+        <i class="fa-solid fa-tags text-[#39ff14] text-2xl"></i>
+        <div>
+          <p class="font-semibold">Catégories</p>
+          <p id="selected-cat-text" class="text-xs text-gray-400">Toutes</p>
         </div>
-        <i class="fa-solid fa-chevron-down text-[#39ff14]"></i>
-      </button>
-
-      <button onclick="showFarmSheet()" class="glass hover:border-[#39ff14] rounded-3xl p-5 flex items-center justify-between group">
-        <div class="flex items-center gap-3">
-          <i class="fa-solid fa-leaf text-[#39ff14] text-2xl"></i>
-          <div>
-            <p class="font-semibold">Marques</p>
-            <p id="selected-farm-text" class="text-xs text-gray-400">Toutes</p>
-          </div>
-        </div>
-        <i class="fa-solid fa-chevron-down text-[#39ff14]"></i>
-      </button>
-    </div>
+      </div>
+      <i class="fa-solid fa-chevron-down text-[#39ff14]"></i>
+    </button>
 
     <div class="flex justify-between items-center mb-4">
       <span class="text-lg font-bold">Nos Produits</span>
-      <span id="product-count" class="text-[#39ff14] font-medium">8 produits</span>
+      <span id="product-count" class="text-[#39ff14] font-medium">12 produits</span>
     </div>
 
     <div class="grid grid-cols-2 gap-4" id="products-grid"></div>
@@ -119,19 +103,15 @@
     </div>
 
     <div class="p-4">
-      <!-- Image principale -->
       <div class="rounded-3xl overflow-hidden mb-4 bg-zinc-900">
         <img id="main-image" class="w-full h-80 object-cover" alt="">
       </div>
 
-      <!-- Galerie miniatures -->
-      <div class="flex gap-3 overflow-x-auto pb-4 snap-x" id="thumbnail-gallery"></div>
+      <div class="flex gap-3 overflow-x-auto pb-4" id="thumbnail-gallery"></div>
 
-      <!-- Infos produit -->
       <div class="space-y-5">
         <div>
           <p class="text-4xl font-bold text-[#39ff14]" id="detail-price"></p>
-          <p class="text-gray-400 text-lg" id="detail-farm"></p>
         </div>
 
         <div class="flex gap-2">
@@ -144,7 +124,7 @@
         </div>
 
         <button onclick="addToCart()" 
-                class="w-full bg-[#39ff14] hover:bg-[#2be40f] text-black font-bold py-6 rounded-3xl text-xl flex items-center justify-center gap-3 shadow-lg shadow-[#39ff14]/50">
+                class="w-full bg-[#39ff14] hover:bg-[#2be40f] text-black font-bold py-6 rounded-3xl text-xl flex items-center justify-center gap-3">
           <i class="fa-solid fa-cart-plus"></i>
           Ajouter au panier
         </button>
@@ -155,27 +135,13 @@
   <!-- BOTTOM NAV -->
   <div class="fixed bottom-0 left-0 right-0 bg-black border-t border-[#39ff14]/30 py-2 px-4 z-50">
     <div class="flex justify-around items-center">
-      <a href="#" class="flex flex-col items-center text-[#39ff14]">
-        <i class="fa-solid fa-house text-2xl"></i>
-        <span class="text-xs mt-1">Accueil</span>
-      </a>
-      <a href="#" class="flex flex-col items-center text-gray-400">
-        <i class="fa-solid fa-star text-2xl"></i>
-        <span class="text-xs mt-1">Avis</span>
-      </a>
+      <a href="#" class="flex flex-col items-center text-[#39ff14]"><i class="fa-solid fa-house text-2xl"></i><span class="text-xs">Accueil</span></a>
+      <a href="#" class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-star text-2xl"></i><span class="text-xs">Avis</span></a>
       <a href="#" onclick="showCart()" class="flex flex-col items-center -mt-8">
-        <div class="bg-[#39ff14] text-black w-16 h-16 rounded-3xl flex items-center justify-center shadow-2xl shadow-[#39ff14]/60">
-          <i class="fa-solid fa-cart-shopping text-3xl"></i>
-        </div>
+        <div class="bg-[#39ff14] text-black w-16 h-16 rounded-3xl flex items-center justify-center shadow-2xl"><i class="fa-solid fa-cart-shopping text-3xl"></i></div>
       </a>
-      <a href="#" class="flex flex-col items-center text-gray-400">
-        <i class="fa-solid fa-circle-info text-2xl"></i>
-        <span class="text-xs mt-1">Infos</span>
-      </a>
-      <a href="#" class="flex flex-col items-center text-gray-400">
-        <i class="fa-solid fa-envelope text-2xl"></i>
-        <span class="text-xs mt-1">Contact</span>
-      </a>
+      <a href="#" class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-circle-info text-2xl"></i><span class="text-xs">Infos</span></a>
+      <a href="#" class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-envelope text-2xl"></i><span class="text-xs">Contact</span></a>
     </div>
   </div>
 
@@ -184,7 +150,7 @@
     <div class="glass bottom-sheet w-full rounded-t-3xl max-h-[75vh]">
       <div class="p-4 border-b border-white/10">
         <div class="w-12 h-1.5 bg-white/30 mx-auto rounded-full mb-4"></div>
-        <h2 class="text-center text-xl font-bold">Catégories <span class="text-[#39ff14] text-sm">(Multi)</span></h2>
+        <h2 class="text-center text-xl font-bold">Catégories</h2>
       </div>
       <div class="p-4 space-y-2 max-h-[55vh] overflow-auto" id="category-list"></div>
       <div class="p-4 border-t border-white/10 flex gap-3">
@@ -194,76 +160,25 @@
     </div>
   </div>
 
-  <!-- FARM BOTTOM SHEET -->
-  <div id="farm-sheet" class="hidden fixed inset-0 z-[100] bg-black/80 flex items-end">
-    <div class="glass bottom-sheet w-full rounded-t-3xl max-h-[75vh]">
-      <div class="p-4 border-b border-white/10">
-        <div class="w-12 h-1.5 bg-white/30 mx-auto rounded-full mb-4"></div>
-        <h2 class="text-center text-xl font-bold">Marques <span class="text-[#39ff14] text-sm">(Multi)</span></h2>
-      </div>
-      <div class="p-4 space-y-2 max-h-[55vh] overflow-auto" id="farm-list"></div>
-      <div class="p-4 border-t border-white/10 flex gap-3">
-        <button onclick="closeSheets()" class="flex-1 py-4 bg-zinc-800 rounded-2xl">Fermer</button>
-        <button onclick="applyFilters()" class="flex-1 py-4 bg-[#39ff14] text-black font-bold rounded-2xl">Appliquer</button>
-      </div>
-    </div>
-  </div>
-
   <script>
+    const categoriesList = [
+      "Tous", "SACS LUXE", "RUNNING", "T-SHIRT", "CLAQUETTES", "ENSEMBLE", "LUXE", 
+      "CHAUSSURE LUXE", "VESTE", "CP/STONE", "CASQUETTE/BONNET", "PULL", 
+      "CHAUSSURE SPORT", "LUNETTES", "BIJOUX", "LORO PIANA", "PORTEFEUILLE", 
+      "MAILLOT FOOT", "ALO", "SHORT", "ELECTRONIQUE", "MONTRE", "PARFUMS", 
+      "CROCS", "JEANS", "CHEMISE", "DOUDOUNE", "SOUS-VÊTEMENTS", "CASQUE ARAI"
+    ];
+
     const products = [
-      {
-        id: 1,
-        name: "Fruity Runtz",
-        category: "Fleurs",
-        farm: "Unbranded",
-        price: 89,
-        images: [
-          "https://picsum.photos/id/1015/800/800",
-          "https://picsum.photos/id/1016/800/800",
-          "https://picsum.photos/id/1018/800/800"
-        ],
-        desc: "Saveurs fruitées explosives de fraise, bonbon et agrumes. Effet équilibré et très aromatique."
-      },
-      {
-        id: 2,
-        name: "Cake Fruit",
-        category: "Fleurs",
-        farm: "Darks Farm",
-        price: 120,
-        images: ["https://picsum.photos/id/201/800/800", "https://picsum.photos/id/202/800/800"],
-        desc: "Variété premium aux notes sucrées de gâteau et fruits tropicaux. Qualité exceptionnelle."
-      },
-      {
-        id: 3,
-        name: "House of Hash",
-        category: "Hash",
-        farm: "House of Hash",
-        price: 65,
-        images: ["https://picsum.photos/id/301/800/800"],
-        desc: "Hash traditionnel californien de très haute qualité."
-      },
-      {
-        id: 4,
-        name: "Gold Crown Rosin",
-        category: "Concentrés",
-        farm: "Gold Crown",
-        price: 145,
-        images: ["https://picsum.photos/id/401/800/800", "https://picsum.photos/id/402/800/800"],
-        desc: "Live Rosin premium pressée à froid. Goût et effet incroyables."
-      },
-      {
-        id: 5,
-        name: "Blueberry Kush",
-        category: "Fleurs",
-        farm: "Darks Farm",
-        price: 95,
-        images: ["https://picsum.photos/id/106/800/800"],
-        desc: "Notes de myrtilles et terre. Effet relaxant puissant."
-      }
+      { id: 1, name: "T-Shirt Oversize", category: "T-SHIRT", price: 85, images: ["https://picsum.photos/id/20/800/800"], desc: "T-shirt luxe en coton premium, coupe oversize." },
+      { id: 2, name: "Sac Loro Piana", category: "SACS LUXE", price: 650, images: ["https://picsum.photos/id/201/800/800"], desc: "Sac Loro Piana édition limitée." },
+      { id: 3, name: "Doudoune Moncler", category: "DOUDOUNE", price: 1450, images: ["https://picsum.photos/id/301/800/800"], desc: "Doudoune haute couture ultra chaude." },
+      { id: 4, name: "Casquette CP Company", category: "CASQUETTE/BONNET", price: 120, images: ["https://picsum.photos/id/401/800/800"], desc: "Casquette iconique CP Company." },
+      { id: 5, name: "Sneakers Luxe", category: "CHAUSSURE LUXE", price: 320, images: ["https://picsum.photos/id/106/800/800"], desc: "Sneakers haut de gamme." },
+      { id: 6, name: "Ensemble ALO", category: "ENSEMBLE", price: 180, images: ["https://picsum.photos/id/180/800/800"], desc: "Ensemble sport luxe ALO Yoga." }
     ];
 
     let selectedCategories = [];
-    let selectedFarms = [];
     let currentProduct = null;
 
     function renderProducts() {
@@ -271,9 +186,7 @@
       grid.innerHTML = '';
 
       const filtered = products.filter(p => {
-        const catMatch = selectedCategories.length === 0 || selectedCategories.includes(p.category);
-        const farmMatch = selectedFarms.length === 0 || selectedFarms.includes(p.farm);
-        return catMatch && farmMatch;
+        return selectedCategories.length === 0 || selectedCategories.includes(p.category);
       });
 
       document.getElementById('product-count').textContent = `${filtered.length} produits`;
@@ -286,7 +199,7 @@
           <img src="${p.images[0]}" class="w-full h-40 object-cover">
           <div class="p-4">
             <p class="font-bold text-lg">${p.name}</p>
-            <p class="text-gray-400 text-sm">${p.farm} • ${p.category}</p>
+            <p class="text-gray-400 text-sm">${p.category}</p>
             <p class="text-[#39ff14] font-bold mt-2">${p.price} €</p>
           </div>
         `;
@@ -300,25 +213,14 @@
       
       document.getElementById('detail-name').textContent = product.name;
       document.getElementById('detail-price').textContent = product.price + " €";
-      document.getElementById('detail-farm').textContent = product.farm;
       document.getElementById('detail-category').textContent = product.category;
       document.getElementById('detail-desc').textContent = product.desc;
-
       document.getElementById('main-image').src = product.images[0];
 
       const gallery = document.getElementById('thumbnail-gallery');
-      gallery.innerHTML = '';
-      product.images.forEach((img, i) => {
-        const thumb = document.createElement('img');
-        thumb.src = img;
-        thumb.className = `w-20 h-20 object-cover rounded-2xl border-2 cursor-pointer snap-center ${i === 0 ? 'border-[#39ff14]' : 'border-transparent'}`;
-        thumb.onclick = () => {
-          document.getElementById('main-image').src = img;
-          document.querySelectorAll('#thumbnail-gallery img').forEach(t => t.classList.remove('border-[#39ff14]'));
-          thumb.classList.add('border-[#39ff14]');
-        };
-        gallery.appendChild(thumb);
-      });
+      gallery.innerHTML = product.images.map(img => `
+        <img src="${img}" class="w-20 h-20 object-cover rounded-2xl border-2 border-[#39ff14] cursor-pointer">
+      `).join('');
     }
 
     function closeDetail() {
@@ -326,31 +228,18 @@
     }
 
     function addToCart() {
-      alert(`✅ ${currentProduct.name} a été ajouté au panier !`);
+      alert(`✅ ${currentProduct.name} ajouté au panier !`);
     }
 
     function showCategorySheet() {
-      const categories = ["Fleurs", "Hash", "Concentrés"];
       const list = document.getElementById('category-list');
-      list.innerHTML = categories.map(cat => `
+      list.innerHTML = categoriesList.map(cat => `
         <div onclick="toggleCategory('${cat}')" class="p-4 rounded-2xl hover:bg-white/10 flex justify-between items-center ${selectedCategories.includes(cat) ? 'bg-white/10' : ''}">
           <span>${cat}</span>
           ${selectedCategories.includes(cat) ? '<i class="fa-solid fa-check text-[#39ff14]"></i>' : ''}
         </div>
       `).join('');
       document.getElementById('category-sheet').classList.remove('hidden');
-    }
-
-    function showFarmSheet() {
-      const farms = ["Darks Farm", "House of Hash", "Unbranded", "Gold Crown"];
-      const list = document.getElementById('farm-list');
-      list.innerHTML = farms.map(farm => `
-        <div onclick="toggleFarm('${farm}')" class="p-4 rounded-2xl hover:bg-white/10 flex justify-between items-center ${selectedFarms.includes(farm) ? 'bg-white/10' : ''}">
-          <span>${farm}</span>
-          ${selectedFarms.includes(farm) ? '<i class="fa-solid fa-check text-[#39ff14]"></i>' : ''}
-        </div>
-      `).join('');
-      document.getElementById('farm-sheet').classList.remove('hidden');
     }
 
     function toggleCategory(cat) {
@@ -362,18 +251,8 @@
       showCategorySheet();
     }
 
-    function toggleFarm(farm) {
-      if (selectedFarms.includes(farm)) {
-        selectedFarms = selectedFarms.filter(f => f !== farm);
-      } else {
-        selectedFarms.push(farm);
-      }
-      showFarmSheet();
-    }
-
     function applyFilters() {
       document.getElementById('selected-cat-text').textContent = selectedCategories.length ? selectedCategories.join(", ") : "Toutes";
-      document.getElementById('selected-farm-text').textContent = selectedFarms.length ? selectedFarms.join(", ") : "Toutes";
       closeSheets();
       updateActiveFilters();
       renderProducts();
@@ -385,15 +264,8 @@
 
       selectedCategories.forEach(cat => {
         const chip = document.createElement('div');
-        chip.className = "chip bg-[#39ff14] text-black px-4 py-2 rounded-2xl flex items-center gap-2 text-sm cursor-pointer";
+        chip.className = "bg-[#39ff14] text-black px-4 py-2 rounded-2xl flex items-center gap-2 text-sm cursor-pointer";
         chip.innerHTML = `${cat} <i class="fa-solid fa-xmark" onclick="event.stopImmediatePropagation(); removeCategory('${cat}')"></i>`;
-        container.appendChild(chip);
-      });
-
-      selectedFarms.forEach(farm => {
-        const chip = document.createElement('div');
-        chip.className = "chip bg-[#39ff14] text-black px-4 py-2 rounded-2xl flex items-center gap-2 text-sm cursor-pointer";
-        chip.innerHTML = `${farm} <i class="fa-solid fa-xmark" onclick="event.stopImmediatePropagation(); removeFarm('${farm}')"></i>`;
         container.appendChild(chip);
       });
     }
@@ -404,15 +276,8 @@
       renderProducts();
     }
 
-    function removeFarm(farm) {
-      selectedFarms = selectedFarms.filter(f => f !== farm);
-      updateActiveFilters();
-      renderProducts();
-    }
-
     function closeSheets() {
       document.getElementById('category-sheet').classList.add('hidden');
-      document.getElementById('farm-sheet').classList.add('hidden');
     }
 
     function closeApp() {
@@ -421,16 +286,13 @@
     }
 
     function showCart() {
-      alert("🛒 Panier - Bientôt disponible dans la prochaine mise à jour");
+      alert("🛒 Panier - Bientôt disponible");
     }
 
-    // Initialisation
     window.onload = () => {
       renderProducts();
       updateActiveFilters();
-      if (window.Telegram?.WebApp) {
-        window.Telegram.WebApp.expand();
-      }
+      if (window.Telegram?.WebApp) window.Telegram.WebApp.expand();
     };
   </script>
 </body>
