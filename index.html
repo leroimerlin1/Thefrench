@@ -11,69 +11,46 @@
 
     :root { --neon-green: #39ff14; }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body, html {
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
-      background: #000000;
-      color: white;
+      margin: 0; padding: 0; height: 100vh; overflow: hidden;
+      background: #000000; color: white;
       font-family: 'Inter', system-ui, sans-serif;
     }
 
-    .neon-text {
-      text-shadow: 0 0 20px var(--neon-green), 0 0 40px var(--neon-green);
-    }
-
-    .glass {
-      background: rgba(15, 15, 15, 0.92);
-      backdrop-filter: blur(30px);
-      border: 1px solid rgba(57, 255, 20, 0.18);
-    }
-
-    .product-card {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .product-card:active {
-      transform: scale(0.95);
-    }
+    .neon-text { text-shadow: 0 0 20px var(--neon-green), 0 0 40px var(--neon-green); }
   </style>
 </head>
 <body>
 
-  <!-- HEADER ULTRA MINIMAL -->
-  <div class="bg-black border-b border-[#39ff14]/20 sticky top-0 z-50">
-    <div class="flex items-center justify-between px-5 py-3">
-      <button onclick="closeApp()" class="text-gray-400 hover:text-white">
-        <i class="fa-solid fa-xmark text-2xl"></i>
-      </button>
-      <div class="flex items-center gap-2">
-        <span class="text-3xl font-black tracking-widest neon-text">SAP</span>
-        <span class="text-[#39ff14] text-3xl font-black">FACTORY</span>
-      </div>
-      <div class="w-6"></div>
+  <!-- HEADER -->
+  <div class="bg-black/90 border-b border-white/10 px-4 py-3 flex items-center justify-between sticky top-0 z-50">
+    <button onclick="closeApp()" class="bg-zinc-900 px-5 py-1.5 rounded-full text-sm flex items-center gap-2">
+      <i class="fa-solid fa-xmark"></i> Fermer
+    </button>
+
+    <div class="flex flex-col items-center">
+      <span class="text-2xl font-black tracking-widest neon-text">SAP</span>
+      <span class="text-[#39ff14] text-xl -mt-1">FACTORY</span>
     </div>
+
+    <div></div>
   </div>
 
   <!-- MAIN CONTENT -->
   <div class="overflow-auto" style="height: calc(100vh - 115px);">
-    <div class="px-4 pt-4 pb-24">
+    <div class="px-4 pt-6">
       <!-- Welcome -->
-      <div class="glass rounded-3xl p-5 mb-6 flex items-center gap-4">
-        <div class="w-14 h-14 bg-green-500/10 rounded-2xl flex items-center justify-center text-4xl">👋</div>
+      <div class="bg-zinc-900 rounded-3xl p-5 flex items-center gap-4 mb-8">
+        <div class="w-12 h-12 bg-yellow-500 rounded-2xl flex items-center justify-center text-3xl font-bold">L</div>
         <div>
-          <p class="text-gray-400">Bienvenue</p>
-          <p class="font-bold text-2xl">LeRoiMerlin</p>
+          <p class="text-gray-400 text-sm">Bienvenue</p>
+          <p class="font-bold text-xl">LeRoiMerlin</p>
         </div>
       </div>
 
-      <!-- Active Filters -->
-      <div id="active-filters" class="flex gap-2 mb-6 flex-wrap"></div>
-
-      <!-- Catégorie Button -->
+      <!-- Catégories Button -->
       <button onclick="showCategorySheet()" 
-              class="w-full glass rounded-3xl p-6 flex items-center justify-between mb-8">
+              class="w-full bg-zinc-900 rounded-3xl p-6 flex items-center justify-between mb-8">
         <div class="flex items-center gap-4">
           <i class="fa-solid fa-tags text-3xl text-[#39ff14]"></i>
           <div>
@@ -84,60 +61,36 @@
         <i class="fa-solid fa-chevron-down text-[#39ff14]"></i>
       </button>
 
-      <div class="flex justify-between px-1 mb-5">
+      <div class="flex justify-between mb-5">
         <span class="text-2xl font-bold">Nos Produits</span>
         <span id="product-count" class="text-[#39ff14]">12 produits</span>
       </div>
 
-      <div class="grid grid-cols-2 gap-4" id="products-grid"></div>
-    </div>
-  </div>
-
-  <!-- DETAIL PAGE -->
-  <div id="detail-page" class="hidden fixed inset-0 bg-black z-[200] overflow-auto">
-    <div class="sticky top-0 bg-black border-b border-[#39ff14]/30 p-4 flex items-center z-10">
-      <button onclick="closeDetail()" class="text-4xl pr-6">←</button>
-      <h1 id="detail-name" class="text-xl font-bold"></h1>
-    </div>
-    <div class="p-4">
-      <img id="main-image" class="w-full rounded-3xl h-96 object-cover mb-4" alt="">
-      <div class="flex gap-3 overflow-x-auto pb-6" id="thumbnail-gallery"></div>
-
-      <p id="detail-price" class="text-5xl font-bold text-[#39ff14] mb-4"></p>
-      <span id="detail-category" class="bg-zinc-900 px-5 py-2 rounded-3xl inline-block mb-6"></span>
-      
-      <h3 class="font-bold mb-2">Description</h3>
-      <p id="detail-desc" class="text-gray-300 leading-relaxed"></p>
-
-      <button onclick="addToCart(currentProduct)" 
-              class="mt-10 w-full bg-[#39ff14] text-black font-bold py-7 rounded-3xl text-2xl">
-        Ajouter au panier
-      </button>
+      <div class="grid grid-cols-2 gap-4 pb-20" id="products-grid"></div>
     </div>
   </div>
 
   <!-- BOTTOM NAV -->
-  <div class="fixed bottom-0 left-0 right-0 bg-black border-t border-[#39ff14]/20 py-3 z-50">
-    <div class="flex justify-around">
-      <a href="#" class="text-[#39ff14]"><i class="fa-solid fa-house text-3xl"></i></a>
-      <a href="#" class="text-gray-400"><i class="fa-solid fa-star text-3xl"></i></a>
-      <a href="#" onclick="showCart()" class="relative -mt-10">
-        <div class="bg-[#39ff14] text-black w-20 h-20 rounded-3xl flex items-center justify-center shadow-2xl shadow-[#39ff14]/70">
-          <i class="fa-solid fa-cart-shopping text-4xl"></i>
+  <div class="fixed bottom-0 left-0 right-0 bg-black border-t border-white/10 py-2 z-50">
+    <div class="flex justify-around items-center">
+      <a href="#" class="text-[#39ff14]"><i class="fa-solid fa-house text-2xl"></i></a>
+      <a href="#" class="text-gray-400"><i class="fa-solid fa-star text-2xl"></i></a>
+      <a href="#" onclick="showCart()" class="relative -mt-9">
+        <div class="bg-[#39ff14] text-black w-16 h-16 rounded-3xl flex items-center justify-center shadow-2xl">
+          <i class="fa-solid fa-cart-shopping text-3xl"></i>
         </div>
-        <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-xs font-bold w-7 h-7 rounded-full flex items-center justify-center">0</span>
       </a>
-      <a href="#" class="text-gray-400"><i class="fa-solid fa-circle-info text-3xl"></i></a>
-      <a href="#" class="text-gray-400"><i class="fa-solid fa-envelope text-3xl"></i></a>
+      <a href="#" class="text-gray-400"><i class="fa-solid fa-circle-info text-2xl"></i></a>
+      <a href="#" class="text-gray-400"><i class="fa-solid fa-envelope text-2xl"></i></a>
     </div>
   </div>
 
   <!-- CATEGORY SHEET -->
   <div id="category-sheet" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-end">
-    <div class="glass w-full rounded-t-3xl max-h-[75vh]">
+    <div class="bg-zinc-900 w-full rounded-t-3xl max-h-[75vh]">
       <div class="p-4 border-b border-white/10">
         <div class="w-12 h-1.5 bg-white/30 mx-auto rounded-full mb-4"></div>
-        <h2 class="text-center text-2xl font-bold">Catégories</h2>
+        <h2 class="text-center text-xl font-bold">Catégories</h2>
       </div>
       <div id="category-list" class="p-4 space-y-2 max-h-[55vh] overflow-auto"></div>
       <div class="p-4 border-t border-white/10 flex gap-3">
@@ -148,20 +101,24 @@
   </div>
 
   <script>
-    let cart = [];
     let selectedCategories = [];
-    let currentProduct = null;
 
-    const categoriesList = ["Tous","SACS LUXE","RUNNING","T-SHIRT","CLAQUETTES","ENSEMBLE","LUXE","CHAUSSURE LUXE","VESTE","CP/STONE","CASQUETTE/BONNET","PULL","CHAUSSURE SPORT","LUNETTES","BIJOUX","LORO PIANA","PORTEFEUILLE","MAILLOT FOOT","ALO","SHORT","ELECTRONIQUE","MONTRE","PARFUMS","CROCS","JEANS","CHEMISE","DOUDOUNE","SOUS-VÊTEMENTS","CASQUE ARAI"];
-
-    const products = [
-      { id: 1, name: "T-Shirt Oversize", category: "T-SHIRT", price: 85, images: ["https://picsum.photos/id/20/800/800"], desc: "T-shirt luxe en coton premium." },
-      { id: 2, name: "Sac Loro Piana", category: "SACS LUXE", price: 650, images: ["https://picsum.photos/id/201/800/800"], desc: "Sac édition limitée." },
-      { id: 3, name: "Doudoune Moncler", category: "DOUDOUNE", price: 1450, images: ["https://picsum.photos/id/301/800/800"], desc: "Doudoune ultra chaude." },
-      { id: 4, name: "Casquette CP Company", category: "CASQUETTE/BONNET", price: 120, images: ["https://picsum.photos/id/401/800/800"], desc: "Casquette iconique." }
+    const categoriesList = [
+      "Tous", "SACS LUXE", "RUNNING", "T-SHIRT", "CLAQUETTES", "ENSEMBLE", "LUXE",
+      "CHAUSSURE LUXE", "VESTE", "CP/STONE", "CASQUETTE/BONNET", "PULL",
+      "CHAUSSURE SPORT", "LUNETTES", "BIJOUX", "LORO PIANA", "PORTEFEUILLE",
+      "MAILLOT FOOT", "ALO", "SHORT", "ELECTRONIQUE", "MONTRE", "PARFUMS",
+      "CROCS", "JEANS", "CHEMISE", "DOUDOUNE", "SOUS-VÊTEMENTS", "CASQUE ARAI"
     ];
 
-    function initTelegram() {
+    const products = [
+      { name: "T-Shirt Oversize", category: "T-SHIRT", price: 85, img: "https://picsum.photos/id/20/400/400" },
+      { name: "Sac Loro Piana", category: "SACS LUXE", price: 650, img: "https://picsum.photos/id/201/400/400" },
+      { name: "Doudoune Moncler", category: "DOUDOUNE", price: 1450, img: "https://picsum.photos/id/301/400/400" },
+      { name: "Casquette CP", category: "CASQUETTE/BONNET", price: 120, img: "https://picsum.photos/id/401/400/400" }
+    ];
+
+    function initFullscreen() {
       if (window.Telegram?.WebApp) {
         const tg = window.Telegram.WebApp;
         tg.expand();
@@ -183,54 +140,23 @@
 
       filtered.forEach(p => {
         const div = document.createElement('div');
-        div.className = "product-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer";
-        div.onclick = () => showDetail(p);
+        div.className = "bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer";
+        div.onclick = () => alert(`Détail : ${p.name}`);
         div.innerHTML = `
-          <img src="${p.images[0]}" class="w-full h-52 object-cover">
+          <img src="${p.img}" class="w-full h-44 object-cover">
           <div class="p-4">
-            <p class="font-bold text-lg">${p.name}</p>
-            <p class="text-[#39ff14] font-bold mt-1">${p.price} €</p>
+            <p class="font-bold">${p.name}</p>
+            <p class="text-[#39ff14] font-bold">${p.price} €</p>
           </div>
         `;
         grid.appendChild(div);
       });
     }
 
-    function showDetail(p) {
-      currentProduct = p;
-      document.getElementById('detail-page').classList.remove('hidden');
-      document.getElementById('detail-name').textContent = p.name;
-      document.getElementById('detail-price').textContent = p.price + " €";
-      document.getElementById('detail-category').textContent = p.category;
-      document.getElementById('detail-desc').textContent = p.desc;
-      document.getElementById('main-image').src = p.images[0];
-    }
-
-    function closeDetail() {
-      document.getElementById('detail-page').classList.add('hidden');
-    }
-
-    function addToCart(product) {
-      const existing = cart.find(i => i.id === product.id);
-      if (existing) existing.quantity = (existing.quantity || 1) + 1;
-      else cart.push({...product, quantity: 1});
-      updateCartCount();
-      alert(`✅ ${product.name} ajouté au panier`);
-    }
-
-    function updateCartCount() {
-      const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-      document.getElementById('cart-count').textContent = count;
-    }
-
-    function showCart() {
-      alert("🛒 Panier ouvert (ajoute le code du panier complet si tu veux)");
-    }
-
     function showCategorySheet() {
       const list = document.getElementById('category-list');
       list.innerHTML = categoriesList.map(cat => `
-        <div onclick="toggleCategory('${cat}')" class="p-5 rounded-2xl hover:bg-white/10 flex justify-between ${selectedCategories.includes(cat) ? 'bg-white/10' : ''}">
+        <div onclick="toggleCategory('${cat}')" class="p-5 rounded-2xl hover:bg-white/10 flex justify-between items-center ${selectedCategories.includes(cat) ? 'bg-white/10' : ''}">
           <span>${cat}</span>
           ${selectedCategories.includes(cat) ? '<i class="fa-solid fa-check text-[#39ff14]"></i>' : ''}
         </div>
@@ -259,11 +185,14 @@
 
     function closeApp() {
       if (window.Telegram?.WebApp) window.Telegram.WebApp.close();
-      else alert("Mini App fermée");
+    }
+
+    function showCart() {
+      alert("🛒 Panier");
     }
 
     window.onload = () => {
-      initTelegram();
+      initFullscreen();
       renderProducts();
     };
   </script>
