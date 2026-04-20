@@ -4,20 +4,21 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 
 # Remplace ces valeurs
 TOKEN = '8041091140:AAGdu3oR3Ag1L_mx_MHytlX4OjfB9wwJ5jo'
-MINI_APP_URL = 'https://leroimerlin1.github.io/Thefrench/'
+MINI_APP_URL = 'https://leroimerlin1.github.io/Thefrench/'   # Ton mini app Sap Factory
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 async def start(update: Update, context: CallbackContext) -> None:
     user = update.effective_user
     keyboard = [
-        [InlineKeyboardButton("🌱 Ouvrir The French Cali Farmz", web_app=WebAppInfo(url=MINI_APP_URL))],
-        [InlineKeyboardButton("📩 Support", url="https://t.me/orderthefrenchcalifarmz26")]
+        [InlineKeyboardButton("🛍️ Ouvrir Sap Factory", web_app=WebAppInfo(url=MINI_APP_URL))],
+        [InlineKeyboardButton("📩 Support", url="https://t.me/Sapfactory69")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     await update.message.reply_text(
-        f"Salut {user.first_name} ! Bienvenue chez *The French Cali Farmz* 🇫🇷\n\nClique pour ouvrir le shop premium Cali-French !",
+        f"Salut {user.first_name} ! Bienvenue chez **Sap Factory** 🔥\n\n"
+        "Clique ci-dessous pour ouvrir le shop premium.",
         parse_mode='Markdown',
         reply_markup=reply_markup
     )
@@ -25,7 +26,7 @@ async def start(update: Update, context: CallbackContext) -> None:
 async def shop(update: Update, context: CallbackContext) -> None:
     keyboard = [[InlineKeyboardButton("🛒 Accéder au shop", web_app=WebAppInfo(url=MINI_APP_URL))]]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text('Prêt à farmer ? Clique ici 👇', reply_markup=reply_markup)
+    await update.message.reply_text('Prêt à shopper chez Sap Factory ? Clique ici 👇', reply_markup=reply_markup)
 
 def main() -> None:
     application = Application.builder().token(TOKEN).build()
@@ -33,8 +34,9 @@ def main() -> None:
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("shop", shop))
 
-    # Optionnel : echo pour tout le reste
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, lambda u, c: u.message.reply_text('Envoie /start ou /shop ! 🌿')))
+    # Réponse par défaut
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, 
+        lambda u, c: u.message.reply_text('Envoie /start ou /shop !')))
 
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
