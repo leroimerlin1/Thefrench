@@ -27,18 +27,9 @@
 </head>
 <body class="flex flex-col">
 
-  <!-- HEADER -->
-  <header class="bg-black/90 border-b border-white/10 px-4 py-4 flex items-center justify-between sticky top-0 z-50">
-    <button onclick="closeApp()" class="bg-zinc-900 hover:bg-zinc-800 px-5 py-2 rounded-full text-sm flex items-center gap-2">
-      <i class="fa-solid fa-xmark"></i> Fermer
-    </button>
-
-    <div class="flex flex-col items-center">
-      <span class="text-4xl font-black tracking-widest neon-text text-[#39ff14]">SAP</span>
-      <span class="text-2xl font-bold -mt-2 tracking-wider">FACTORY</span>
-    </div>
-
-    <div class="w-10"></div>
+  <!-- HEADER avec ton logo -->
+  <header class="bg-black/90 border-b border-white/10 px-4 py-4 flex items-center justify-center sticky top-0 z-50">
+    <img src="sap.jpg" alt="Sap Factory Logo" class="h-12 w-auto">
   </header>
 
   <!-- MAIN CONTENT -->
@@ -60,7 +51,7 @@
 
       <div class="flex justify-between items-baseline mb-6">
         <h2 class="text-3xl font-bold">Nos Produits</h2>
-        <span id="product-count" class="text-[#39ff14] font-medium text-lg">6 produits</span>
+        <span id="product-count" class="text-[#39ff14] font-medium text-lg">3 produits</span>
       </div>
 
       <div id="products-grid" class="grid grid-cols-2 gap-4 pb-10"></div>
@@ -107,7 +98,7 @@
     </div>
   </div>
 
-  <!-- CHECKOUT MODAL (Adresse + WhatsApp) -->
+  <!-- CHECKOUT MODAL -->
   <div id="checkout-modal" class="hidden fixed inset-0 z-[110] bg-black/95 flex items-end">
     <div class="bg-zinc-900 w-full rounded-t-3xl max-h-[90vh] flex flex-col">
       <div class="p-5 border-b border-white/10 flex justify-between items-center">
@@ -202,12 +193,27 @@
     const categoriesList = ["Tous", "SACS LUXE", "RUNNING", "T-SHIRT", "CLAQUETTES", "ENSEMBLE", "LUXE", "CHAUSSURE LUXE", "VESTE", "CP/STONE", "CASQUETTE/BONNET", "PULL", "CHAUSSURE SPORT", "LUNETTES", "BIJOUX", "LORO PIANA", "PORTEFEUILLE", "MAILLOT FOOT", "ALO", "SHORT", "ELECTRONIQUE", "MONTRE", "PARFUMS", "CROCS", "JEANS", "CHEMISE", "DOUDOUNE", "SOUS-VÊTEMENTS", "CASQUE ARAI"];
 
     const products = [
-      { id: 1, name: "T-Shirt Oversize", category: "T-SHIRT", price: 85, img: "https://picsum.photos/id/20/400/400" },
-      { id: 2, name: "Sac Loro Piana", category: "SACS LUXE", price: 650, img: "https://picsum.photos/id/201/400/400" },
-      { id: 3, name: "Doudoune Moncler", category: "DOUDOUNE", price: 1450, img: "https://picsum.photos/id/301/400/400" },
-      { id: 4, name: "Casquette CP Company", category: "CASQUETTE/BONNET", price: 120, img: "https://picsum.photos/id/401/400/400" },
-      { id: 5, name: "Veste Stone Island", category: "VESTE", price: 890, img: "https://picsum.photos/id/180/400/400" },
-      { id: 6, name: "Claquettes Loro Piana", category: "CLAQUETTES", price: 320, img: "https://picsum.photos/id/251/400/400" },
+      { 
+        id: 1, 
+        name: "LUNETTE CARTIER EYEWEAR", 
+        category: "LUNETTES", 
+        price: 50, 
+        img: "lunettes-cartier.jpg" 
+      },
+      { 
+        id: 2, 
+        name: "SACOCHE Abbesses Louis Vuitton Éclipse de la ville LV Keepall Gris", 
+        category: "SACS LUXE", 
+        price: 230, 
+        img: "sacoche-lv.jpg" 
+      },
+      { 
+        id: 3, 
+        name: "BASKETS ASICS Jasper Green", 
+        category: "CHAUSSURE SPORT", 
+        price: 70, 
+        img: "baskets-asics.jpg" 
+      }
     ];
 
     const WHATSAPP_NUMBER = "+8618122042569";
@@ -239,7 +245,7 @@
           const div = document.createElement('div');
           div.className = "bg-zinc-800 rounded-2xl p-4 flex gap-4";
           div.innerHTML = `
-            <img src="${item.img}" class="w-20 h-20 object-cover rounded-xl">
+            <img src="${item.img}" class="w-20 h-20 object-cover rounded-xl" onerror="this.src='https://picsum.photos/id/237/400/400.jpg'">
             <div class="flex-1">
               <p class="font-semibold">${item.name}</p>
               <p class="text-[#39ff14]">${item.price} € × ${item.quantity || 1}</p>
@@ -367,10 +373,10 @@
         const div = document.createElement('div');
         div.className = "product-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer";
         div.innerHTML = `
-          <img src="${p.img}" class="w-full h-52 object-cover">
+          <img src="${p.img}" class="w-full h-52 object-cover" onerror="this.src='https://picsum.photos/id/237/400/400.jpg'">
           <div class="p-4">
-            <p class="font-semibold text-lg">${p.name}</p>
-            <p class="text-[#39ff14] font-bold text-xl mt-1">${p.price} €</p>
+            <p class="font-semibold text-lg leading-tight">${p.name}</p>
+            <p class="text-[#39ff14] font-bold text-xl mt-2">${p.price} €</p>
             <button onclick="event.stopImmediatePropagation(); addToCart(${JSON.stringify(p)})" 
                     class="mt-4 w-full py-3 bg-white/10 hover:bg-white/20 transition rounded-2xl text-sm font-medium">
               Ajouter au panier
@@ -409,11 +415,6 @@
 
     function closeSheets() {
       document.getElementById('category-sheet').classList.add('hidden');
-    }
-
-    function closeApp() {
-      if (window.Telegram?.WebApp) window.Telegram.WebApp.close();
-      else alert("Application fermée");
     }
 
     // Initialisation
