@@ -27,9 +27,13 @@
 </head>
 <body class="flex flex-col">
 
-  <!-- HEADER avec ton logo -->
-  <header class="bg-black/90 border-b border-white/10 px-4 py-4 flex items-center justify-center sticky top-0 z-50">
-    <img src="sap.jpg" alt="Sap Factory Logo" class="h-12 w-auto">
+  <!-- HEADER : Logo à gauche + Titre à côté -->
+  <header class="bg-black/90 border-b border-white/10 px-4 py-4 flex items-center gap-4 sticky top-0 z-50">
+    <img src="sap.jpg" alt="Sap Logo" class="h-10 w-auto flex-shrink-0">
+    <div class="flex flex-col">
+      <span class="text-3xl font-black tracking-widest neon-text text-[#39ff14]">SAP</span>
+      <span class="text-xl font-bold -mt-1 tracking-wider">FACTORY</span>
+    </div>
   </header>
 
   <!-- MAIN CONTENT -->
@@ -193,32 +197,18 @@
     const categoriesList = ["Tous", "SACS LUXE", "RUNNING", "T-SHIRT", "CLAQUETTES", "ENSEMBLE", "LUXE", "CHAUSSURE LUXE", "VESTE", "CP/STONE", "CASQUETTE/BONNET", "PULL", "CHAUSSURE SPORT", "LUNETTES", "BIJOUX", "LORO PIANA", "PORTEFEUILLE", "MAILLOT FOOT", "ALO", "SHORT", "ELECTRONIQUE", "MONTRE", "PARFUMS", "CROCS", "JEANS", "CHEMISE", "DOUDOUNE", "SOUS-VÊTEMENTS", "CASQUE ARAI"];
 
     const products = [
-      { 
-        id: 1, 
-        name: "LUNETTE CARTIER EYEWEAR", 
-        category: "LUNETTES", 
-        price: 50, 
-        img: "lunettes-cartier.jpg" 
-      },
-      { 
-        id: 2, 
-        name: "SACOCHE Abbesses Louis Vuitton Éclipse de la ville LV Keepall Gris", 
-        category: "SACS LUXE", 
-        price: 230, 
-        img: "sacoche-lv.jpg" 
-      },
-      { 
-        id: 3, 
-        name: "BASKETS ASICS Jasper Green", 
-        category: "CHAUSSURE SPORT", 
-        price: 70, 
-        img: "baskets-asics.jpg" 
-      }
+      { id: 1, name: "LUNETTE CARTIER EYEWEAR", category: "LUNETTES", price: 50, img: "lunettes-cartier.jpg" },
+      { id: 2, name: "SACOCHE Abbesses Louis Vuitton Éclipse de la ville LV Keepall Gris", category: "SACS LUXE", price: 230, img: "sacoche-lv.jpg" },
+      { id: 3, name: "BASKETS ASICS Jasper Green", category: "CHAUSSURE SPORT", price: 70, img: "baskets-asics.jpg" }
     ];
 
     const WHATSAPP_NUMBER = "+8618122042569";
 
-    function addToCart(product) {
+    // Fonction corrigée pour ajouter au panier
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
       const existing = cart.find(item => item.id === product.id);
       if (existing) {
         existing.quantity = (existing.quantity || 1) + 1;
@@ -377,13 +367,13 @@
           <div class="p-4">
             <p class="font-semibold text-lg leading-tight">${p.name}</p>
             <p class="text-[#39ff14] font-bold text-xl mt-2">${p.price} €</p>
-            <button onclick="event.stopImmediatePropagation(); addToCart(${JSON.stringify(p)})" 
+            <button onclick="addToCart(${p.id}); event.stopImmediatePropagation();" 
                     class="mt-4 w-full py-3 bg-white/10 hover:bg-white/20 transition rounded-2xl text-sm font-medium">
               Ajouter au panier
             </button>
           </div>
         `;
-        div.onclick = (e) => { if (!e.target.closest('button')) alert(`Détail : ${p.name}`); };
+        div.onclick = () => alert(`Détail : ${p.name}`);
         grid.appendChild(div);
       });
     }
