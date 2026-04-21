@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Sap Factory</title>
+  <title>Maison2lasapp</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap');
 
@@ -37,45 +38,52 @@
       border: 1px solid rgba(57, 255, 20, 0.2);
     }
   </style>
+
 </head>
 <body class="flex flex-col">
 
   <!-- HEADER -->
+
   <header class="bg-black/90 border-b border-white/10 px-4 py-5 flex items-center gap-4 sticky top-0 z-50">
-    <img src="sap.jpg" alt="Sap Logo" class="h-11 w-auto flex-shrink-0">
+    <img src="sap.jpg" alt="Maison2lasapp Logo" class="h-11 w-auto flex-shrink-0">
     <div class="flex flex-col">
-      <span class="text-4xl font-black tracking-widest neon-text text-[#39ff14]">SAP</span>
-      <span class="text-2xl font-bold -mt-2 tracking-wider">FACTORY</span>
+      <span class="text-4xl font-black tracking-widest neon-text text-[#39ff14]">MAISON2</span>
+      <span class="text-2xl font-bold -mt-2 tracking-wider">LASAPP</span>
     </div>
   </header>
 
   <!-- MAIN CONTENT - Produits -->
+
   <main id="main-products" class="flex-1 overflow-auto pb-20">
     <div class="px-4 pt-6 max-w-2xl mx-auto">
 
-      <!-- Catégories -->
-      <button onclick="showCategorySheet()" 
-              class="w-full bg-zinc-900 hover:bg-zinc-800 transition rounded-3xl p-6 flex items-center justify-between mb-8">
-        <div class="flex items-center gap-5">
-          <i class="fa-solid fa-tags text-4xl text-[#39ff14]"></i>
-          <div class="text-left">
-            <p class="font-semibold text-xl">Catégories</p>
-            <p id="selected-cat-text" class="text-gray-400 text-sm">Toutes les catégories</p>
-          </div>
-        </div>
-        <i class="fa-solid fa-chevron-down text-[#39ff14] text-2xl"></i>
-      </button>
-
-      <div class="flex justify-between items-baseline mb-6">
-        <h2 class="text-3xl font-bold">Nos Produits</h2>
-        <span id="product-count" class="text-[#39ff14] font-medium text-lg">3 produits</span>
+```
+  <!-- Catégories -->
+  <button onclick="showCategorySheet()" 
+          class="w-full bg-zinc-900 hover:bg-zinc-800 transition rounded-3xl p-6 flex items-center justify-between mb-8">
+    <div class="flex items-center gap-5">
+      <i class="fa-solid fa-tags text-4xl text-[#39ff14]"></i>
+      <div class="text-left">
+        <p class="font-semibold text-xl">Catégories</p>
+        <p id="selected-cat-text" class="text-gray-400 text-sm">Toutes les catégories</p>
       </div>
-
-      <div id="products-grid" class="grid grid-cols-2 gap-4 pb-10"></div>
     </div>
+    <i class="fa-solid fa-chevron-down text-[#39ff14] text-2xl"></i>
+  </button>
+
+  <div class="flex justify-between items-baseline mb-6">
+    <h2 class="text-3xl font-bold">Nos Produits</h2>
+    <span id="product-count" class="text-[#39ff14] font-medium text-lg">3 produits</span>
+  </div>
+
+  <div id="products-grid" class="grid grid-cols-2 gap-4 pb-10"></div>
+</div>
+```
+
   </main>
 
   <!-- PAGE AVIS -->
+
   <div id="reviews-page" class="hidden flex-1 overflow-auto pb-20">
     <div class="px-4 pt-6 max-w-2xl mx-auto">
       <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
@@ -86,100 +94,109 @@
   </div>
 
   <!-- PAGE INFO -->
+
   <div id="info-page" class="hidden flex-1 overflow-auto pb-20">
     <div class="px-4 pt-6 max-w-2xl mx-auto">
       <div class="info-section rounded-3xl p-8 mb-8">
         <div class="flex items-center gap-4 mb-6">
           <i class="fa-solid fa-circle-info text-5xl text-[#39ff14]"></i>
           <div>
-            <h1 class="text-3xl font-bold neon-text">Bienvenue chez Sap Factory</h1>
+            <h1 class="text-3xl font-bold neon-text">Bienvenue chez Maison2lasapp</h1>
             <p class="text-[#39ff14] text-sm mt-1">Site Officiel • Livraison Mondiale</p>
           </div>
         </div>
 
-        <div class="prose prose-invert max-w-none text-gray-300 leading-relaxed space-y-6">
-          <p class="text-lg">
-            Bonjour à tous et bienvenue sur le site officiel <strong class="text-[#39ff14]">Sap Factory</strong> !
-          </p>
-          
-          <p>
-            Ici, nous vous proposons une sélection des articles tendance et de qualité.<br>
-            Ce canal a été créé spécialement pour vous permettre de commander facilement et de consulter le stock disponible en temps réel.
-          </p>
+```
+    <div class="prose prose-invert max-w-none text-gray-300 leading-relaxed space-y-6">
+      <p class="text-lg">
+        Bonjour à tous et bienvenue sur le site officiel <strong class="text-[#39ff14]">Maison2lasapp</strong> !
+      </p>
+      
+      <p>
+        Ici, nous vous proposons une sélection des articles tendance et de qualité.<br>
+        Ce canal a été créé spécialement pour vous permettre de commander facilement et de consulter le stock disponible en temps réel.
+      </p>
 
-          <div class="bg-black/50 border-l-4 border-[#39ff14] pl-5 py-2 my-6">
-            <p class="text-[#39ff14] font-semibold">🌍 Envoi dans le monde entier sans frais supplémentaires</p>
-          </div>
-
-          <p>
-            Il vous suffit de capturer l'article qui vous plaît et de nous contacter directement par message privé dans l’onglet <strong>Support</strong>.
-          </p>
-
-          <p class="font-medium">
-            Merci à tous pour votre confiance et bon shopping chez Sap Factory !
-          </p>
-
-          <div class="bg-zinc-900/70 rounded-2xl p-6 border border-white/10">
-            <p class="font-semibold text-[#39ff14] mb-3">Si vous cherchez un article qui n’est pas affiché :</p>
-            <p class="text-sm">N’hésitez pas à me l’envoyer par MP, je me chargerai de vous trouver votre bonheur.</p>
-          </div>
-
-          <div>
-            <h3 class="text-xl font-bold text-[#39ff14] mb-4 flex items-center gap-2">
-              <i class="fa-solid fa-list-check"></i> Comment commander ?
-            </h3>
-            <div class="space-y-4 text-sm">
-              <div class="flex gap-4">
-                <div class="w-8 h-8 flex-shrink-0 bg-[#39ff14]/10 text-[#39ff14] rounded-2xl flex items-center justify-center font-bold">1</div>
-                <div>Envoyez un message sur WhatsApp ou Telegram pour recevoir le catalogue complet avec tous les articles disponibles.</div>
-              </div>
-              <div class="flex gap-4">
-                <div class="w-8 h-8 flex-shrink-0 bg-[#39ff14]/10 text-[#39ff14] rounded-2xl flex items-center justify-center font-bold">2</div>
-                <div>Contactez-moi avec les articles que vous souhaitez.</div>
-              </div>
-              <div class="flex gap-4">
-                <div class="w-8 h-8 flex-shrink-0 bg-[#39ff14]/10 text-[#39ff14] rounded-2xl flex items-center justify-center font-bold">3</div>
-                <div>Effectuez un virement instantané. Dès réception, j’expédie votre colis.</div>
-              </div>
-              <div class="flex gap-4">
-                <div class="w-8 h-8 flex-shrink-0 bg-[#39ff14]/10 text-[#39ff14] rounded-2xl flex items-center justify-center font-bold">4</div>
-                <div>Une fois le colis expédié, je vous envoie le numéro de suivi (DHL 7-14 jours).</div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="bg-black/50 border-l-4 border-[#39ff14] pl-5 py-2 my-6">
+        <p class="text-[#39ff14] font-semibold">🌍 Envoi dans le monde entier sans frais supplémentaires</p>
       </div>
 
-      <div class="text-center text-xs text-gray-500 mt-10">
-        Sap Factory © 2026 • Tous droits réservés
+      <p>
+        Il vous suffit de capturer l'article qui vous plaît et de nous contacter directement par message privé dans l'onglet <strong>Support</strong>.
+      </p>
+
+      <p class="font-medium">
+        Merci à tous pour votre confiance et bon shopping chez Maison2lasapp !
+      </p>
+
+      <div class="bg-zinc-900/70 rounded-2xl p-6 border border-white/10">
+        <p class="font-semibold text-[#39ff14] mb-3">Si vous cherchez un article qui n'est pas affiché :</p>
+        <p class="text-sm">N'hésitez pas à me l'envoyer par MP, je me chargerai de vous trouver votre bonheur.</p>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-bold text-[#39ff14] mb-4 flex items-center gap-2">
+          <i class="fa-solid fa-list-check"></i> Comment commander ?
+        </h3>
+        <div class="space-y-4 text-sm">
+          <div class="flex gap-4">
+            <div class="w-8 h-8 flex-shrink-0 bg-[#39ff14]/10 text-[#39ff14] rounded-2xl flex items-center justify-center font-bold">1</div>
+            <div>Envoyez un message sur WhatsApp ou Telegram pour recevoir le catalogue complet avec tous les articles disponibles.</div>
+          </div>
+          <div class="flex gap-4">
+            <div class="w-8 h-8 flex-shrink-0 bg-[#39ff14]/10 text-[#39ff14] rounded-2xl flex items-center justify-center font-bold">2</div>
+            <div>Contactez-moi avec les articles que vous souhaitez.</div>
+          </div>
+          <div class="flex gap-4">
+            <div class="w-8 h-8 flex-shrink-0 bg-[#39ff14]/10 text-[#39ff14] rounded-2xl flex items-center justify-center font-bold">3</div>
+            <div>Effectuez un virement instantané. Dès réception, j'expédie votre colis.</div>
+          </div>
+          <div class="flex gap-4">
+            <div class="w-8 h-8 flex-shrink-0 bg-[#39ff14]/10 text-[#39ff14] rounded-2xl flex items-center justify-center font-bold">4</div>
+            <div>Une fois le colis expédié, je vous envoie le numéro de suivi (DHL 7-14 jours).</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
+  <div class="text-center text-xs text-gray-500 mt-10">
+    Maison2lasapp © 2026 • Tous droits réservés
+  </div>
+</div>
+```
+
+  </div>
+
   <!-- BOTTOM NAV -->
+
   <nav class="fixed bottom-0 left-0 right-0 bg-black border-t border-white/10 py-3 z-50">
     <div class="flex justify-around items-center max-w-md mx-auto">
       <a href="#" onclick="showHome()" class="text-[#39ff14]"><i class="fa-solid fa-house text-3xl"></i></a>
       <a href="#" onclick="showReviews()" class="text-gray-400"><i class="fa-solid fa-star text-3xl"></i></a>
-      
-      <a onclick="showCart()" class="relative -mt-10">
-        <div id="cart-button" class="bg-[#39ff14] hover:bg-[#2be50f] transition text-black w-20 h-20 rounded-3xl flex items-center justify-center shadow-2xl shadow-[#39ff14]/50 relative">
-          <i class="fa-solid fa-cart-shopping text-4xl"></i>
-          <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">0</span>
-        </div>
-      </a>
 
-      <a href="#" onclick="showInfo()" class="text-gray-400">
-        <i class="fa-solid fa-circle-info text-3xl"></i>
-      </a>
-      
-      <a onclick="showContactModal()" class="text-[#39ff14]">
-        <i class="fa-solid fa-headset text-3xl"></i>
-      </a>
+```
+  <a onclick="showCart()" class="relative -mt-10">
+    <div id="cart-button" class="bg-[#39ff14] hover:bg-[#2be50f] transition text-black w-20 h-20 rounded-3xl flex items-center justify-center shadow-2xl shadow-[#39ff14]/50 relative">
+      <i class="fa-solid fa-cart-shopping text-4xl"></i>
+      <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">0</span>
     </div>
+  </a>
+
+  <a href="#" onclick="showInfo()" class="text-gray-400">
+    <i class="fa-solid fa-circle-info text-3xl"></i>
+  </a>
+  
+  <a onclick="showContactModal()" class="text-[#39ff14]">
+    <i class="fa-solid fa-headset text-3xl"></i>
+  </a>
+</div>
+```
+
   </nav>
 
   <!-- CONTACT SUPPORT MODAL -->
+
   <div id="contact-modal" class="hidden fixed inset-0 z-[120] bg-black/95 flex items-center justify-center p-4">
     <div class="bg-zinc-900 w-full max-w-md rounded-3xl p-8">
       <div class="text-center mb-8">
@@ -187,46 +204,50 @@
         <p class="text-gray-400">Choisissez votre moyen de contact</p>
       </div>
 
-      <div class="space-y-4">
-        <a href="https://www.snapchat.com/add/Sap-factory" target="_blank"
-           class="support-btn flex items-center gap-5 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black p-6 rounded-3xl font-semibold text-lg">
-          <i class="fa-brands fa-snapchat text-4xl"></i>
-          <div class="flex-1">
-            <div class="text-xl">Snapchat</div>
-            <div class="text-sm opacity-80">@Sap-factory</div>
-          </div>
-          <i class="fa-solid fa-arrow-right text-2xl"></i>
-        </a>
-
-        <a href="https://wa.me/8618122042569" target="_blank"
-           class="support-btn flex items-center gap-5 bg-gradient-to-r from-green-500 to-emerald-500 text-white p-6 rounded-3xl font-semibold text-lg">
-          <i class="fa-brands fa-whatsapp text-4xl"></i>
-          <div class="flex-1">
-            <div class="text-xl">WhatsApp</div>
-            <div class="text-sm opacity-80">+86 181 2204 2569</div>
-          </div>
-          <i class="fa-solid fa-arrow-right text-2xl"></i>
-        </a>
-
-        <a href="https://t.me/sapfactory69" target="_blank"
-           class="support-btn flex items-center gap-5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white p-6 rounded-3xl font-semibold text-lg">
-          <i class="fa-brands fa-telegram text-4xl"></i>
-          <div class="flex-1">
-            <div class="text-xl">Telegram</div>
-            <div class="text-sm opacity-80">@sapfactory69</div>
-          </div>
-          <i class="fa-solid fa-arrow-right text-2xl"></i>
-        </a>
+```
+  <div class="space-y-4">
+    <a href="https://www.snapchat.com/add/Sap-factory" target="_blank"
+       class="support-btn flex items-center gap-5 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black p-6 rounded-3xl font-semibold text-lg">
+      <i class="fa-brands fa-snapchat text-4xl"></i>
+      <div class="flex-1">
+        <div class="text-xl">Snapchat</div>
+        <div class="text-sm opacity-80">@Sap-factory</div>
       </div>
+      <i class="fa-solid fa-arrow-right text-2xl"></i>
+    </a>
 
-      <button onclick="closeContactModal()" 
-              class="w-full mt-8 py-5 bg-zinc-800 hover:bg-zinc-700 transition rounded-3xl text-gray-400 font-medium">
-        Fermer
-      </button>
-    </div>
+    <a href="https://wa.me/8618122042569" target="_blank"
+       class="support-btn flex items-center gap-5 bg-gradient-to-r from-green-500 to-emerald-500 text-white p-6 rounded-3xl font-semibold text-lg">
+      <i class="fa-brands fa-whatsapp text-4xl"></i>
+      <div class="flex-1">
+        <div class="text-xl">WhatsApp</div>
+        <div class="text-sm opacity-80">+86 181 2204 2569</div>
+      </div>
+      <i class="fa-solid fa-arrow-right text-2xl"></i>
+    </a>
+
+    <a href="https://t.me/sapfactory69" target="_blank"
+       class="support-btn flex items-center gap-5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white p-6 rounded-3xl font-semibold text-lg">
+      <i class="fa-brands fa-telegram text-4xl"></i>
+      <div class="flex-1">
+        <div class="text-xl">Telegram</div>
+        <div class="text-sm opacity-80">@sapfactory69</div>
+      </div>
+      <i class="fa-solid fa-arrow-right text-2xl"></i>
+    </a>
+  </div>
+
+  <button onclick="closeContactModal()" 
+          class="w-full mt-8 py-5 bg-zinc-800 hover:bg-zinc-700 transition rounded-3xl text-gray-400 font-medium">
+    Fermer
+  </button>
+</div>
+```
+
   </div>
 
   <!-- PANIER MODAL -->
+
   <div id="cart-modal" class="hidden fixed inset-0 z-[100] bg-black/95 flex items-end">
     <div class="bg-zinc-900 w-full rounded-t-3xl max-h-[85vh] flex flex-col">
       <div class="p-5 border-b border-white/10 flex justify-between items-center">
@@ -234,21 +255,25 @@
         <button onclick="closeCart()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-3xl"></i></button>
       </div>
 
-      <div id="cart-items" class="flex-1 p-4 overflow-auto space-y-4"></div>
+```
+  <div id="cart-items" class="flex-1 p-4 overflow-auto space-y-4"></div>
 
-      <div class="p-5 border-t border-white/10">
-        <div class="flex justify-between text-xl mb-6">
-          <span class="font-medium">Total</span>
-          <span id="cart-total" class="font-bold text-[#39ff14]">0 €</span>
-        </div>
-        <button onclick="proceedToCheckout()" class="w-full py-6 bg-[#39ff14] hover:bg-[#2be50f] text-black font-bold text-xl rounded-3xl transition">
-          Continuer vers le paiement
-        </button>
-      </div>
+  <div class="p-5 border-t border-white/10">
+    <div class="flex justify-between text-xl mb-6">
+      <span class="font-medium">Total</span>
+      <span id="cart-total" class="font-bold text-[#39ff14]">0 €</span>
     </div>
+    <button onclick="proceedToCheckout()" class="w-full py-6 bg-[#39ff14] hover:bg-[#2be50f] text-black font-bold text-xl rounded-3xl transition">
+      Continuer vers le paiement
+    </button>
+  </div>
+</div>
+```
+
   </div>
 
   <!-- CHECKOUT MODAL -->
+
   <div id="checkout-modal" class="hidden fixed inset-0 z-[110] bg-black/95 flex items-end">
     <div class="bg-zinc-900 w-full rounded-t-3xl max-h-[90vh] flex flex-col">
       <div class="p-5 border-b border-white/10 flex justify-between items-center">
@@ -256,100 +281,108 @@
         <button onclick="closeCheckout()" class="text-gray-400 hover:text-white text-3xl">×</button>
       </div>
 
-      <div class="flex-1 overflow-auto p-5 space-y-8">
-        <div>
-          <h3 class="font-semibold text-lg mb-3">Votre commande</h3>
-          <div id="order-summary" class="space-y-3 text-sm"></div>
-          <div class="flex justify-between text-xl mt-6 pt-4 border-t border-white/10">
-            <span>Total à virer</span>
-            <span id="final-total" class="font-bold text-[#39ff14]"></span>
-          </div>
-        </div>
-
-        <div>
-          <h3 class="font-semibold text-lg mb-4">Adresse de livraison</h3>
-          <div class="grid grid-cols-2 gap-4">
-            <input id="firstName" type="text" placeholder="Prénom *" class="bg-zinc-800 border border-white/20 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#39ff14]">
-            <input id="lastName" type="text" placeholder="Nom *" class="bg-zinc-800 border border-white/20 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#39ff14]">
-          </div>
-          <input id="address" type="text" placeholder="Adresse complète *" class="mt-4 w-full bg-zinc-800 border border-white/20 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#39ff14]">
-          <div class="grid grid-cols-2 gap-4 mt-4">
-            <input id="postalCode" type="text" placeholder="Code postal *" class="bg-zinc-800 border border-white/20 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#39ff14]">
-            <input id="city" type="text" placeholder="Ville *" class="bg-zinc-800 border border-white/20 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#39ff14]">
-          </div>
-          <input id="phone" type="tel" placeholder="Téléphone *" class="mt-4 w-full bg-zinc-800 border border-white/20 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#39ff14]">
-        </div>
-
-        <div class="bg-zinc-950 border border-white/10 rounded-3xl p-6">
-          <h3 class="font-semibold text-lg mb-4 flex items-center gap-2">
-            <i class="fa-solid fa-bank text-[#39ff14]"></i> Confirmation du virement
-          </h3>
-          <div class="space-y-6">
-            <div>
-              <p class="text-sm text-gray-400 mb-3">Coordonnées bancaires :</p>
-              <div class="bg-black/70 p-4 rounded-2xl text-sm space-y-2">
-                <div><strong>Bénéficiaire :</strong> SAP FACTORY SARL</div>
-                <div><strong>IBAN :</strong> FR76 3000 6000 0123 4567 8901 234</div>
-                <div><strong>BIC :</strong> ABCDFRPPXXX</div>
-                <div><strong>Référence :</strong> <span id="order-ref" class="font-mono text-[#39ff14]"></span></div>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3">
-              <input type="checkbox" id="confirmTransfer" class="mt-1 w-5 h-5 accent-[#39ff14]" onchange="updateValidateButton()">
-              <label for="confirmTransfer" class="text-sm leading-tight cursor-pointer">
-                J’ai effectué le virement bancaire du montant total avec la référence indiquée.
-              </label>
-            </div>
-
-            <div class="bg-yellow-500/10 border border-yellow-500/30 p-5 rounded-2xl text-sm">
-              <p class="font-medium text-yellow-400">Important :</p>
-              <p class="mt-2">Envoyez la preuve de virement (capture d’écran) directement sur WhatsApp après ce message.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="p-5 border-t border-white/10">
-        <button id="validate-btn" onclick="sendOrderToWhatsApp()" 
-                class="w-full py-6 bg-[#39ff14] text-black font-bold text-xl rounded-3xl transition disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled>
-          Envoyer la commande sur WhatsApp
-        </button>
-        <button onclick="closeCheckout()" class="w-full py-5 mt-3 text-gray-400">Annuler</button>
+```
+  <div class="flex-1 overflow-auto p-5 space-y-8">
+    <div>
+      <h3 class="font-semibold text-lg mb-3">Votre commande</h3>
+      <div id="order-summary" class="space-y-3 text-sm"></div>
+      <div class="flex justify-between text-xl mt-6 pt-4 border-t border-white/10">
+        <span>Total à virer</span>
+        <span id="final-total" class="font-bold text-[#39ff14]"></span>
       </div>
     </div>
+
+    <div>
+      <h3 class="font-semibold text-lg mb-4">Adresse de livraison</h3>
+      <div class="grid grid-cols-2 gap-4">
+        <input id="firstName" type="text" placeholder="Prénom *" class="bg-zinc-800 border border-white/20 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#39ff14]">
+        <input id="lastName" type="text" placeholder="Nom *" class="bg-zinc-800 border border-white/20 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#39ff14]">
+      </div>
+      <input id="address" type="text" placeholder="Adresse complète *" class="mt-4 w-full bg-zinc-800 border border-white/20 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#39ff14]">
+      <div class="grid grid-cols-2 gap-4 mt-4">
+        <input id="postalCode" type="text" placeholder="Code postal *" class="bg-zinc-800 border border-white/20 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#39ff14]">
+        <input id="city" type="text" placeholder="Ville *" class="bg-zinc-800 border border-white/20 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#39ff14]">
+      </div>
+      <input id="phone" type="tel" placeholder="Téléphone *" class="mt-4 w-full bg-zinc-800 border border-white/20 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#39ff14]">
+    </div>
+
+    <div class="bg-zinc-950 border border-white/10 rounded-3xl p-6">
+      <h3 class="font-semibold text-lg mb-4 flex items-center gap-2">
+        <i class="fa-solid fa-bank text-[#39ff14]"></i> Confirmation du virement
+      </h3>
+      <div class="space-y-6">
+        <div>
+          <p class="text-sm text-gray-400 mb-3">Coordonnées bancaires :</p>
+          <div class="bg-black/70 p-4 rounded-2xl text-sm space-y-2">
+            <div><strong>Bénéficiaire :</strong> MAISON2LASAPP SARL</div>
+            <div><strong>IBAN :</strong> FR76 3000 6000 0123 4567 8901 234</div>
+            <div><strong>BIC :</strong> ABCDFRPPXXX</div>
+            <div><strong>Référence :</strong> <span id="order-ref" class="font-mono text-[#39ff14]"></span></div>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <input type="checkbox" id="confirmTransfer" class="mt-1 w-5 h-5 accent-[#39ff14]" onchange="updateValidateButton()">
+          <label for="confirmTransfer" class="text-sm leading-tight cursor-pointer">
+            J'ai effectué le virement bancaire du montant total avec la référence indiquée.
+          </label>
+        </div>
+
+        <div class="bg-yellow-500/10 border border-yellow-500/30 p-5 rounded-2xl text-sm">
+          <p class="font-medium text-yellow-400">Important :</p>
+          <p class="mt-2">Envoyez la preuve de virement (capture d'écran) directement sur WhatsApp après ce message.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-5 border-t border-white/10">
+    <button id="validate-btn" onclick="sendOrderToWhatsApp()" 
+            class="w-full py-6 bg-[#39ff14] text-black font-bold text-xl rounded-3xl transition disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled>
+      Envoyer la commande sur WhatsApp
+    </button>
+    <button onclick="closeCheckout()" class="w-full py-5 mt-3 text-gray-400">Annuler</button>
+  </div>
+</div>
+```
+
   </div>
 
   <!-- REVIEW MODAL -->
+
   <div id="review-modal" class="hidden fixed inset-0 z-[130] bg-black/95 flex items-center justify-center p-4">
     <div class="bg-zinc-900 w-full max-w-md rounded-3xl p-8">
       <h2 class="text-2xl font-bold text-center mb-6">Donnez votre avis sur votre commande</h2>
-      
-      <div class="flex justify-center gap-2 mb-6" id="star-rating">
-        <i onclick="setRating(1)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400"></i>
-        <i onclick="setRating(2)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400"></i>
-        <i onclick="setRating(3)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400"></i>
-        <i onclick="setRating(4)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400"></i>
-        <i onclick="setRating(5)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400"></i>
-      </div>
 
-      <textarea id="review-comment" rows="4" 
-                class="w-full bg-zinc-800 border border-white/20 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#39ff14] text-white"
-                placeholder="Que pensez-vous de votre commande ? (optionnel)"></textarea>
+```
+  <div class="flex justify-center gap-2 mb-6" id="star-rating">
+    <i onclick="setRating(1)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400"></i>
+    <i onclick="setRating(2)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400"></i>
+    <i onclick="setRating(3)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400"></i>
+    <i onclick="setRating(4)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400"></i>
+    <i onclick="setRating(5)" class="fa-solid fa-star text-4xl cursor-pointer text-gray-600 hover:text-yellow-400"></i>
+  </div>
 
-      <div class="flex gap-3 mt-8">
-        <button onclick="skipReview()" class="flex-1 py-5 bg-zinc-800 hover:bg-zinc-700 rounded-3xl text-gray-400">
-          Plus tard
-        </button>
-        <button onclick="submitReview()" class="flex-1 py-5 bg-[#39ff14] text-black font-bold rounded-3xl">
-          Publier l'avis
-        </button>
-      </div>
-    </div>
+  <textarea id="review-comment" rows="4" 
+            class="w-full bg-zinc-800 border border-white/20 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#39ff14] text-white"
+            placeholder="Que pensez-vous de votre commande ? (optionnel)"></textarea>
+
+  <div class="flex gap-3 mt-8">
+    <button onclick="skipReview()" class="flex-1 py-5 bg-zinc-800 hover:bg-zinc-700 rounded-3xl text-gray-400">
+      Plus tard
+    </button>
+    <button onclick="submitReview()" class="flex-1 py-5 bg-[#39ff14] text-black font-bold rounded-3xl">
+      Publier l'avis
+    </button>
+  </div>
+</div>
+```
+
   </div>
 
   <!-- CATEGORY SHEET -->
+
   <div id="category-sheet" class="hidden fixed inset-0 z-[100] bg-black/95 flex items-end">
     <div class="bg-zinc-900 w-full rounded-t-3xl max-h-[80vh] flex flex-col">
       <div class="p-5 border-b border-white/10">
@@ -449,7 +482,7 @@
         rating: currentRating,
         comment: comment,
         date: new Date().toISOString(),
-        name: "Client Sap Factory",
+        name: "Client Maison2lasapp",
         products: lastOrderProducts
       };
 
@@ -550,7 +583,7 @@
       closeCart();
 
       const total = cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
-      const ref = "SAP-" + Math.floor(100000 + Math.random() * 900000);
+      const ref = "M2L-" + Math.floor(100000 + Math.random() * 900000);
 
       document.getElementById('final-total').textContent = total + " €";
       document.getElementById('order-ref').textContent = ref;
@@ -595,7 +628,7 @@
 
       lastOrderProducts = cart.map(item => ({ name: item.name }));
 
-      let message = `🛍️ *Nouvelle Commande - Sap Factory*\n\n`;
+      let message = `🛍️ *Nouvelle Commande - Maison2lasapp*\n\n`;
       message += `*Client :* ${firstName} ${lastName}\n`;
       message += `*Téléphone :* ${phone}\n`;
       message += `*Adresse :*\n${address}\n${postalCode} ${city}\n\n`;
@@ -607,8 +640,8 @@
 
       message += `\n*Total :* ${total}\n`;
       message += `*Référence virement :* ${ref}\n\n`;
-      message += `✅ J’ai effectué le virement.\n`;
-      message += `Merci d’envoyer la preuve de virement en pièce jointe.`;
+      message += `✅ J'ai effectué le virement.\n`;
+      message += `Merci d'envoyer la preuve de virement en pièce jointe.`;
 
       const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
       window.open(whatsappUrl, '_blank');
@@ -732,5 +765,6 @@
       });
     };
   </script>
+
 </body>
 </html>
